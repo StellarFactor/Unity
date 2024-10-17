@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031f93a668e644045a700621431e4002, type: 3}
+  m_Name: Answer Color Set
+  m_EditorClassIdentifier: 
+  Correct: {r: 0.25083664, g: 0.49056602, b: 0.23371306, a: 1}
+  Incorrect: {r: 0.509434, g: 0.18283384, b: 0.18022428, a: 1}
+  Highlight: {r: 0.18039216, g: 0.50980395, b: 0.46922216, a: 1}
+  Hint: {r: 0.50980395, g: 0.44580677, b: 0.18039216, a: 1}
