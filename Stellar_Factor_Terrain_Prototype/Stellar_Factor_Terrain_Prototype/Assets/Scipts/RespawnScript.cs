@@ -13,6 +13,13 @@ public class LavaRespawn : MonoBehaviour
             Debug.Log("Player fell in lava.");
         }
 
+        if (other.CompareTag("Stargate"))
+        {
+            SceneManager.LoadScene("TerrainPrototype");
+
+            Debug.Log("Player Entered the Stargate!");
+        }
+
     }
 
 }
