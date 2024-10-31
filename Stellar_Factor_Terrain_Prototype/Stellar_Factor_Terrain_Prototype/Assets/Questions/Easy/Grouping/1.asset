@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  _text: 'Factor the four-term polynomial by grouping.
+
+
+    r^3 + r^2 + 3r + 3'
+  _answers:
+  - _answerText: (r^2 + 3)(r - 3)
+    _correct: 0
+  - _answerText: (r^2 + 3)(r + 3)
+    _correct: 0
+  - _answerText: (r^2 + 3)(r + 1)
+    _correct: 1
+  - _answerText: (r^2 + 1)(r + 3)
+    _correct: 0
