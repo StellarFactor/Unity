@@ -10,10 +10,20 @@ namespace StellarFactor
         public ClassSwitcher<Sprite> Sprite;
         public StructSwitcher<Color> SpriteColor;
 
-        protected virtual void OnEnable()
+        protected virtual void Awake()
         {
             findComponents();
             setDefaults();
+        }
+
+        private void OnEnable()
+        {
+            _image.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            _image.enabled = false;
         }
 
         private void findComponents()

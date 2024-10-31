@@ -23,12 +23,12 @@ namespace StellarFactor
         private void OnEnable()
         {
             GameManager.MGR.LevelLoaded += onLevelLoaded;
-            GameManager.MGR.ArtifactFound += onArtifactFound;
+            GameManager.MGR.ArtifactInteraction += onArtifactFound;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactFound -= onArtifactFound;
+            GameManager.MGR.ArtifactInteraction -= onArtifactFound;
         }
 
         private void onLevelLoaded(int obj)

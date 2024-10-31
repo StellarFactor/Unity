@@ -74,7 +74,7 @@ namespace StellarFactor
         public void Interact()
         {
             OnInteract.Invoke();
-            GameManager.MGR.ArtifactFound.Invoke(this);
+            GameManager.MGR.ArtifactInteraction.Invoke(this);
         }
 
         public void PlayerExitRange()

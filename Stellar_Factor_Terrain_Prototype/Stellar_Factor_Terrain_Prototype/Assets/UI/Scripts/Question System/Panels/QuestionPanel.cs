@@ -12,10 +12,6 @@ namespace StellarFactor
         [SerializeField] private AnswerField[] _answerFields;
         [SerializeField] private AnswerColorsSO _answerColors;
 
-        [Header("Response")]
-        [SerializeField] private Textbox _responseBox;
-        [SerializeField] private string _correctMessage;
-        [SerializeField] private string _incorrectMessage;
 
         private string _questionText;
         private Answer[] _answers;
@@ -24,7 +20,7 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.ArtifactFound += onArtifactFound;
+            GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
             QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
         }
@@ -32,18 +28,17 @@ namespace StellarFactor
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactFound -= onArtifactFound;
+            GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
             QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
 
-        private void onArtifactFound(Artifact artifact)
+        private void onArtifactInteraction(Artifact artifact)
         {
             QuestionManager.MGR.Clear.Invoke();
 
             _questionText = artifact.Question.Text;
             _questionBox.Text.Set(_questionText);
-            _responseBox.ResetAll();
 
             _answers = artifact.Question.Answers;
 
@@ -59,13 +54,11 @@ namespace StellarFactor
 
         private void onCorrectAnswer()
         {
-            _responseBox.Text.Set(_correctMessage);
             QuestionManager.MGR.Invoke("CloseWindow", 2f);
         }
 
         private void onIncorrectAnswer()
         {
-            _responseBox.Text.Set(_incorrectMessage);
             QuestionManager.MGR.Invoke("CloseWindow", 2f);
         }
     }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -11,10 +12,20 @@ namespace StellarFactor
         public ClassSwitcher<string> Text;
         public StructSwitcher<Color> TextColor;
 
-        private void OnEnable()
+        private void Awake()
         {
             findComponents();
             setDefaults();
+        }
+
+        private void OnEnable()
+        {
+            _text.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            _text.enabled = false;
         }
 
         private void findComponents()
@@ -31,15 +42,10 @@ namespace StellarFactor
                 Text = new ClassSwitcher<string>("No Value Set");
             }
 
-            if (TextColor.Get().a == 0)
+            if (TextColor.Default.a == 0)
             {
                 TextColor = new StructSwitcher<Color>(_text.color);
             }
-        }
-
-        private void Start()
-        {
-
         }
 
         private void Update()

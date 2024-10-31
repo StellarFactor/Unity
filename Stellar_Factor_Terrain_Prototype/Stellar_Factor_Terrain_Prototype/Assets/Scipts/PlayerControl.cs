@@ -10,14 +10,14 @@ public class PlayerControl : MonoBehaviour
     {
         _controller = GetComponent<FirstPersonController>();
 
-        GameManager.MGR.ArtifactFound += onArtifactFound;
+        GameManager.MGR.ArtifactInteraction += onArtifactFound;
         QuestionManager.MGR.CorrectAnswer += onAnswerGiven;
         QuestionManager.MGR.IncorrectAnswer += onAnswerGiven;
     }
 
     private void OnDisable()
     {
-        GameManager.MGR.ArtifactFound -= onArtifactFound;
+        GameManager.MGR.ArtifactInteraction -= onArtifactFound;
         QuestionManager.MGR.CorrectAnswer -= onAnswerGiven;
         QuestionManager.MGR.IncorrectAnswer -= onAnswerGiven;
     }

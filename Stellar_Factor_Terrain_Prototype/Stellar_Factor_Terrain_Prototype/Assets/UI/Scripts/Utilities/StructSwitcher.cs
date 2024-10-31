@@ -9,6 +9,8 @@ namespace StellarFactor
         private T _current;
         private T _buffer;
 
+        public T Default { get { return _default; } }
+
         public StructSwitcher(T defaultT)
         {
             _default = defaultT;

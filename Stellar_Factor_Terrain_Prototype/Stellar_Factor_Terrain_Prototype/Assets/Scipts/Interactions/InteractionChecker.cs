@@ -6,14 +6,11 @@ namespace StellarFactor
 {
     public class InteractionChecker : MonoBehaviour
     {
-        [SerializeField] private KeyCode _interactKey;
-
         private IInteractable _currentInteraction;
-
 
         private void Update()
         {
-            if (Input.GetKeyDown(_interactKey))
+            if (Input.GetKeyDown(GameManager.MGR.InteractKey))
             {
                 _currentInteraction?.Interact();
             }
