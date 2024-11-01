@@ -1,4 +1,7 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 
 namespace StellarFactor
@@ -38,14 +41,13 @@ namespace StellarFactor
 
         private void onQuit()
         {
-            if (Application.isEditor)
-            {
-                EditorApplication.isPlaying = false;
-            }
-            else
-            {
-                Application.Quit();
-            }
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+
+        #else
+            Application.Quit();
+
+        #endif
         }
     }
 }
