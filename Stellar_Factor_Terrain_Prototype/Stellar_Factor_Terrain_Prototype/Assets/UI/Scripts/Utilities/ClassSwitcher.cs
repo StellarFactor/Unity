@@ -10,6 +10,8 @@ namespace StellarFactor
         private T _current;
         private T _buffer;
 
+        public T Default { get { return _default; } }
+
         public ClassSwitcher(T defaultT)
         {
             _default = defaultT;
@@ -23,10 +25,10 @@ namespace StellarFactor
             _current = _default;
         }
 
-        public void Set(T color)
+        public void Set(T obj)
         {
             _buffer = _current;
-            _current = color;
+            _current = obj;
         }
         public void Revert()
         {
