@@ -37,9 +37,9 @@ namespace StellarFactor
 
         private void setDefaults()
         {
-            if (Text.Get() == "")
+            if (Text.Default == "")
             {
-                Text = new ClassSwitcher<string>("No Value Set");
+                Text = new ClassSwitcher<string>(_text.text);
             }
 
             if (TextColor.Default.a == 0)
