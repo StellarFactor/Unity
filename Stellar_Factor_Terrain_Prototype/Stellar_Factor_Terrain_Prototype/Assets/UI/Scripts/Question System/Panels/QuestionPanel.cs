@@ -66,7 +66,8 @@ namespace StellarFactor
 
         private void onIncorrectAnswer()
         {
-            QuestionManager.MGR.Invoke("CloseWindow", 2f);
+            //QuestionManager.MGR.Invoke("CloseWindow", 2f);
+            QuestionManager.MGR.Invoke("ResetWindow", 2f);
         }
     }
 }

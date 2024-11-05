@@ -8,7 +8,10 @@ namespace StellarFactor
         private AnswerColors _colors;
         private int _index;
 
-        bool _ready;
+        private bool _showCorrect;
+
+        private bool _ready;
+        private bool _mouseHere;
 
         private void OnEnable()
         {
@@ -29,24 +32,32 @@ namespace StellarFactor
             Label.TextColor.Reset();
             Value.TextColor.Reset();
             _ready = true;
+
+            if (_mouseHere) { OnHighlight(); }
         }
 
         private void onAnswerSelected(int selectedIndex)
         {
             _ready = false;
-            Color color = _answer.Correct ? _colors.Correct : _colors.Incorrect;
+
+            Color color;
 
             if (selectedIndex == _index)
             {                
                 if (_answer.Correct)
                 {
+                    color = _colors.Correct;
                     QuestionManager.MGR.CorrectAnswer.Invoke();
                 }
                 else
                 {
-                    color = _colors.Selection;
+                    color = _colors.Incorrect;
                     QuestionManager.MGR.IncorrectAnswer.Invoke();
                 }
+            }
+            else
+            {
+                color = _colors.Hint;
             }
 
             Value.TextColor.Set(color);
@@ -64,6 +75,7 @@ namespace StellarFactor
 
         public void OnHighlight()
         {
+            _mouseHere = true;
             if (!_ready) { return; }
 
             Value.TextColor.Set(_colors.Highlight);
@@ -71,6 +83,7 @@ namespace StellarFactor
 
         public void OnUnhighlight()
         {
+            _mouseHere = false;
             if (!_ready) { return; }
 
             Value.TextColor.Reset();

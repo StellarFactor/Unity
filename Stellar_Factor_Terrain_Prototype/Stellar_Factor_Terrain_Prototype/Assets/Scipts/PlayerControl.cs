@@ -46,9 +46,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     private void onIncorrectAnswer()
-    {
-        unlockControls();
-        
+    {        
         // TODO:
         // Lose health? Anything else?
     }

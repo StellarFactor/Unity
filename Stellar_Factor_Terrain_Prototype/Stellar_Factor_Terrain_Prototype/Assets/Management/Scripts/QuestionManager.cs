@@ -75,5 +75,10 @@ namespace StellarFactor
         {
             _questionCanvas.enabled = false;
         }
+
+        public void ResetWindow()
+        {
+            Clear.Invoke();
+        }
     }
 }
