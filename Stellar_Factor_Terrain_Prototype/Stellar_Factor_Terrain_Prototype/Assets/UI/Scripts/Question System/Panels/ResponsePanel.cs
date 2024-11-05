@@ -2,8 +2,11 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-    public class ResponsePanel : Textbox
+    public class ResponsePanel : MonoBehaviour
     {
+        [SerializeField] private Textbox _textbox;
+
+        [Header("Settings")]
         [SerializeField] private string _correctMessage;
         [SerializeField] private string _incorrectMessage;
         [SerializeField] private AnswerColorsSO _answerColors;
@@ -22,24 +25,29 @@ namespace StellarFactor
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
 
+        private void Start()
+        {
+        }
+
         private void onClear()
         {
-            Text.Reset();
-            TextColor.Reset();
+            _textbox.Text.Reset();
+            _textbox.TextColor.Reset();
+            _textbox.enabled = false;
         }
 
         private void onCorrectAnswer()
         {
-            Text.Set(_correctMessage);
-            TextColor.Set(_answerColors.Correct);
-            QuestionManager.MGR.Invoke("CloseWindow", 2f);
+            _textbox.enabled = true;
+            _textbox.Text.Set(_correctMessage);
+            _textbox.TextColor.Set(_answerColors.Correct);
         }
 
         private void onIncorrectAnswer()
         {
-            Text.Set(_incorrectMessage);
-            TextColor.Set(_answerColors.Incorrect);
-            QuestionManager.MGR.Invoke("CloseWindow", 2f);
+            _textbox.enabled = true;
+            _textbox.Text.Set(_incorrectMessage);
+            _textbox.TextColor.Set(_answerColors.Incorrect);
         }
     }
 }

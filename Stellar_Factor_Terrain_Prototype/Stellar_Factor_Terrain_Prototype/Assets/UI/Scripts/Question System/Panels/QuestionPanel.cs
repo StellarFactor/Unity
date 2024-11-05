@@ -21,6 +21,7 @@ namespace StellarFactor
         private void OnEnable()
         {
             GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
             QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
         }
@@ -29,6 +30,7 @@ namespace StellarFactor
         private void OnDisable()
         {
             GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
             QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
@@ -50,6 +52,11 @@ namespace StellarFactor
             }
 
             Initialized = true;
+        }
+
+        private void onCancelArtifactInteraction()
+        {
+            QuestionManager.MGR.CloseWindow();
         }
 
         private void onCorrectAnswer()

@@ -5,14 +5,18 @@ namespace StellarFactor
 {
     public class PromptPanel : MonoBehaviour
     {
+        [Header("Components")]
+        [SerializeField] private Spritebox _background;
+        [SerializeField] private Textbox _textbox;
+
+        [Header("Settings")]
         [SerializeField] private string _interactionPrompt;
 
+        [Space(10)]
         [SerializeField] private string _acquiredArtifactMessasge;
         [SerializeField] private string _failedArtifactMessage;
         [SerializeField] private AnswerColorsSO _answerColors;
 
-        [SerializeField] private Spritebox _background;
-        [SerializeField] private Textbox _text;
 
         private void OnEnable()
         {
@@ -44,16 +48,16 @@ namespace StellarFactor
 
         private void onClear()
         {
-            _text.Text.Reset();
-            _text.TextColor.Reset();
+            _textbox.Text.Reset();
+            _textbox.TextColor.Reset();
         }
 
         private void onCorrectAnswer()
         {
             show();
 
-            _text.Text.Set(_acquiredArtifactMessasge);
-            _text.TextColor.Set(_answerColors.Highlight);
+            _textbox.Text.Set(_acquiredArtifactMessasge);
+            _textbox.TextColor.Set(_answerColors.Highlight);
 
             Invoke("hide", 2f);
         }
@@ -62,8 +66,8 @@ namespace StellarFactor
         {
             show();
 
-            _text.Text.Set(_failedArtifactMessage);
-            _text.TextColor.Set(_answerColors.Highlight);
+            _textbox.Text.Set(_failedArtifactMessage);
+            _textbox.TextColor.Set(_answerColors.Highlight);
 
             Invoke("hide", 2f);
         }
@@ -71,13 +75,13 @@ namespace StellarFactor
         private void hide()
         {
             _background.enabled = false;
-            _text.enabled = false;
+            _textbox.enabled = false;
         }
 
         private void show()
         {
             _background.enabled = true;
-            _text.enabled = true;
+            _textbox.enabled = true;
         }
 
         public void InteractionPrompt()
@@ -88,7 +92,7 @@ namespace StellarFactor
             string message = _interactionPrompt;
             message = message.Replace("<>", $"{GameManager.MGR.InteractKey}");
 
-            _text.Text.Set(message);
+            _textbox.Text.Set(message);
         }
 
         public void ClosePrompt()

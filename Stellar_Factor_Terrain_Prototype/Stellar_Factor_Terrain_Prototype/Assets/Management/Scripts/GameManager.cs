@@ -21,6 +21,7 @@ namespace StellarFactor
         public Action PlayerDeath;
         public Action Quit;
         public Action<Artifact> ArtifactInteraction;
+        public Action CancelArtifactInteraction;
 
         private void Start()
         {

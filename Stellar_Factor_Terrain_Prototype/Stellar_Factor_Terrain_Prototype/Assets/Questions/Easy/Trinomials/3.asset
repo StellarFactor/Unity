@@ -15,9 +15,9 @@ MonoBehaviour:
   _text: 'Factor The Trinomial.
 
 
-    x^2 - 11x + 28 = (x - 7)( ____ )'
+    x<sup>2</sup> - 11x + 28 = (x - 7)( ____ )'
   _answers:
-  - _answerText: x^2 + 7
+  - _answerText: x<sup>2</sup> + 7
     _correct: 0
   - _answerText: x - 4
     _correct: 1
