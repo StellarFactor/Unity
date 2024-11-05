@@ -37,6 +37,7 @@ namespace StellarFactor
             message = message.Replace("<>", $"{GameManager.MGR.QuitKey}");
 
             _quitText.Text.Set(message);
+            _quitText.TextColor.Reset();
         }
 
         private void onQuit()
