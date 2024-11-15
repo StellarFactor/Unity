@@ -27,7 +27,7 @@ namespace StellarFactor
 
         private void Start()
         {
-            LevelLoaded.Invoke(CurrentLevel);
+            LevelLoaded?.Invoke(CurrentLevel);
         }
 
         public void PauseGame()
