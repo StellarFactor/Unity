@@ -15,9 +15,9 @@ MonoBehaviour:
   _text: 'Factor The Trinomial.
 
 
-    x^2 - 4x - 21 = (x - 7)( ____ )'
+    x<sup>2</sup> - 4x - 21 = (x - 7)( ____ )'
   _answers:
-  - _answerText: x^2 + 7
+  - _answerText: x<sup>2</sup> + 7
     _correct: 0
   - _answerText: 7 - x
     _correct: 0

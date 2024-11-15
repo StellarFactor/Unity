@@ -11,14 +11,12 @@ namespace StellarFactor
         [SerializeField] private QuestionPool _medium;
         [SerializeField] private QuestionPool _hard;
 
-        [Header("UI")]
-        [SerializeField] private Canvas _questionCanvas;
-
+        public Action Open;
+        public Action Close;
         public Action Clear;
         public Action<int> SelectAnswer;
         public Action CorrectAnswer;
         public Action IncorrectAnswer;
-
 
         private void OnEnable()
         {
@@ -68,12 +66,17 @@ namespace StellarFactor
 
         public void OpenWindow()
         {
-            _questionCanvas.enabled = true;
+            Open.Invoke();
         }
 
         public void CloseWindow()
         {
-            _questionCanvas.enabled = false;
+            Close.Invoke();
+        }
+
+        public void ResetWindow()
+        {
+            Clear.Invoke();
         }
     }
 }

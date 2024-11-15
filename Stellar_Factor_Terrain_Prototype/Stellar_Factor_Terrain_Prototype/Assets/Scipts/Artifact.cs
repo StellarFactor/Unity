@@ -60,9 +60,13 @@ namespace StellarFactor
             // Anything we might want in here?
             // A cooldown? (i.e. gotta go try a different one first)
 
-            // Maybe load a new question?
-            // That's what I'll do for now
-            _question = QuestionManager.MGR.GetQuestion(_difficulty);
+            // Maybe load a new question? ==============================
+            // Dr T. said this was too complicated,
+            // but I'll leave it here as a comment just in case.
+
+            //_question = QuestionManager.MGR.GetQuestion(_difficulty);
+            //GameManager.MGR.PlayerDeath.Invoke();
+            // =========================================================
         }
 
         public void PlayerEnterRange()

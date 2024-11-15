@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 031f93a668e644045a700621431e4002, type: 3}
-  m_Name: Answer Color Set
+  m_Name: Answer Colors
   m_EditorClassIdentifier: 
   Correct: {r: 0.25083664, g: 0.49056602, b: 0.23371306, a: 1}
   Incorrect: {r: 0.509434, g: 0.18283384, b: 0.18022428, a: 1}

@@ -15,7 +15,7 @@ MonoBehaviour:
   _text: 'Factor The Trinomial.
 
 
-    x^2 + 6x - 16 = (x + 8)( ____ )'
+    x<sup>2</sup> + 6x - 16 = (x + 8)( ____ )'
   _answers:
   - _answerText: x + 2
     _correct: 0

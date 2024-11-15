@@ -15,7 +15,7 @@ MonoBehaviour:
   _text: 'Factor The Trinomial.
 
 
-    x^2 + 7x + 12 = (x + 4)( ____ )'
+    x<sup>2</sup> + 7x + 12 = (x + 4)( ____ )'
   _answers:
   - _answerText: x + 8
     _correct: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
     _correct: 1
   - _answerText: 'x - 11 '
     _correct: 0
-  - _answerText: x^2 + 3
+  - _answerText: x<sup>2</sup> + 3
     _correct: 0

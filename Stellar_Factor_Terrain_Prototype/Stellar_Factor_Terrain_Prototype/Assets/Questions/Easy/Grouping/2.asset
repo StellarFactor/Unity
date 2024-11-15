@@ -15,7 +15,8 @@ MonoBehaviour:
   _text: 'Factor the four-term polynomial by grouping.
 
 
-    y^2 + 2y + 8y + 16'
+    y<sup>2</sup> + 2y +
+    8y + 16'
   _answers:
   - _answerText: y(y + 26)
     _correct: 0

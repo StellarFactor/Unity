@@ -7,7 +7,7 @@ namespace StellarFactor
 {
     public class Textbox : MonoBehaviour
     {
-        Text _text;
+        TMP_Text _text;
 
         public ClassSwitcher<string> Text;
         public StructSwitcher<Color> TextColor;
@@ -30,7 +30,7 @@ namespace StellarFactor
 
         private void findComponents()
         {
-            _text = GetComponentInChildren<Text>();
+            _text = GetComponentInChildren<TMP_Text>();
 
             if (_text == null) { Debug.LogWarning($"No text found on {name}"); }
         }
