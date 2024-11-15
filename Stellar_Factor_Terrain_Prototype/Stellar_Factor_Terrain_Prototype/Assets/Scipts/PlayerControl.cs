@@ -7,10 +7,15 @@ public class PlayerControl : MonoBehaviour
 {
     private FirstPersonController _controller;
 
-    private void OnEnable()
+    private void Awake()
     {
         _controller = GetComponent<FirstPersonController>();
+    }
 
+    private void OnEnable()
+    {
+        GameManager.MGR.Pause += onPause;
+        GameManager.MGR.Resume += onResume;
         GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
         GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
         QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
@@ -24,6 +29,16 @@ public class PlayerControl : MonoBehaviour
         GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
         QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
         QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+    }
+
+    private void onPause()
+    {
+        lockControls();
+    }
+
+    private void onResume()
+    {
+        unlockControls();
     }
 
     private void onArtifactInteraction(Artifact artifact)

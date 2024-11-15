@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,5 +14,10 @@ public class SceneSwitcher : MonoBehaviour
     public void SwitchToSettings(string sceneName)
     {
         SceneManager.LoadScene("Settings");
+    }
+
+    public void Load(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
