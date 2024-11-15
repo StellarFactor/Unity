@@ -5,6 +5,8 @@ namespace StellarFactor
 {
     public class QuestionPanel : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
+
         [Header("Question")]
         [SerializeField] private Textbox _questionBox;
 
@@ -22,15 +24,18 @@ namespace StellarFactor
         {
             GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
             GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
+            QuestionManager.MGR.Open += onOpen;
+            QuestionManager.MGR.Close += onClose;
             QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
         }
-
 
         private void OnDisable()
         {
             GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
             GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
+            QuestionManager.MGR.Open -= onOpen;
+            QuestionManager.MGR.Close -= onClose;
             QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
@@ -57,6 +62,16 @@ namespace StellarFactor
         private void onCancelArtifactInteraction()
         {
             QuestionManager.MGR.CloseWindow();
+        }
+
+        private void onOpen()
+        {
+            _canvas.enabled = true;
+        }
+
+        private void onClose()
+        {
+            _canvas.enabled = false;
         }
 
         private void onCorrectAnswer()
