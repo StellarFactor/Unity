@@ -9,4 +9,12 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene("Interaction Test");
     }
+    public void SwitchToMainMenu(string sceneName)
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
+    public void SwitchToSettings(string sceneName)
+    {
+        SceneManager.LoadScene("Settings");
+    }
 }
