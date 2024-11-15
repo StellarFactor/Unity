@@ -5469,7 +5469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490979112330962554, guid: cfe9fa50156a0544598f6e8ccbee02af, type: 3}
       propertyPath: _pauseKey
-      value: 304
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7490979112330962554, guid: cfe9fa50156a0544598f6e8ccbee02af, type: 3}
       propertyPath: _interactKey
