@@ -15,7 +15,7 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            QuestionManager.MGR.Clear += onClear;
+            QuestionManager.MGR.Reset += onClear;
             QuestionManager.MGR.SelectAnswer += onAnswerSelected;
             _ready = true;
         }
@@ -23,7 +23,7 @@ namespace StellarFactor
         private void OnDisable()
         {
             _ready = false;
-            QuestionManager.MGR.Clear -= onClear;
+            QuestionManager.MGR.Reset -= onClear;
             QuestionManager.MGR.SelectAnswer -= onAnswerSelected;
         }
 

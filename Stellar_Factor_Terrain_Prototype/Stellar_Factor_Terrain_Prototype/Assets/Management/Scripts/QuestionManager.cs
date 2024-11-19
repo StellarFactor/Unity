@@ -13,7 +13,7 @@ namespace StellarFactor
 
         public Action Open;
         public Action Close;
-        public Action Clear;
+        public Action Reset;
         public Action<int> SelectAnswer;
         public Action CorrectAnswer;
         public Action IncorrectAnswer;
@@ -76,7 +76,7 @@ namespace StellarFactor
 
         public void ResetWindow()
         {
-            Clear.Invoke();
+            Reset.Invoke();
         }
     }
 }

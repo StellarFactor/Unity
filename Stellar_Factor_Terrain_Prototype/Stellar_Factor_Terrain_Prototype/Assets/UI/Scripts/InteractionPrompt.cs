@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-    public class PromptPanel : MonoBehaviour
+    public class InteractionPrompt : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] private Spritebox _background;
@@ -12,28 +12,18 @@ namespace StellarFactor
         [Header("Settings")]
         [SerializeField] private string _interactionPrompt;
 
-        [Space(10)]
-        [SerializeField] private string _acquiredArtifactMessasge;
-        [SerializeField] private string _failedArtifactMessage;
-        [SerializeField] private AnswerColorsSO _answerColors;
-
-
         private void OnEnable()
         {
             GameManager.MGR.LevelLoaded += onLevelLoaded;
             GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-            QuestionManager.MGR.Clear += onClear;
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            QuestionManager.MGR.Reset += onClear;
         }
 
         private void OnDisable()
         {
             GameManager.MGR.LevelLoaded -= onLevelLoaded;
             GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-            QuestionManager.MGR.Clear -= onClear;
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            QuestionManager.MGR.Reset -= onClear;
         }
 
         private void onLevelLoaded(int buildIndex)
@@ -48,28 +38,7 @@ namespace StellarFactor
 
         private void onClear()
         {
-            _textbox.Text.Reset();
-            _textbox.TextColor.Reset();
-        }
-
-        private void onCorrectAnswer()
-        {
-            show();
-
-            _textbox.Text.Set(_acquiredArtifactMessasge);
-            _textbox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hide", 2f);
-        }
-
-        private void onIncorrectAnswer()
-        {
-            show();
-
-            _textbox.Text.Set(_failedArtifactMessage);
-            _textbox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hide", 2f);
+            _textbox.ResetAll();
         }
 
         private void hide()
@@ -84,7 +53,7 @@ namespace StellarFactor
             _textbox.enabled = true;
         }
 
-        public void InteractionPrompt()
+        public void DisplayInteractionPrompt()
         {
             show();
             onClear();
@@ -97,7 +66,7 @@ namespace StellarFactor
 
         public void ClosePrompt()
         {
-            onClear();
+            _textbox.ResetAll();
             hide();
         }
     }
