@@ -277,14 +277,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Question Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 1436629244640804115, guid: 25fed8fc233c5984f9b3b9f1f2aad2f2, type: 3}
-      propertyPath: _randomMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436629244640804115, guid: 25fed8fc233c5984f9b3b9f1f2aad2f2, type: 3}
-      propertyPath: _questionCanvas
-      value: 
-      objectReference: {fileID: 1288615850}
     - target: {fileID: 6619422791957134128, guid: 25fed8fc233c5984f9b3b9f1f2aad2f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6369,11 +6361,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5451849839690123725, guid: b26d7a9eb45ea3644afad6de52679faa, type: 3}
---- !u!223 &1288615850 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 2088620934672410939, guid: 949620286de9b8b4ca8273ea8143175d, type: 3}
-  m_PrefabInstance: {fileID: 1674696172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1289448054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400012, guid: 8bd6b625311e9704787885a24a5bd6b8, type: 3}
