@@ -1,6 +1,7 @@
 using StellarFactor.Global;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace StellarFactor
 {
@@ -13,7 +14,26 @@ namespace StellarFactor
         
         private List<int> _usedIndexes = new List<int>();
 
-        public bool Empty => (_questions == null) || (_questions.Length == 0);
+        public bool Empty
+        {
+            get
+            {
+                return _questions.Length == 0;
+            }
+        }
+
+        public bool AllQuestionsUsed
+        {
+            get
+            {
+                if (Empty)
+                {
+                    return true;
+                }
+
+                return _usedIndexes.Count == _questions.Length;
+            }
+        }
 
         /// <summary>
         /// Returns a random question from the pool.
@@ -22,8 +42,7 @@ namespace StellarFactor
         /// <returns></returns>
         public QuestionSO GetRandomQuestion()
         {
-            if (_questions == null) { return null; }
-            if (_questions.Length == 0) {  return null; }
+            if (Empty) { return null; }
 
             int randomIndex;
 
@@ -36,7 +55,7 @@ namespace StellarFactor
                 if (++count >= LIMIT) { return null; }
 
                 // Get a random number
-                randomIndex = UnityEngine.Random.Range(0, _questions.Length);
+                randomIndex = Random.Range(0, _questions.Length);
 
                 // Try again if the question at this index has been used.
             } while (_usedIndexes.Contains(randomIndex));
@@ -46,6 +65,50 @@ namespace StellarFactor
 
             // Return the question at this index.
             return _questions[randomIndex];
+        }
+
+        public QuestionSO GetNextQuestionInOrder()
+        {
+            if (AllQuestionsUsed) { return null; }
+
+            QuestionSO question = null;
+
+            for (int questionIndex = 0; questionIndex < _questions.Length; questionIndex++)
+            {
+                bool used = false;
+
+                for (int usedListIndex = 0; usedListIndex < _usedIndexes.Count; usedListIndex++)
+                {
+                    if (questionIndex == _usedIndexes[usedListIndex])
+                    {
+                        used = true;
+                        break;
+                    }
+                }
+
+                if (used) { continue; }
+
+                _usedIndexes.Add(questionIndex);
+                question = _questions[questionIndex];
+                break;
+            }
+
+            return question;
+        }
+
+        public QuestionSO GetQuestionAt(int index)
+        {
+            if (Empty) { return null; }
+            if (AllQuestionsUsed) { return null; }
+
+            if (_usedIndexes.Contains(index))
+            {
+                Debug.LogWarning($"Already used the question at { index }");
+                return null;
+            }
+
+            _usedIndexes.Add(index);
+            return _questions[index];
         }
     }
 }

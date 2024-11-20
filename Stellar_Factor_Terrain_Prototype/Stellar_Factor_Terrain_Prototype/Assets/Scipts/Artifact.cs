@@ -7,6 +7,7 @@ namespace StellarFactor
     public class Artifact : MonoBehaviour, IInteractable
     {
         [SerializeField] private Difficulty _difficulty;
+        [SerializeField] private int _index;
 
         [SerializeField] private UnityEvent OnPlayerEnter;
         [SerializeField] private UnityEvent OnInteract;
@@ -30,10 +31,10 @@ namespace StellarFactor
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
 
-        private void Awake()
+        private void Start()
         {
             // Fill this with a question when it's loaded
-            _question = QuestionManager.MGR.GetQuestion(_difficulty);
+            _question = getQuestion();
         }
 
         private void onCorrectAnswer()
@@ -85,6 +86,18 @@ namespace StellarFactor
         {
             OnPlayerExit.Invoke();
             _playerHere = false;
+        }
+
+        private QuestionSO getQuestion()
+        {
+            if (QuestionManager.MGR.RandomMode)
+            {
+                return QuestionManager.MGR.GetQuestion(_difficulty);
+            }
+            else
+            {
+                return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 87c4bf274aab47640abac1361d7554d8
+guid: 3233d52fd8adb9349b3138b6629911bb
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Algebra_game
+  - Font3
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 2
+  m_Name: Grouping 1
   m_EditorClassIdentifier: 
-  _text: 'Factor The Trinomial.
+  _text: 'Factor the four-term polynomial by grouping.
 
 
-    x<sup>2</sup> + 6x - 16 = (x + 8)( ____ )'
+    r<sup>3</sup> + r<sup>2</sup>
+    + 3r + 3'
   _answers:
-  - _answerText: x + 2
+  - _answerText: (r<sup>2</sup> + 3)(r - 3)
     _correct: 0
-  - _answerText: x - 2
+  - _answerText: (r<sup>2</sup> + 3)(r + 3)
+    _correct: 0
+  - _answerText: (r<sup>2</sup> + 3)(r + 1)
     _correct: 1
-  - _answerText: 2 - x
-    _correct: 0
-  - _answerText: -x - 2
+  - _answerText: (r<sup>2</sup> + 1)(r + 3)
     _correct: 0

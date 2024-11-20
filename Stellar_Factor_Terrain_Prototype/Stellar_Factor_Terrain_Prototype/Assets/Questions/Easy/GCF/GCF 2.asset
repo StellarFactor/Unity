@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 3
+  m_Name: GCF 2
   m_EditorClassIdentifier: 
-  _text: 'Factor the four-term polynomial by grouping.
+  _text: 'Find the Greatest Common Factor (GCF) for:
 
-
-    xy + 9x - 5y - 45'
+    140, 60'
   _answers:
-  - _answerText: (x - 9)(y + 5)
+  - _answerText: 1
     _correct: 0
-  - _answerText: (x + 9)(y - 5)
+  - _answerText: 5
     _correct: 0
-  - _answerText: '(y - 9)(x + 5) '
-    _correct: 0
-  - _answerText: (y + 9)(x - 5)
+  - _answerText: 20
     _correct: 1
+  - _answerText: 2
+    _correct: 0

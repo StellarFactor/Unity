@@ -6,6 +6,9 @@ namespace StellarFactor
 {
     public class QuestionManager : Singleton<QuestionManager>
     {
+        [Header("Settings")]
+        [SerializeField] private bool _randomMode;
+
         [Header("Question Pools")]
         [SerializeField] private QuestionPool _easy;
         [SerializeField] private QuestionPool _medium;
@@ -13,10 +16,12 @@ namespace StellarFactor
 
         public Action Open;
         public Action Close;
-        public Action Clear;
+        public Action Reset;
         public Action<int> SelectAnswer;
         public Action CorrectAnswer;
         public Action IncorrectAnswer;
+
+        public bool RandomMode { get { return _randomMode; } }
 
         private void OnEnable()
         {
@@ -48,20 +53,24 @@ namespace StellarFactor
         /// <returns></returns>
         public QuestionSO GetQuestion(Difficulty difficulty)
         {
-            // Find the right pool.
-            QuestionPool pool = difficulty switch
-            {
-                Difficulty.EASY     => _easy,
-                Difficulty.MEDIUM   => _medium,
-                Difficulty.HARD     => _hard,
-                _                   => _medium
-            };
+            QuestionPool pool = getPool(difficulty);
 
             // Null checks
             if (pool == null) { return null; }
             if (pool.Empty) { return null; }
-            
+
             return pool.GetRandomQuestion();
+        }
+
+        public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
+        {
+            QuestionPool pool = getPool(difficulty);
+
+            // Null checks
+            if (pool == null) { return null; }
+            if (pool.Empty) { return null; }
+
+            return pool.GetQuestionAt(artifactIndex);
         }
 
         public void OpenWindow()
@@ -76,7 +85,21 @@ namespace StellarFactor
 
         public void ResetWindow()
         {
-            Clear.Invoke();
+            Reset.Invoke();
+        }
+
+        private QuestionPool getPool(Difficulty difficulty)
+        {
+            // Find the right pool.
+            QuestionPool pool = difficulty switch
+            {
+                Difficulty.EASY => _easy,
+                Difficulty.MEDIUM => _medium,
+                Difficulty.HARD => _hard,
+                _ => _medium
+            };
+
+            return pool;
         }
     }
 }
