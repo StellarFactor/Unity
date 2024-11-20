@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 1
+  m_Name: Trinomial 4
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
+  _text: 'Factor The Trinomial.
 
-    36, 15'
+
+    x<sup>2</sup> - 4x - 21 = (x - 7)( ____ )'
   _answers:
-  - _answerText: 1
+  - _answerText: x<sup>2</sup> + 7
     _correct: 0
-  - _answerText: 3
+  - _answerText: 7 - x
+    _correct: 0
+  - _answerText: x - 3
+    _correct: 0
+  - _answerText: x + 3
     _correct: 1
-  - _answerText: 6
-    _correct: 0
-  - _answerText: 15
-    _correct: 0

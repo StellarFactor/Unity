@@ -45,6 +45,18 @@ namespace StellarFactor
 
         private void onArtifactInteraction(Artifact artifact)
         {
+            if (artifact == null)
+            {
+                Debug.LogWarning("artifact null");
+                return;            
+            }
+
+            if (artifact.Question == null)
+            {
+                Debug.LogWarning($"{artifact.gameObject.name} question was null");
+                return;
+            }
+
             _questionBox.enabled = true;
 
             QuestionManager.MGR.Reset.Invoke();

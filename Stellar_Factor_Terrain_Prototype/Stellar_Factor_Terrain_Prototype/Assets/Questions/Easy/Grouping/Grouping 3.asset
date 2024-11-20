@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 3
+  m_Name: Grouping 3
   m_EditorClassIdentifier: 
-  _text: 'Factor The Trinomial.
+  _text: 'Factor the four-term polynomial by grouping.
 
 
-    x<sup>2</sup> - 11x + 28 = (x - 7)( ____ )'
+    xy + 9x - 5y - 45'
   _answers:
-  - _answerText: x<sup>2</sup> + 7
+  - _answerText: (x - 9)(y + 5)
     _correct: 0
-  - _answerText: x - 4
+  - _answerText: (x + 9)(y - 5)
+    _correct: 0
+  - _answerText: '(y - 9)(x + 5) '
+    _correct: 0
+  - _answerText: (y + 9)(x - 5)
     _correct: 1
-  - _answerText: x + 4
-    _correct: 0
-  - _answerText: 7 - x
-    _correct: 0
