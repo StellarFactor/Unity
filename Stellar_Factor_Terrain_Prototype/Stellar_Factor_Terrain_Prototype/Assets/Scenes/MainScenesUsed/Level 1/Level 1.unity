@@ -1035,6 +1035,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134905137}
   m_Mesh: {fileID: -902518377757152685, guid: 8c483e458c16e2d43bc46b7712bcdb6e, type: 3}
+--- !u!114 &145038271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1863001696756529022, guid: 60e681ed805d46a42b2bbbd1e10e4f09, type: 3}
+  m_PrefabInstance: {fileID: 3267773793197980286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaf4bc83c9decc43b389b4eb219bbe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &151810025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2399824864792016483, guid: a33967a2ac92ec74f8d9305a272a7e34, type: 3}
@@ -3067,7 +3078,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -3085,7 +3096,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -4049,7 +4060,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -4067,7 +4078,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -8603,7 +8614,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -8621,7 +8632,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -11958,11 +11969,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5451849839690123725, guid: b26d7a9eb45ea3644afad6de52679faa, type: 3}
---- !u!223 &1288615850 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 2088620934672410939, guid: 949620286de9b8b4ca8273ea8143175d, type: 3}
-  m_PrefabInstance: {fileID: 1674696172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1290536658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3533340965675811936, guid: 6bf086d42c5c5d645b5ba0ea1df7f189, type: 3}
@@ -16242,7 +16248,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -16260,7 +16266,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -18982,25 +18988,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3533340965675811936, guid: 6bf086d42c5c5d645b5ba0ea1df7f189, type: 3}
   m_PrefabInstance: {fileID: 395281240}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &139748548194384575
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393385321816640849}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3413777209663574253}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 700, y: 72}
-  m_Pivot: {x: 0.5, y: 1}
 --- !u!4 &260229186600902037
 Transform:
   m_ObjectHideFlags: 0
@@ -19525,7 +19512,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -19543,7 +19530,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -20322,7 +20309,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -20340,7 +20327,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -20802,7 +20789,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -20820,7 +20807,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
@@ -20938,7 +20925,7 @@ MonoBehaviour:
   OnPlayerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: DisplayInteractionPrompt
         m_Mode: 1
@@ -20956,7 +20943,7 @@ MonoBehaviour:
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2084566486}
+      - m_Target: {fileID: 145038271}
         m_TargetAssemblyTypeName: StellarFactor.InteractionPrompt, Assembly-CSharp
         m_MethodName: ClosePrompt
         m_Mode: 1
