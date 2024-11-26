@@ -3,7 +3,57 @@ guid: a7bbd6312e17d8c44896beee2e1647d5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GL_3
+    second: {fileID: 2100000, guid: 611db7885a9d4b44cbdedee80cd94d6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gl_1
+    second: {fileID: 2100000, guid: e351b2d1cc0ed904ca9c02dc5c71f0d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface5
+    second: {fileID: 2100000, guid: c9abbb101e821644eaa3511eef09b4de, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_1_Height
+    second: {fileID: 2800000, guid: 2f4391c61acd7b94a9c2b0fbf33dfa3f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_1_Metallic
+    second: {fileID: 2800000, guid: 56f4fe343b372a84cb1b358e96d78e7c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_1_Normal_OpenGL
+    second: {fileID: 2800000, guid: 8132334715dc5a841adceaa43f7476c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_1_Roughness
+    second: {fileID: 2800000, guid: ace9f1d2cdd388c45bc6d01a1e9a1a39, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_2_Height
+    second: {fileID: 2800000, guid: c561e0265b491184aa5c7e2058fbd108, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_2_Metallic
+    second: {fileID: 2800000, guid: 133e2cf545776c64c8e9ee558c125b30, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Glyth_2_Roughness
+    second: {fileID: 2800000, guid: 0ffc27dde8c06334f8d01a63e40893e9, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
