@@ -13,7 +13,7 @@ namespace StellarFactor
 
         public void Highlight()
         {
-            if (_highlightMessage != null)
+            if (_highlightMessage != "")
             {
                 Text.Set(_highlightMessage);
             }
