@@ -13,6 +13,11 @@ namespace StellarFactor
 
         public StructSwitcher(T defaultT)
         {
+            init(defaultT);
+        }
+
+        private void init(T defaultT)
+        {
             _default = defaultT;
             _current = defaultT;
             _buffer = defaultT;
