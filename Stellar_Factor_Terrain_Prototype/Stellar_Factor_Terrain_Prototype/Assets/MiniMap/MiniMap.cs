@@ -51,6 +51,17 @@ namespace Overtown
             yield return null;
         }
 
+        private void applyNodePositions()
+        {
+            foreach (MiniMapLocation loc in activeNodes.Keys)
+            {
+                GameObject node = activeNodes[loc];
+
+                log.Print($"Setting {node}'s position to {nodePositions[loc]}");
+                node.GetComponent<RectTransform>().anchoredPosition = nodePositions[loc];
+            }
+        }
+
         private void updateNodePositions()
         {
             for (int i = 0; i < locations.Count; i++)
@@ -68,17 +79,6 @@ namespace Overtown
             }
         }
 
-        private void applyNodePositions()
-        {
-            foreach (MiniMapLocation loc in activeNodes.Keys)
-            {
-                GameObject node = activeNodes[loc];
-
-                log.Print($"Setting {node}'s position to {nodePositions[loc]}");
-                node.GetComponent<RectTransform>().anchoredPosition = nodePositions[loc];
-            }
-        }
-
         private void spawnNode(MiniMapLocation location)
         {
             if (locations.Contains(location))
@@ -92,7 +92,7 @@ namespace Overtown
 
             GameObject prefab = unvisitedPrefab;
 
-            GameObject newNodeObj = Instantiate(prefab, canvas.transform);
+            GameObject newNodeObj = Instantiate(prefab, map.transform);
             activeNodes[location] = newNodeObj;
 
             Vector2 nodeScreenPos = cam.WorldToScreenPoint(location.transform.position);

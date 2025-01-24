@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class LimitCamera : MonoBehaviour
 {
-    public GameObject Player;
+    [SerializeField] private GameObject Player;
+
+    [SerializeField] private float height;
+
+    private Vector3 rotationLimit;
+
+    private void Start()
+    {
+        rotationLimit = transform.localEulerAngles;
+    }
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(Player.transform.position.x, 40, Player.transform.position.z);
+        transform.localEulerAngles = rotationLimit;
+        transform.position = GetPositionVec();
     }
 
+    private Vector3 GetPositionVec()
+    {
+        return Player.transform.position + new Vector3(0, height, 0);
+    }
 }
