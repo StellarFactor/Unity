@@ -1,14 +1,9 @@
 using UnityEngine;
 
-namespace Overtown
+namespace Stellar.Minimap
 {
+    [RequireComponent (typeof(RectTransform))]
     public class MiniMapNode : MonoBehaviour
     {
-        private bool isOn;
-
-        private void Update()
-        {
-            
-        }
     }
 }

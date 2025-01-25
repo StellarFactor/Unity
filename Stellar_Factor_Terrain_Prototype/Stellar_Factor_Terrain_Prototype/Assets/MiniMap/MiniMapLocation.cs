@@ -1,10 +1,13 @@
 using UnityEngine;
 
-namespace Overtown
+namespace StellarFactor.Minimap
 {
-    public class MiniMapLocation : MonoBehaviour
+    public class MiniMapLocation : MonoBehaviour, IMapLocation
     {
         [SerializeField] private bool triggerVisit;
+
+        [SerializeField] private RectTransform unvisitedNode;
+        [SerializeField] private RectTransform visitedNode;
 
         public bool BeenVisited {get; private set; }
         public bool IsActive { get; private set; }
@@ -22,7 +25,14 @@ namespace Overtown
         public void Visit()
         {
             BeenVisited = true;
-            MiniMap.MGR.DisplayNodeFor(this);
+            IsActive = true;
+            MiniMap.MGR.AddNodeFor(this);
+        }
+
+        public void Leave()
+        {
+            IsActive = false;
+            MiniMap.MGR.RemoveNodeFor(this);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -30,9 +40,9 @@ namespace Overtown
             print ("colliding");
             if (other.CompareTag("Minimap"))
             {
-                if (IsActive) {  return; }
-                MiniMap.MGR.DisplayNodeFor(this);
-                IsActive = true;
+                if (IsActive) { return; }
+
+                Visit();
             }
         }
 
@@ -41,9 +51,19 @@ namespace Overtown
             if (other.CompareTag("Minimap"))
             {
                 if (!IsActive) { return; }
-                MiniMap.MGR.HideNodeFor(this);
-                IsActive = false;
+
+                Leave();
             }
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+
+        public RectTransform GetNodeToDisplay()
+        {
+            return BeenVisited ? visitedNode : unvisitedNode;
         }
     }
 }

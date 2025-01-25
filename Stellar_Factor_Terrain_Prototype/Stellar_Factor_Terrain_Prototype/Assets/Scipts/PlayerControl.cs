@@ -1,82 +1,113 @@
-using StellarFactor;
+using Stellar.Minimap;
 using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
+using StellarFactor.Minimap;
 
-public class PlayerControl : MonoBehaviour
+namespace StellarFactor
 {
-    private FirstPersonController _controller;
-
-    private void Awake()
+    public class PlayerControl : MonoBehaviour
     {
-        _controller = GetComponent<FirstPersonController>();
-    }
 
-    private void OnEnable()
-    {
-        GameManager.MGR.Pause += onPause;
-        GameManager.MGR.Resume += onResume;
-        GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-        GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
-        QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-        QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
-    }
+        private FirstPersonController _controller;
+
+        [SerializeField] private RectTransform lastDeathMinimapNode;
+        private DeathLocation lastDeathLocation;
+
+        private void Awake()
+        {
+            _controller = GetComponent<FirstPersonController>();
+        }
+
+        private void OnEnable()
+        {
+            GameManager.MGR.Pause += onPause;
+            GameManager.MGR.Resume += onResume;
+            GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
+            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+        }
 
 
-    private void OnDisable()
-    {
-        GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-        GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
-        QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-        QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
-    }
+        private void OnDisable()
+        {
+            GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
+            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+        }
 
-    private void onPause()
-    {
-        lockControls();
-    }
+        public void Die()
+        {
 
-    private void onResume()
-    {
-        unlockControls();
-    }
+        }
 
-    private void onArtifactInteraction(Artifact artifact)
-    {
-        lockControls();
-    }
+        public void Die(Vector3 respawnPoint)
+        {
+            if (lastDeathLocation != null)
+            {
+                MiniMap.MGR.RemoveNodeFor(lastDeathLocation);
+            }
 
-    private void onCancelArtifactInteraction()
-    {
-        unlockControls();
-    }
+            lastDeathLocation = new DeathLocation(
+                lastDeathMinimapNode,
+                transform.position
+                );
 
-    private void onCorrectAnswer()
-    {
-        unlockControls();
+            MiniMap.MGR.AddNodeFor(lastDeathLocation);
 
-        // TODO:
-        // Add "artifact" to "inventory" (probably
-        // just flip a bool? lol)
-    }
+            transform.position = respawnPoint;
+            Physics.SyncTransforms();
+        }
 
-    private void onIncorrectAnswer()
-    {        
-        // TODO:
-        // Lose health? Anything else?
-    }
+        private void onPause()
+        {
+            lockControls();
+        }
 
-    private void lockControls()
-    {
-        _controller.enabled = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-    }
+        private void onResume()
+        {
+            unlockControls();
+        }
 
-    private void unlockControls()
-    {
-        _controller.enabled = true;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        private void onArtifactInteraction(Artifact artifact)
+        {
+            lockControls();
+        }
+
+        private void onCancelArtifactInteraction()
+        {
+            unlockControls();
+        }
+
+        private void onCorrectAnswer()
+        {
+            unlockControls();
+
+            // TODO:
+            // Add "artifact" to "inventory" (probably
+            // just flip a bool? lol)
+        }
+
+        private void onIncorrectAnswer()
+        {
+            // TODO:
+            // Lose health? Anything else?
+        }
+
+        private void lockControls()
+        {
+            _controller.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+
+        private void unlockControls()
+        {
+            _controller.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }

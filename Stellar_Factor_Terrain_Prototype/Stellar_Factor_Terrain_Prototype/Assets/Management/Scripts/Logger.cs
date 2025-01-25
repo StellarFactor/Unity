@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Overtown
+namespace StellarFactor
 {
     [System.Serializable]
     public class Logger
