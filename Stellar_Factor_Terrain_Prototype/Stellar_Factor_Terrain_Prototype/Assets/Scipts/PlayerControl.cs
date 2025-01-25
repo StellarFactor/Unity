@@ -1,8 +1,6 @@
-using Stellar.Minimap;
-using System;
+using StellarFactor.Minimap;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
-using StellarFactor.Minimap;
 
 namespace StellarFactor
 {
@@ -54,10 +52,14 @@ namespace StellarFactor
                 lastDeathMinimapNode,
                 transform.position
                 );
-
             MiniMap.MGR.AddNodeFor(lastDeathLocation);
 
-            transform.position = respawnPoint;
+            Teleport(respawnPoint);
+        }
+
+        public void Teleport(Vector3 position)
+        {
+            transform.position = position;
             Physics.SyncTransforms();
         }
 

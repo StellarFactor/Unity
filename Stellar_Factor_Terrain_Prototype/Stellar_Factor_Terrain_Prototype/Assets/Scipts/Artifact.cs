@@ -73,18 +73,18 @@ namespace StellarFactor
         public void PlayerEnterRange()
         {
             _playerHere = true;
-            OnPlayerEnter.Invoke();
+            OnPlayerEnter?.Invoke();
         }
 
         public void Interact()
         {
-            OnInteract.Invoke();
-            GameManager.MGR.ArtifactInteraction.Invoke(this);
+            OnInteract?.Invoke();
+            GameManager.MGR.ArtifactInteraction?.Invoke(this);
         }
 
         public void PlayerExitRange()
         {
-            OnPlayerExit.Invoke();
+            OnPlayerExit?.Invoke();
             _playerHere = false;
         }
 

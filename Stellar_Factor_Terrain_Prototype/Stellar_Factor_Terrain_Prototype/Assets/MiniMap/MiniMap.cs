@@ -18,6 +18,7 @@ namespace StellarFactor.Minimap
         [SerializeField] private RawImage map;
 
         private Dictionary<IMapLocation, RectTransform> activeNodes = new();
+        private List<IMapLocation> staleNodes = new();
 
         // =============================
         #region Unity
@@ -26,13 +27,10 @@ namespace StellarFactor.Minimap
         {
             if (activeNodes.Count <= 0) { return; }
 
+            UpdateStaleNodes();
             UpdateNodePositions();
         }
 
-        private void LateUpdate()
-        {
-            UpdateNodePositions();
-        }
         #endregion Unity
 
         public void AddNodeFor(IMapLocation location)
@@ -61,12 +59,27 @@ namespace StellarFactor.Minimap
             Destroy(nodeToDestroy);
         }
 
+        private void UpdateStaleNodes()
+        {
+            foreach(IMapLocation location in staleNodes)
+            {
+                RemoveNodeFor(location);
+                AddNodeFor(location);
+            }
+
+            staleNodes.Clear();
+        }
 
         private void UpdateNodePositions()
         {
-            foreach(IMapLocation key in activeNodes.Keys)
+            foreach(IMapLocation location in activeNodes.Keys)
             {
-                Vector2 viewportVec = cam.WorldToViewportPoint(key.GetPosition());
+                if (activeNodes[location] != location.GetNodeToDisplay())
+                {
+                    staleNodes.Add(location);
+                }
+
+                Vector2 viewportVec = cam.WorldToViewportPoint(location.GetPosition());
 
                 float clampedX = Mathf.Clamp(viewportVec.x, 0, 1);
                 float clampedY = Mathf.Clamp(viewportVec.y, 0, 1);
@@ -74,7 +87,7 @@ namespace StellarFactor.Minimap
 
                 Vector2 nodePos = clampedViewportPos * map.rectTransform.rect.size;
 
-                activeNodes[key].anchoredPosition = nodePos;
+                activeNodes[location].anchoredPosition = nodePos;
             }
         }
     }

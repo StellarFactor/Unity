@@ -29,6 +29,12 @@ namespace StellarFactor.Minimap
             MiniMap.MGR.AddNodeFor(this);
         }
 
+        public void Enter()
+        {
+            IsActive = true;
+            MiniMap.MGR.AddNodeFor(this);
+        }
+
         public void Leave()
         {
             IsActive = false;
@@ -42,7 +48,7 @@ namespace StellarFactor.Minimap
             {
                 if (IsActive) { return; }
 
-                Visit();
+                Enter();
             }
         }
 

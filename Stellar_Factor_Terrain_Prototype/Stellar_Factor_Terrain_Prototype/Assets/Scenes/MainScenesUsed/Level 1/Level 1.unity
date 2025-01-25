@@ -4892,6 +4892,7 @@ GameObject:
   - component: {fileID: 409470436}
   - component: {fileID: 409470438}
   - component: {fileID: 409470437}
+  - component: {fileID: 409470439}
   m_Layer: 6
   m_Name: Book_Textured (1)
   m_TagString: Untagged
@@ -4954,7 +4955,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 409470439}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -4991,6 +5004,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &409470439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409470435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!1 &415656991
 GameObject:
   m_ObjectHideFlags: 0
@@ -6305,6 +6333,7 @@ GameObject:
   - component: {fileID: 559039572}
   - component: {fileID: 559039571}
   - component: {fileID: 559039570}
+  - component: {fileID: 559039574}
   m_Layer: 6
   m_Name: Ori_Staff (1)
   m_TagString: Untagged
@@ -6358,7 +6387,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 559039574}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -6445,6 +6486,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559039568}
   m_Mesh: {fileID: -9219927226145462427, guid: ddf858b7e7821bd4ab946274c479cc70, type: 3}
+--- !u!114 &559039574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559039568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!1001 &559694266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10900,6 +10956,7 @@ GameObject:
   - component: {fileID: 913830418}
   - component: {fileID: 913830420}
   - component: {fileID: 913830419}
+  - component: {fileID: 913830421}
   m_Layer: 6
   m_Name: Goauld_Ring (1)
   m_TagString: Untagged
@@ -10957,7 +11014,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 913830421}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -10994,6 +11063,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &913830421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913830417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!1 &918730553 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000013150389164, guid: bf5ba0474328c1b4b8b5940432eae67b, type: 3}
@@ -15284,6 +15368,7 @@ GameObject:
   - component: {fileID: 1339998909}
   - component: {fileID: 1339998911}
   - component: {fileID: 1339998910}
+  - component: {fileID: 1339998912}
   m_Layer: 6
   m_Name: Eye_of_Ra (1)
   m_TagString: Untagged
@@ -15339,7 +15424,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1339998912}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -15376,6 +15473,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1339998912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339998908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!1 &1348862814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3386553121241536846, guid: b26d7a9eb45ea3644afad6de52679faa, type: 3}
@@ -24986,6 +25098,7 @@ GameObject:
   - component: {fileID: 2876407147503566558}
   - component: {fileID: 3436345492749849078}
   - component: {fileID: 3436345492749849077}
+  - component: {fileID: 3436345492749849079}
   m_Layer: 6
   m_Name: Ori_Staff
   m_TagString: Untagged
@@ -25329,7 +25442,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3436345492749849079}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -25366,6 +25491,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3436345492749849079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730702166340863428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!33 &3518975942994243257
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25542,7 +25682,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4057120521432020183}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -25605,6 +25757,7 @@ GameObject:
   - component: {fileID: 3671801777304465991}
   - component: {fileID: 4161058804425894143}
   - component: {fileID: 4161058804425894142}
+  - component: {fileID: 4161058804425894144}
   m_Layer: 6
   m_Name: Book_Textured
   m_TagString: Untagged
@@ -25643,7 +25796,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4161058804425894144}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -25680,6 +25845,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4161058804425894144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161058804425894141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!1 &4549472181842801171
 GameObject:
   m_ObjectHideFlags: 0
@@ -26223,6 +26403,7 @@ GameObject:
   - component: {fileID: 7302544418733704297}
   - component: {fileID: 7302544418733704299}
   - component: {fileID: 7302544418733704298}
+  - component: {fileID: 7302544418733704300}
   m_Layer: 6
   m_Name: Goauld_Ring
   m_TagString: Untagged
@@ -26553,7 +26734,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7302544418733704300}
+        m_TargetAssemblyTypeName: StellarFactor.Minimap.MiniMapLocation, Assembly-CSharp
+        m_MethodName: Visit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPlayerExit:
     m_PersistentCalls:
       m_Calls:
@@ -26590,6 +26783,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7302544418733704300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121773715556388014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerVisit: 0
+  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
+  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
 --- !u!33 &7340122783210033227
 MeshFilter:
   m_ObjectHideFlags: 0
