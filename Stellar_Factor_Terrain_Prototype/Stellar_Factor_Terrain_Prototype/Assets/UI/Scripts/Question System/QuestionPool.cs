@@ -1,7 +1,6 @@
 using StellarFactor.Global;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace StellarFactor
 {

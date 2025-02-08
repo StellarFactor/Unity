@@ -1,11 +1,18 @@
 using UnityEngine;
 
-namespace Overtown
+namespace StellarFactor
 {
     [System.Serializable]
     public class Logger
     {
-        public bool showDebug;
+        public bool showDebug = true;
+
+        public Logger() : this(true) { }
+
+        public Logger(bool showDebug)
+        {
+            this.showDebug = showDebug;
+        }
 
         public void Print(string msg)
         {

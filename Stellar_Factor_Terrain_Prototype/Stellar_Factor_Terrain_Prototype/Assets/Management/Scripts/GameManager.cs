@@ -17,27 +17,54 @@ namespace StellarFactor
         public KeyCode InteractKey { get { return _interactKey; } }
         public KeyCode PauseKey { get { return _pauseKey; } }
 
-        public Action<int> LevelLoaded;
-        public Action Pause;
-        public Action Resume;
-        public Action PlayerDeath;
-        public Action Quit;
-        public Action<Artifact> ArtifactInteraction;
-        public Action CancelArtifactInteraction;
+        public event Action<int> LevelLoaded;
+        public event Action Pause;
+        public event Action Resume;
+        public event Action PlayerDeath;
+        public event Action Quit;
+        public event Action<Artifact> ArtifactInteraction;
+        public event Action CancelArtifactInteraction;
 
         private void Start()
         {
             LevelLoaded?.Invoke(CurrentLevel);
         }
 
-        public void PauseGame()
+        public void OnPauseGame()
         {
             Pause?.Invoke();
         }
-
-        public void ResumeGame()
+        public void OnResumeGame()
         {
             Resume?.Invoke();
+        }
+        public void OnPlayerDeath()
+        {
+            PlayerDeath?.Invoke();
+        }
+        public void OnCancelArtifactInteraction()
+        {
+            CancelArtifactInteraction?.Invoke();
+        }
+        public void OnLevelLoaded(int level)
+        {
+            LevelLoaded?.Invoke(level);
+        }
+        public void OnPause()
+        {
+            Pause?.Invoke();
+        }
+        public void OnResume()
+        {
+            Resume?.Invoke();
+        }
+        public void OnQuit()
+        {
+            Quit?.Invoke();
+        }
+        public void OnArtifactInteraction(Artifact artifact)
+        {
+            ArtifactInteraction?.Invoke(artifact);
         }
 
         public void QuitGame()
@@ -47,7 +74,6 @@ namespace StellarFactor
 
             #else
             Application.Quit();
-
             #endif
         }
     }

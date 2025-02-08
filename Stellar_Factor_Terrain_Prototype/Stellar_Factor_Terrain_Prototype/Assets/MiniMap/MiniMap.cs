@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Overtown
+namespace StellarFactor.Minimap
 {
     public class MiniMap : Singleton<MiniMap>
     {
+        #region Serialized Vars
+        // ======================================================
         [Header("Debug")]
-        [SerializeField] Logger log;
+        [SerializeField] Logger log = new();
 
         [Header("Camera")]
         [SerializeField] private Camera cam;
@@ -17,123 +18,49 @@ namespace Overtown
         [SerializeField] private Canvas canvas;
         [SerializeField] private Image background;
         [SerializeField] private RawImage map;
-
-        [Header("Prefabs")]
-        [SerializeField] private GameObject unvisitedPrefab;
-        [SerializeField] private GameObject visitedPrefab;
-
-        private List<MiniMapLocation> locations = new();
-        private Dictionary<MiniMapLocation, GameObject> activeNodes = new();
-        private Dictionary<MiniMapLocation, Vector2> nodePositions = new();
+        #endregion //Serialized Vars
 
 
+        #region Events
+        // ======================================================
+        public event Action NodeUpdates;
+        #endregion // Events
 
+
+        #region Unity
+        // ======================================================
         private void Update()
         {
-            if (locations.Count <= 0) { return; }
-
-            //updateNodePositions();
-            StartCoroutine(updateNodes());
+            NodeUpdates.Invoke();
         }
+        #endregion // Unity
 
-        private void LateUpdate()
+
+        #region Public Methods
+        // ======================================================
+        public void InstantiateNodeAt(IMapLocation location)
         {
-            //applyNodePositions();
+            Node prefab = location.GetNodePrefab();
+            Node instance = Instantiate(prefab, map.transform);
+
+            location.InstantiatedNode = instance;
         }
 
-        private IEnumerator updateNodes()
+        public void UpdateNode(IMapLocation location)
         {
-            applyNodePositions();
+            Vector2 viewportVec
+                = cam.WorldToViewportPoint(location.GetPosition());
 
-            yield return new WaitForEndOfFrame();
-            updateNodePositions();
+            float clampedX = Mathf.Clamp(viewportVec.x, 0, 1);
+            float clampedY = Mathf.Clamp(viewportVec.y, 0, 1);
+            Vector2 clampedViewportPos = new(clampedX, clampedY);
 
-            yield return null;
+            Vector2 nodePos
+                = clampedViewportPos * map.rectTransform.rect.size;
+
+            location.InstantiatedNode.RT.anchoredPosition = nodePos;
+            location.InstantiatedNode.SetColor(location.GetNodeColor());
         }
-
-        private void applyNodePositions()
-        {
-            foreach (MiniMapLocation loc in activeNodes.Keys)
-            {
-                GameObject node = activeNodes[loc];
-
-                log.Print($"Setting {node}'s position to {nodePositions[loc]}");
-                node.GetComponent<RectTransform>().anchoredPosition = nodePositions[loc];
-            }
-        }
-
-        private void updateNodePositions()
-        {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                MiniMapLocation loc = locations[i];
-
-                if (!activeNodes.ContainsKey(loc))
-                {
-                    log.Throw($"NODE ERROR. Failed to find {loc.gameObject.name}'s node");
-                    return;
-                }
-
-                Vector2 nodeScreenPos = cam.WorldToScreenPoint(loc.transform.position);
-                nodePositions[loc] = nodeScreenPos;
-            }
-        }
-
-        private void spawnNode(MiniMapLocation location)
-        {
-            if (locations.Contains(location))
-            {
-                return;
-            }
-
-            locations.Add(location);
-
-            //GameObject prefab = location.BeenVisited ? visitedPrefab : unvisitedPrefab;
-
-            GameObject prefab = unvisitedPrefab;
-
-            GameObject newNodeObj = Instantiate(prefab, map.transform);
-            activeNodes[location] = newNodeObj;
-
-            Vector2 nodeScreenPos = cam.WorldToScreenPoint(location.transform.position);
-            nodePositions[location] = nodeScreenPos;
-        }
-
-        private void despawnNode(MiniMapLocation location)
-        {
-            if (!locations.Contains(location))
-            {
-                return;
-            }
-
-            locations.Remove(location);
-
-            GameObject node = activeNodes[location];
-
-            activeNodes.Remove(location);
-            nodePositions.Remove(location);
-
-            Destroy(node);
-        }
-
-        private void forceSpawnNode(MiniMapLocation location)
-        {
-            if (locations.Contains(location))
-            {
-                despawnNode(location);
-            }
-
-            spawnNode(location);
-        }
-
-        public void DisplayNodeFor(MiniMapLocation location)
-        {
-            forceSpawnNode(location);
-        }
-
-        public void HideNodeFor(MiniMapLocation location)
-        {
-            despawnNode(location);
-        }
+        #endregion // Public Methods
     }
 }
