@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +6,10 @@ namespace StellarFactor.Minimap
 {
     public class MiniMap : Singleton<MiniMap>
     {
+        #region Serialized Vars
+        // ======================================================
         [Header("Debug")]
-        [SerializeField] Logger log;
+        [SerializeField] Logger log = new();
 
         [Header("Camera")]
         [SerializeField] private Camera cam;
@@ -16,79 +18,49 @@ namespace StellarFactor.Minimap
         [SerializeField] private Canvas canvas;
         [SerializeField] private Image background;
         [SerializeField] private RawImage map;
+        #endregion //Serialized Vars
 
-        private Dictionary<IMapLocation, RectTransform> activeNodes = new();
-        private List<IMapLocation> staleNodes = new();
 
-        // =============================
+        #region Events
+        // ======================================================
+        public event Action NodeUpdates;
+        #endregion // Events
+
+
         #region Unity
-        // =============================
+        // ======================================================
         private void Update()
         {
-            if (activeNodes.Count <= 0) { return; }
-
-            UpdateStaleNodes();
-            UpdateNodePositions();
+            NodeUpdates.Invoke();
         }
+        #endregion // Unity
 
-        #endregion Unity
 
-        public void AddNodeFor(IMapLocation location)
+        #region Public Methods
+        // ======================================================
+        public void InstantiateNodeAt(IMapLocation location)
         {
-            if (activeNodes.ContainsKey(location))
-            {
-                RemoveNodeFor(location);
-            }
+            Node prefab = location.GetNodePrefab();
+            Node instance = Instantiate(prefab, map.transform);
 
-            RectTransform prefab = location.GetNodeToDisplay();
-
-            activeNodes[location] = Instantiate(prefab, map.transform);
+            location.InstantiatedNode = instance;
         }
 
-        public void RemoveNodeFor(IMapLocation location)
+        public void UpdateNode(IMapLocation location)
         {
-            if (!activeNodes.ContainsKey(location))
-            {
-                return;
-            }
+            Vector2 viewportVec
+                = cam.WorldToViewportPoint(location.GetPosition());
 
-            GameObject nodeToDestroy = activeNodes[location].gameObject;
+            float clampedX = Mathf.Clamp(viewportVec.x, 0, 1);
+            float clampedY = Mathf.Clamp(viewportVec.y, 0, 1);
+            Vector2 clampedViewportPos = new(clampedX, clampedY);
 
-            activeNodes.Remove(location);
+            Vector2 nodePos
+                = clampedViewportPos * map.rectTransform.rect.size;
 
-            Destroy(nodeToDestroy);
+            location.InstantiatedNode.RT.anchoredPosition = nodePos;
+            location.InstantiatedNode.SetColor(location.GetNodeColor());
         }
-
-        private void UpdateStaleNodes()
-        {
-            foreach(IMapLocation location in staleNodes)
-            {
-                RemoveNodeFor(location);
-                AddNodeFor(location);
-            }
-
-            staleNodes.Clear();
-        }
-
-        private void UpdateNodePositions()
-        {
-            foreach(IMapLocation location in activeNodes.Keys)
-            {
-                if (activeNodes[location] != location.GetNodeToDisplay())
-                {
-                    staleNodes.Add(location);
-                }
-
-                Vector2 viewportVec = cam.WorldToViewportPoint(location.GetPosition());
-
-                float clampedX = Mathf.Clamp(viewportVec.x, 0, 1);
-                float clampedY = Mathf.Clamp(viewportVec.y, 0, 1);
-                Vector2 clampedViewportPos = new(clampedX, clampedY);
-
-                Vector2 nodePos = clampedViewportPos * map.rectTransform.rect.size;
-
-                activeNodes[location].anchoredPosition = nodePos;
-            }
-        }
+        #endregion // Public Methods
     }
 }

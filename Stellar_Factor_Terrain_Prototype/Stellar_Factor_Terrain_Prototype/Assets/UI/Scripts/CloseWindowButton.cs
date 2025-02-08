@@ -5,6 +5,6 @@ public class CloseWindowButton : MonoBehaviour
 {
     public void OnClick()
     {
-        GameManager.MGR.CancelArtifactInteraction.Invoke();
+        GameManager.MGR.OnCancelArtifactInteraction();
     }
 }

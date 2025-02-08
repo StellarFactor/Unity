@@ -5016,9 +5016,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1 &415656991
 GameObject:
   m_ObjectHideFlags: 0
@@ -6273,7 +6276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   log:
-    showDebug: 0
+    showDebug: 1
   cam: {fileID: 333301134}
   canvas: {fileID: 417963020}
   background: {fileID: 1514159870}
@@ -6498,9 +6501,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1001 &559694266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7873,7 +7879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f03a5a2b75a22f4ba40cfb40ec02061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastDeathMinimapNode: {fileID: 6190027396543690496, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  lastDeathMinimapNode: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  deathNodeColors: {fileID: 11400000, guid: f1c8f7a135c593546988c14a08f41642, type: 2}
 --- !u!1 &656242293
 GameObject:
   m_ObjectHideFlags: 0
@@ -11075,9 +11082,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1 &918730553 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000013150389164, guid: bf5ba0474328c1b4b8b5940432eae67b, type: 3}
@@ -15485,9 +15495,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1 &1348862814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3386553121241536846, guid: b26d7a9eb45ea3644afad6de52679faa, type: 3}
@@ -25503,9 +25516,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!33 &3518975942994243257
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25743,9 +25759,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1 &4161058804425894141
 GameObject:
   m_ObjectHideFlags: 0
@@ -25857,9 +25876,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!1 &4549472181842801171
 GameObject:
   m_ObjectHideFlags: 0
@@ -26795,9 +26817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282e838592d5fb47866fd62afd6ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log:
+    showDebug: 0
   triggerVisit: 0
-  unvisitedNode: {fileID: 6190027396543690496, guid: f6f30fe72758b2446a2fce1079c8ee0a, type: 3}
-  visitedNode: {fileID: 6190027396543690496, guid: cff6aaff506a3734b87b834a85d38b40, type: 3}
+  nodePrefab: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
+  colors: {fileID: 11400000, guid: 02d4197265c309044bd7369ddc536ff7, type: 2}
+  hasExternalTrigger: 1
 --- !u!33 &7340122783210033227
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -27541,6 +27566,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1746646481}
+    - target: {fileID: 4526365648505268896, guid: a498080d11e13de47a5f710ada8f2985, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPause
+      objectReference: {fileID: 0}
     - target: {fileID: 5369257226188048367, guid: a498080d11e13de47a5f710ada8f2985, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -27633,6 +27662,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1746646481}
+    - target: {fileID: 6535411083677808994, guid: a498080d11e13de47a5f710ada8f2985, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnQuit
+      objectReference: {fileID: 0}
     - target: {fileID: 7711975552204341671, guid: a498080d11e13de47a5f710ada8f2985, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

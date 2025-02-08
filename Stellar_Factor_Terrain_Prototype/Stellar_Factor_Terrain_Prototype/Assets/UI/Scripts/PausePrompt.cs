@@ -1,6 +1,4 @@
 #if UNITY_EDITOR
-using System;
-using UnityEditor;
 #endif
 
 using UnityEngine;
@@ -35,11 +33,11 @@ namespace StellarFactor
             {
                 if (_isPaused)
                 {
-                    GameManager.MGR.Resume.Invoke();
+                    GameManager.MGR.OnResume();
                 }
                 else
                 {
-                    GameManager.MGR.Pause.Invoke();
+                    GameManager.MGR.OnPause();
                 }
             }
         }

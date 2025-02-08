@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 #pragma warning disable 618

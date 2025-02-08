@@ -6,10 +6,10 @@ namespace StellarFactor
 {
     public class PlayerControl : MonoBehaviour
     {
-
         private FirstPersonController _controller;
 
-        [SerializeField] private RectTransform lastDeathMinimapNode;
+        [SerializeField] private Node lastDeathMinimapNode;
+        [SerializeField] private StaticNodeColorsSO deathNodeColors;
         private DeathLocation lastDeathLocation;
 
         private void Awake()
@@ -36,23 +36,20 @@ namespace StellarFactor
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
 
-        public void Die()
-        {
-
-        }
-
         public void Die(Vector3 respawnPoint)
         {
             if (lastDeathLocation != null)
             {
-                MiniMap.MGR.RemoveNodeFor(lastDeathLocation);
+                Node node = (lastDeathLocation as IMapLocation).InstantiatedNode;
+                Destroy(node.gameObject);
             }
 
             lastDeathLocation = new DeathLocation(
                 lastDeathMinimapNode,
-                transform.position
+                transform.position,
+                deathNodeColors.StaticColor
                 );
-            MiniMap.MGR.AddNodeFor(lastDeathLocation);
+            MiniMap.MGR.InstantiateNodeAt(lastDeathLocation);
 
             Teleport(respawnPoint);
         }
@@ -96,6 +93,11 @@ namespace StellarFactor
         {
             // TODO:
             // Lose health? Anything else?
+        }
+
+        protected virtual void OnDeath()
+        {
+            GameManager.MGR.OnPlayerDeath();
         }
 
         private void lockControls()

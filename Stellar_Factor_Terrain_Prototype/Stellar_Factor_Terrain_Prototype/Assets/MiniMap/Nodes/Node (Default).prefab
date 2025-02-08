@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 6190027396543690496}
   - component: {fileID: 7798236225070247747}
   - component: {fileID: 5423567003489737515}
+  - component: {fileID: 1702274620393786343}
   m_Layer: 7
-  m_Name: Node (Artifact Visited)
+  m_Name: Node (Default)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7137255, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -75,3 +76,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1702274620393786343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581679558292953091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5f13f1889d3964e88766f9f2d28028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  log:
+    showDebug: 1
