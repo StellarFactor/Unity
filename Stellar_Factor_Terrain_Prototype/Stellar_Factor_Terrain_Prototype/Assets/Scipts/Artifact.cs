@@ -13,6 +13,8 @@ namespace StellarFactor
         [SerializeField] private UnityEvent OnInteract;
         [SerializeField] private UnityEvent OnPlayerExit;
 
+        [SerializeField] private GameObject particleEffect;
+
         private bool _playerHere;
         private QuestionSO _question;
 
@@ -41,6 +43,19 @@ namespace StellarFactor
         {
             if (!_playerHere) { return; }
 
+            // When a particle system gets assigned to the artifact, itll stop and destroy itself
+            // once the question is answered correctly.
+            if (particleEffect != null)
+            {
+                ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
+                if (ps!= null)
+                {
+                    ps.Stop();
+                }
+
+                //Instead of the particle instantly destroying itself, itll take a second to look less awkward.
+                Destroy(particleEffect, 1f);
+            }
             // TODO:
             // animate?
             // anything else?
