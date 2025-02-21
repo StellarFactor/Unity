@@ -19,21 +19,23 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.Pause += onPause;
-            GameManager.MGR.Resume += onResume;
-            GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            GameManager.MGR.Pause += HandlePause;
+            GameManager.MGR.Resume += HandleResume;
+            GameManager.MGR.ArtifactInteraction += HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction += HandleCancelArtifactInteraction;
+            GameManager.MGR.PanelCyclerInteraction += HandlePanelCyclerInteraction;
+            QuestionManager.MGR.CorrectAnswer += HandleCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer += HandleIncorrectAnswer;
         }
 
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            GameManager.MGR.ArtifactInteraction -= HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction -= HandleCancelArtifactInteraction;
+            GameManager.MGR.PanelCyclerInteraction -= HandlePanelCyclerInteraction;
+            QuestionManager.MGR.CorrectAnswer -= HandleCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer -= HandleIncorrectAnswer;
         }
 
         public void Die(Vector3 respawnPoint)
@@ -54,33 +56,38 @@ namespace StellarFactor
             Teleport(respawnPoint);
         }
 
+        protected virtual void OnDeath()
+        {
+            GameManager.MGR.OnPlayerDeath();
+        }
+
         public void Teleport(Vector3 position)
         {
             transform.position = position;
             Physics.SyncTransforms();
         }
 
-        private void onPause()
+        private void HandlePause()
         {
             lockControls();
         }
 
-        private void onResume()
+        private void HandleResume()
         {
             unlockControls();
         }
 
-        private void onArtifactInteraction(Artifact artifact)
+        private void HandleArtifactInteraction(Artifact artifact)
         {
             lockControls();
         }
 
-        private void onCancelArtifactInteraction()
+        private void HandleCancelArtifactInteraction()
         {
             unlockControls();
         }
 
-        private void onCorrectAnswer()
+        private void HandleCorrectAnswer()
         {
             unlockControls();
 
@@ -89,15 +96,17 @@ namespace StellarFactor
             // just flip a bool? lol)
         }
 
-        private void onIncorrectAnswer()
+        private void HandleIncorrectAnswer()
         {
             // TODO:
             // Lose health? Anything else?
         }
 
-        protected virtual void OnDeath()
+        private void HandlePanelCyclerInteraction(PanelCycler cycler)
         {
-            GameManager.MGR.OnPlayerDeath();
+            lockControls();
+            WaitThenDo waitForFinish = new(this, () => !cycler.IsRunning, unlockControls);
+            waitForFinish.Start();
         }
 
         private void lockControls()
