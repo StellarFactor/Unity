@@ -24,6 +24,7 @@ namespace StellarFactor
         public event Action Quit;
         public event Action<Artifact> ArtifactInteraction;
         public event Action CancelArtifactInteraction;
+        public event Action<PanelCycler> PanelCyclerInteraction;
 
         private void Start()
         {
@@ -41,6 +42,10 @@ namespace StellarFactor
         public void OnPlayerDeath()
         {
             PlayerDeath?.Invoke();
+        }
+        public void OnArtifactInteraction(Artifact artifact)
+        {
+            ArtifactInteraction?.Invoke(artifact);
         }
         public void OnCancelArtifactInteraction()
         {
@@ -62,9 +67,9 @@ namespace StellarFactor
         {
             Quit?.Invoke();
         }
-        public void OnArtifactInteraction(Artifact artifact)
+        public void OnPanelCyclerInteraction(PanelCycler cycler)
         {
-            ArtifactInteraction?.Invoke(artifact);
+            PanelCyclerInteraction.Invoke(cycler);
         }
 
         public void QuitGame()
