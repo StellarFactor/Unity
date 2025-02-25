@@ -75,17 +75,17 @@ namespace StellarFactor
 
         public void OpenWindow()
         {
-            Open.Invoke();
+            Open?.Invoke();
         }
 
         public void CloseWindow()
         {
-            Close.Invoke();
+            Close?.Invoke();
         }
 
         public void ResetWindow()
         {
-            Reset.Invoke();
+            Reset?.Invoke();
         }
 
         private QuestionPool getPool(Difficulty difficulty)

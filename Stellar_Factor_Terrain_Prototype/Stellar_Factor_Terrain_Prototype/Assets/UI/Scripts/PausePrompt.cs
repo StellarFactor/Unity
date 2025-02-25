@@ -11,6 +11,7 @@ namespace StellarFactor
         [SerializeField] Spritebox _background;
 
         private bool _isPaused;
+        private bool _canPause;
 
         private void OnEnable()
         {
@@ -26,9 +27,15 @@ namespace StellarFactor
             GameManager.MGR.Resume -= onResume;
         }
 
+        private void Start()
+        {
+            _canPause = true;
+        }
 
         private void Update()
         {
+            if (!_canPause) { return; }
+
             if (Input.GetKeyDown(GameManager.MGR.PauseKey))
             {
                 if (_isPaused)
@@ -54,12 +61,14 @@ namespace StellarFactor
 
         private void onPause()
         {
+            _canPause = false;
             _pauseText.enabled = false;
             _background.enabled = false;
         }
 
         private void onResume()
         {
+            _canPause = true;
             _pauseText.enabled = true;
             _background.enabled = true;
         }

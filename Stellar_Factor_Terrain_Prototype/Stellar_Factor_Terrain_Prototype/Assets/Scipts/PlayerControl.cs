@@ -12,6 +12,8 @@ namespace StellarFactor
         [SerializeField] private StaticNodeColorsSO deathNodeColors;
         private DeathLocation lastDeathLocation;
 
+        private int lockInteractionStack = 0;
+
         private void Awake()
         {
             _controller = GetComponent<FirstPersonController>();
@@ -69,26 +71,35 @@ namespace StellarFactor
 
         private void HandlePause()
         {
+            lockInteractionStack++;
             lockControls();
         }
 
         private void HandleResume()
         {
+            if (--lockInteractionStack > 0) { return; }
+
             unlockControls();
         }
 
         private void HandleArtifactInteraction(Artifact artifact)
         {
+            lockInteractionStack++;
+
             lockControls();
         }
 
         private void HandleCancelArtifactInteraction()
         {
+            if (--lockInteractionStack > 0) { return; }
+
             unlockControls();
         }
 
         private void HandleCorrectAnswer()
         {
+            if (--lockInteractionStack > 0) { return; }
+
             unlockControls();
 
             // TODO:
@@ -104,8 +115,20 @@ namespace StellarFactor
 
         private void HandlePanelCyclerInteraction(PanelCycler cycler)
         {
+            lockInteractionStack++;
+
             lockControls();
-            WaitThenDo waitForFinish = new(this, () => !cycler.IsRunning, unlockControls);
+
+            void tryDecrementedUnlock() {
+                if (--lockInteractionStack > 0) { return; }
+                unlockControls();
+            }
+
+            WaitThenDo waitForFinish = new(
+                this,
+                () => !cycler.IsRunning,
+                tryDecrementedUnlock);
+
             waitForFinish.Start();
         }
 

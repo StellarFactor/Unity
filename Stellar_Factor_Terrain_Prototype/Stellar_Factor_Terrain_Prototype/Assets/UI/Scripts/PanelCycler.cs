@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using StellarFactor;
+using System;
+using UnityEngine.UI;
 
 public class PanelCycler : MonoBehaviour
 {
@@ -33,6 +35,18 @@ public class PanelCycler : MonoBehaviour
 
     private bool IsGreater  => currentIndex >= Panels.Count;
     private bool IsLess     => currentIndex < 0;
+
+    private void OnEnable()
+    {
+        GameManager.MGR.Pause += HandlePause;
+        GameManager.MGR.Resume += HandleResume;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.MGR.Pause -= HandlePause;
+        GameManager.MGR.Resume -= HandleResume;
+    }
 
     private void Start()
     {
@@ -127,5 +141,17 @@ public class PanelCycler : MonoBehaviour
         {
             currentIndex = 0;
         }
+    }
+
+    private void HandlePause()
+    {
+        Button[] buttons = GetComponentsInChildren<Button>();
+        buttons.ToList().ForEach(button => button.interactable = false);
+    }
+
+    private void HandleResume()
+    {
+        Button[] buttons = GetComponentsInChildren<Button>();
+        buttons.ToList().ForEach(button => button.interactable = true);
     }
 }
