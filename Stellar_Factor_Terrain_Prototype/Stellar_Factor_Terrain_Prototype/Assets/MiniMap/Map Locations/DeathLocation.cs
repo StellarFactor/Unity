@@ -51,17 +51,17 @@ namespace StellarFactor.Minimap
 
         public void HandlePlayerDeath()
         {
-            throw new NotImplementedException();
+            // TODO: Do these really belong on IMapLocation?
         }
 
         public void CreateNode()
         {
-            throw new NotImplementedException();
+            // TODO: Do these really belong on IMapLocation?
         }
 
         public void DestroyNode()
         {
-            throw new NotImplementedException();
+            // TODO: Do these really belong on IMapLocation?
         }
 
         ~DeathLocation()

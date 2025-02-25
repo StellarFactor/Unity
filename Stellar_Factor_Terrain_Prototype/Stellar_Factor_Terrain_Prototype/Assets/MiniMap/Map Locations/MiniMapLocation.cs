@@ -132,7 +132,6 @@ namespace StellarFactor.Minimap
         {
             if (!IsActive) { return; }
 
-            log.Throw("wut");
             Destroy(instantiatedNode.gameObject);
         }
 
