@@ -14,6 +14,11 @@ namespace StellarFactor
 
         public ClassSwitcher(T defaultT)
         {
+            init(defaultT);
+        }
+
+        private void init(T defaultT)
+        {
             _default = defaultT;
             _current = defaultT;
             _buffer = defaultT;
@@ -39,6 +44,11 @@ namespace StellarFactor
 
         public T Get()
         {
+            if (_current == null)
+            {
+                init(_default);
+            }
+
             return _current;
         }
     }

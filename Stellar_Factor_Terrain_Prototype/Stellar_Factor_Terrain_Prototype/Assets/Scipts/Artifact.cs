@@ -7,10 +7,13 @@ namespace StellarFactor
     public class Artifact : MonoBehaviour, IInteractable
     {
         [SerializeField] private Difficulty _difficulty;
+        [SerializeField] private int _index;
 
         [SerializeField] private UnityEvent OnPlayerEnter;
         [SerializeField] private UnityEvent OnInteract;
         [SerializeField] private UnityEvent OnPlayerExit;
+
+        [SerializeField] private GameObject particleEffect;
 
         private bool _playerHere;
         private QuestionSO _question;
@@ -30,16 +33,29 @@ namespace StellarFactor
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
 
-        private void Awake()
+        private void Start()
         {
             // Fill this with a question when it's loaded
-            _question = QuestionManager.MGR.GetQuestion(_difficulty);
+            _question = getQuestion();
         }
 
         private void onCorrectAnswer()
         {
             if (!_playerHere) { return; }
 
+            // When a particle system gets assigned to the artifact, itll stop and destroy itself
+            // once the question is answered correctly.
+            if (particleEffect != null)
+            {
+                ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
+                if (ps!= null)
+                {
+                    ps.Stop();
+                }
+
+                //Instead of the particle instantly destroying itself, itll take a second to look less awkward.
+                Destroy(particleEffect, 1f);
+            }
             // TODO:
             // animate?
             // anything else?
@@ -72,19 +88,31 @@ namespace StellarFactor
         public void PlayerEnterRange()
         {
             _playerHere = true;
-            OnPlayerEnter.Invoke();
+            OnPlayerEnter?.Invoke();
         }
 
         public void Interact()
         {
-            OnInteract.Invoke();
-            GameManager.MGR.ArtifactInteraction.Invoke(this);
+            OnInteract?.Invoke();
+            GameManager.MGR.OnArtifactInteraction(this);
         }
 
         public void PlayerExitRange()
         {
-            OnPlayerExit.Invoke();
+            OnPlayerExit?.Invoke();
             _playerHere = false;
+        }
+
+        private QuestionSO getQuestion()
+        {
+            if (QuestionManager.MGR.RandomMode)
+            {
+                return QuestionManager.MGR.GetQuestion(_difficulty);
+            }
+            else
+            {
+                return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+            }
         }
     }
 }

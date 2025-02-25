@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
 
 namespace StellarFactor
 {
@@ -8,8 +7,29 @@ namespace StellarFactor
     {
         private IInteractable _currentInteraction;
 
+        private bool canInteract;
+
+        private void OnEnable()
+        {
+            GameManager.MGR.Pause += HandlePause;
+            GameManager.MGR.Resume += HandleResume;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.MGR.Pause -= HandlePause;
+            GameManager.MGR.Resume -= HandleResume;
+        }
+
+        private void Start()
+        {
+            canInteract = true;
+        }
+
         private void Update()
         {
+            if (!canInteract) { return; }
+
             if (Input.GetKeyDown(GameManager.MGR.InteractKey))
             {
                 _currentInteraction?.Interact();
@@ -35,6 +55,16 @@ namespace StellarFactor
 
             _currentInteraction.PlayerExitRange();
             _currentInteraction = null;
+        }
+
+        private void HandlePause()
+        {
+            canInteract = false;
+        }
+
+        private void HandleResume()
+        {
+            canInteract = true;
         }
     }
 }

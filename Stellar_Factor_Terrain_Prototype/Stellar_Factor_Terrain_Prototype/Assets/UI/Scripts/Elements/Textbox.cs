@@ -1,13 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 namespace StellarFactor
 {
     public class Textbox : MonoBehaviour
     {
-        TMP_Text _text;
+        protected TMP_Text _text;
 
         public ClassSwitcher<string> Text;
         public StructSwitcher<Color> TextColor;

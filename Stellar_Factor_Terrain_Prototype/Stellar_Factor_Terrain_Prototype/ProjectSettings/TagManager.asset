@@ -6,16 +6,18 @@ TagManager:
   tags:
   - Lava
   - Stargate
+  - Checkpoint
+  - Minimap
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Artifact
+  - Minimap
+  - Particle FX
   - 
   - 
   - 

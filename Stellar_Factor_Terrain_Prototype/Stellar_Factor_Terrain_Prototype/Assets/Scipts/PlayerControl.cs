@@ -1,82 +1,149 @@
-using StellarFactor;
-using System;
+using StellarFactor.Minimap;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class PlayerControl : MonoBehaviour
+namespace StellarFactor
 {
-    private FirstPersonController _controller;
-
-    private void Awake()
+    public class PlayerControl : MonoBehaviour
     {
-        _controller = GetComponent<FirstPersonController>();
-    }
+        private FirstPersonController _controller;
 
-    private void OnEnable()
-    {
-        GameManager.MGR.Pause += onPause;
-        GameManager.MGR.Resume += onResume;
-        GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-        GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
-        QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-        QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
-    }
+        [SerializeField] private Node lastDeathMinimapNode;
+        [SerializeField] private StaticNodeColorsSO deathNodeColors;
+        private DeathLocation lastDeathLocation;
+
+        private int lockInteractionStack = 0;
+
+        private void Awake()
+        {
+            _controller = GetComponent<FirstPersonController>();
+        }
+
+        private void OnEnable()
+        {
+            GameManager.MGR.Pause += HandlePause;
+            GameManager.MGR.Resume += HandleResume;
+            GameManager.MGR.ArtifactInteraction += HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction += HandleCancelArtifactInteraction;
+            GameManager.MGR.PanelCyclerInteraction += HandlePanelCyclerInteraction;
+            QuestionManager.MGR.CorrectAnswer += HandleCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer += HandleIncorrectAnswer;
+        }
 
 
-    private void OnDisable()
-    {
-        GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-        GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
-        QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-        QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
-    }
+        private void OnDisable()
+        {
+            GameManager.MGR.ArtifactInteraction -= HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction -= HandleCancelArtifactInteraction;
+            GameManager.MGR.PanelCyclerInteraction -= HandlePanelCyclerInteraction;
+            QuestionManager.MGR.CorrectAnswer -= HandleCorrectAnswer;
+            QuestionManager.MGR.IncorrectAnswer -= HandleIncorrectAnswer;
+        }
 
-    private void onPause()
-    {
-        lockControls();
-    }
+        public void Die(Vector3 respawnPoint)
+        {
+            if (lastDeathLocation != null)
+            {
+                Node node = (lastDeathLocation as IMapLocation).InstantiatedNode;
+                Destroy(node.gameObject);
+            }
 
-    private void onResume()
-    {
-        unlockControls();
-    }
+            lastDeathLocation = new DeathLocation(
+                lastDeathMinimapNode,
+                transform.position,
+                deathNodeColors.StaticColor
+                );
+            MiniMap.MGR.InstantiateNodeAt(lastDeathLocation);
 
-    private void onArtifactInteraction(Artifact artifact)
-    {
-        lockControls();
-    }
+            Teleport(respawnPoint);
+        }
 
-    private void onCancelArtifactInteraction()
-    {
-        unlockControls();
-    }
+        protected virtual void OnDeath()
+        {
+            GameManager.MGR.OnPlayerDeath();
+        }
 
-    private void onCorrectAnswer()
-    {
-        unlockControls();
+        public void Teleport(Vector3 position)
+        {
+            transform.position = position;
+            Physics.SyncTransforms();
+        }
 
-        // TODO:
-        // Add "artifact" to "inventory" (probably
-        // just flip a bool? lol)
-    }
+        private void HandlePause()
+        {
+            lockInteractionStack++;
+            lockControls();
+        }
 
-    private void onIncorrectAnswer()
-    {        
-        // TODO:
-        // Lose health? Anything else?
-    }
+        private void HandleResume()
+        {
+            if (--lockInteractionStack > 0) { return; }
 
-    private void lockControls()
-    {
-        _controller.enabled = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-    }
+            unlockControls();
+        }
 
-    private void unlockControls()
-    {
-        _controller.enabled = true;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        private void HandleArtifactInteraction(Artifact artifact)
+        {
+            lockInteractionStack++;
+
+            lockControls();
+        }
+
+        private void HandleCancelArtifactInteraction()
+        {
+            if (--lockInteractionStack > 0) { return; }
+
+            unlockControls();
+        }
+
+        private void HandleCorrectAnswer()
+        {
+            if (--lockInteractionStack > 0) { return; }
+
+            unlockControls();
+
+            // TODO:
+            // Add "artifact" to "inventory" (probably
+            // just flip a bool? lol)
+        }
+
+        private void HandleIncorrectAnswer()
+        {
+            // TODO:
+            // Lose health? Anything else?
+        }
+
+        private void HandlePanelCyclerInteraction(PanelCycler cycler)
+        {
+            lockInteractionStack++;
+
+            lockControls();
+
+            void tryDecrementedUnlock() {
+                if (--lockInteractionStack > 0) { return; }
+                unlockControls();
+            }
+
+            WaitThenDo waitForFinish = new(
+                this,
+                () => !cycler.IsRunning,
+                tryDecrementedUnlock);
+
+            waitForFinish.Start();
+        }
+
+        private void lockControls()
+        {
+            _controller.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+
+        private void unlockControls()
+        {
+            _controller.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }

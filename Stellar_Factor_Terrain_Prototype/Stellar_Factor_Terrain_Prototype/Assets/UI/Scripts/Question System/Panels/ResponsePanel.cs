@@ -1,22 +1,32 @@
-using System;
 using UnityEngine;
 
 namespace StellarFactor
 {
     public class ResponsePanel : MonoBehaviour
     {
-        [SerializeField] private Textbox _textbox;
+        [SerializeField] private AnswerColorsSO _answerColors;
 
-        [Header("Settings")]
+        [Header("Question Response Settings")]
+        [SerializeField] private Textbox _questionResponseBox;
+
+        [Space(5)]
         [SerializeField] private string _correctMessage;
         [SerializeField] private string _incorrectMessage;
-        [SerializeField] private AnswerColorsSO _answerColors;
+
+        [Space(10)]
+        [Header("Artifact Response Settings")]
+        [SerializeField] private Spritebox _artifactResponseBKG;
+        [SerializeField] private Textbox _artifactResponseBox;
+
+        [Space(5)]
+        [SerializeField] private string _acquiredArtifactMessasge;
+        [SerializeField] private string _failedArtifactMessage;
 
         private void OnEnable()
         {
             QuestionManager.MGR.Open += onOpen;
             QuestionManager.MGR.Close += onClose;
-            QuestionManager.MGR.Clear += onClear;
+            QuestionManager.MGR.Reset += onClear;
             QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
         }
@@ -26,7 +36,7 @@ namespace StellarFactor
         {
             QuestionManager.MGR.Open -= onOpen;
             QuestionManager.MGR.Close -= onClose;
-            QuestionManager.MGR.Clear -= onClear;
+            QuestionManager.MGR.Reset -= onClear;
             QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
             QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
         }
@@ -38,39 +48,65 @@ namespace StellarFactor
 
         private void onOpen()
         {
-            _textbox.enabled = true;
+            showAll();
         }
 
         private void onClose()
         {
-            reset();
-            _textbox.enabled = false;
+            _questionResponseBox.ResetAll();
+            _artifactResponseBox.ResetAll();
+
+            hideAll();
         }
 
         private void onClear()
         {
-            reset();
-            _textbox.enabled = false;
+            _questionResponseBox.ResetAll();
+            _artifactResponseBox.ResetAll();
+
+            hideAll();
         }
 
         private void onCorrectAnswer()
         {
-            _textbox.enabled = true;
-            _textbox.Text.Set(_correctMessage);
-            _textbox.TextColor.Set(_answerColors.Correct);
+            showAll();
+
+            _questionResponseBox.Text.Set(_correctMessage);
+            _questionResponseBox.TextColor.Set(_answerColors.Correct);
+
+            _artifactResponseBox.Text.Set(_acquiredArtifactMessasge);
+            _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
+
+            Invoke("hideAll", 2f);
         }
 
         private void onIncorrectAnswer()
         {
-            _textbox.enabled = true;
-            _textbox.Text.Set(_incorrectMessage);
-            _textbox.TextColor.Set(_answerColors.Incorrect);
+            showAll();
+
+            _questionResponseBox.Text.Set(_incorrectMessage);
+            _questionResponseBox.TextColor.Set(_answerColors.Incorrect);
+
+            _artifactResponseBox.Text.Set(_failedArtifactMessage);
+            _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
+
+            Invoke("hideAll", 2f);
         }
 
-        private void reset()
+        private void hideAll()
         {
-            _textbox.Text.Reset();
-            _textbox.TextColor.Reset();
+            _questionResponseBox.enabled = false;
+
+            _artifactResponseBKG.enabled = false;
+            _artifactResponseBox.enabled = false;
+        }
+
+        private void showAll()
+        {
+            _questionResponseBox.enabled = true;
+
+            _artifactResponseBKG.enabled = true;
+            _artifactResponseBox.enabled = true;
         }
     }
 }
