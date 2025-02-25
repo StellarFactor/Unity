@@ -63,13 +63,13 @@ namespace StellarFactor
         {
             Resume?.Invoke();
         }
-        public void OnQuit()
-        {
-            Quit?.Invoke();
-        }
+        //public void OnQuit()
+        //{
+        //    Quit?.Invoke();
+        //}
         public void OnPanelCyclerInteraction(PanelCycler cycler)
         {
-            PanelCyclerInteraction.Invoke(cycler);
+            PanelCyclerInteraction?.Invoke(cycler);
         }
 
         public void QuitGame()
