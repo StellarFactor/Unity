@@ -2,23 +2,24 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private Transform pointA;  // First position
-    [SerializeField] private Transform pointB;  // Second position
-    [SerializeField] private float speed = 2f;  // Movement speed
+    [SerializeField] private Transform pointA;
+    [SerializeField] private Transform pointB; 
+    [SerializeField] private float speed = 2f; 
 
-    private Transform target;  // Current target
+    private Transform target;
 
     private void Start()
     {
-        target = pointA; // Start moving towards Point A
+        //Platforms start moving towards PointA by default when the game starts
+        target = pointA; 
     }
 
     private void Update()
     {
-        // Move platform towards the target position
+        
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
-        // If the platform reaches the target, switch to the other one
+        //Whenever the platform reaches one of the checkpoints, it'll start moving towards the other one
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
             target = (target == pointA) ? pointB : pointA;
