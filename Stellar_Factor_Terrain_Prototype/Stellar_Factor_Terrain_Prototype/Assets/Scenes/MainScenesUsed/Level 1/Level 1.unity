@@ -3409,6 +3409,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 870a69b38f4379044a2312e13308d06e, type: 3}
+--- !u!1 &184841576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 184841578}
+  - component: {fileID: 184841577}
+  m_Layer: 0
+  m_Name: VideoPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!328 &184841577
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184841576}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 4f3bcb83ca5e97e428dd9d0eb6fa21b7, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 76bbf1ee949634d42bf72eaa2d1093b1, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 1
+  m_TargetAudioSources:
+  - {fileID: 654637605}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
+--- !u!4 &184841578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184841576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 484.01785, y: 480.77484, z: -590.0236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187138018
 GameObject:
   m_ObjectHideFlags: 0
@@ -12612,6 +12680,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastDeathMinimapNode: {fileID: 1702274620393786343, guid: b49579f0a2b16b74fb20151d9caf8c18, type: 3}
   deathNodeColors: {fileID: 11400000, guid: f1c8f7a135c593546988c14a08f41642, type: 2}
+--- !u!82 &654637605 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+  m_PrefabInstance: {fileID: 1232539752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &656242293
 GameObject:
   m_ObjectHideFlags: 0
@@ -22679,7 +22752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32
+      value: 225.44
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22687,7 +22760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48
+      value: 230.94
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22723,7 +22796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: MinDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_RunSpeed
@@ -22741,6 +22818,10 @@ PrefabInstance:
       propertyPath: m_FootstepSounds.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      propertyPath: m_FootstepSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_FootstepSounds.Array.data[2]
       value: 
@@ -26606,7 +26687,7 @@ PrefabInstance:
       addedObject: {fileID: 1578679094}
     - targetCorrespondingSourceObject: {fileID: 9012030370207810504, guid: ee30bef99ea2ed74facc25c35f661f32, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1578679098}
+      addedObject: {fileID: 1578679102}
   m_SourcePrefab: {fileID: 100100000, guid: ee30bef99ea2ed74facc25c35f661f32, type: 3}
 --- !u!4 &1494901867 stripped
 Transform:
@@ -27444,6 +27525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8785184437785472184, guid: cfe9fa50156a0544598f6e8ccbee02af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28000,7 +28085,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1578679098
+--- !u!114 &1578679102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28009,10 +28094,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1578679093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d37b8435eeedbc42a914943c1b5c9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: bfb7dffcaa8cdf34c9ef840cf750faf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 193656416}
+  nextSceneName: Level 2 Inside
+  videoPlayer: {fileID: 184841577}
+  videoCanvas: {fileID: 0}
+  delayAfterVideo: 1
 --- !u!1001 &1579400159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40246,6 +40334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Intro Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2547743309655224524, guid: a90de434b5fe75d489040654adae4126, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4085772209423005596, guid: a90de434b5fe75d489040654adae4126, type: 3}
       propertyPath: m_SizeDelta.y
       value: 170
@@ -42498,3 +42590,4 @@ SceneRoots:
   - {fileID: 417963021}
   - {fileID: 421816672}
   - {fileID: 4588023820664044212}
+  - {fileID: 184841578}
