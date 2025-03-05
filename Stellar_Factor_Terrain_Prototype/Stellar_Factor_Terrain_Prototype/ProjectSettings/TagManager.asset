@@ -9,6 +9,7 @@ TagManager:
   - Checkpoint
   - Minimap
   - Teleporter
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
