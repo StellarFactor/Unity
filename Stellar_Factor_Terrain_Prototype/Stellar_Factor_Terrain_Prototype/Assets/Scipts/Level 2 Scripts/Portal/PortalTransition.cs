@@ -5,16 +5,16 @@ using UnityEngine.Video;
 
 public class PortalTransition : MonoBehaviour
 {
-    [Tooltip("Name of the scene to load (must be added in Build Settings)")]
+    //This is what references the name of the scene that we are transitioning to
     public string nextSceneName = "Level 2 Inside";
 
-    [Tooltip("Reference to the VideoPlayer component that will play the video")]
+    //References the videoPlayer
     public VideoPlayer videoPlayer;
 
-    [Tooltip("Reference to the Canvas that contains the VideoPlayer (make sure it is disabled initially)")]
+    //References the videoCanvas
     public GameObject videoCanvas;
 
-    [Tooltip("Optional delay (in seconds) after the video finishes before switching scenes")]
+    //I added a small delay after the video transition ends just so it doesn't feel awkward when transitioning
     public float delayAfterVideo = 0.5f;
 
     // Prevent multiple triggers
@@ -27,7 +27,7 @@ public class PortalTransition : MonoBehaviour
             hasTriggered = true;
             Debug.Log("Portal triggered by player!");
 
-            // Enable the canvas that holds the video
+            //This'll enable the Video Canvas in order to showcase the transition Video
             if (videoCanvas != null)
             {
                 Debug.Log("Enabling video canvas...");
@@ -39,7 +39,7 @@ public class PortalTransition : MonoBehaviour
                 Debug.LogWarning("Video canvas is not assigned in the PortalTransition script!");
             }
 
-            // Enable and start the VideoPlayer
+            //This enables the video player to start playing
             if (videoPlayer != null)
             {
                 videoPlayer.gameObject.SetActive(true);
