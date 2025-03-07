@@ -13,49 +13,22 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.LevelLoaded += onLevelLoaded;
-            GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-            QuestionManager.MGR.Reset += onClear;
+            GameManager.MGR.LevelLoaded += HandleLevelLoaded;
+            GameManager.MGR.ArtifactInteraction += HandleArtifactInteraction;
+            QuestionManager.MGR.WindowReset += Clear;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.LevelLoaded -= onLevelLoaded;
-            GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-            QuestionManager.MGR.Reset -= onClear;
-        }
-
-        private void onLevelLoaded(int buildIndex)
-        {
-            ClosePrompt();
-        }
-
-        public void onArtifactInteraction(Artifact artifact)
-        {
-            hide();
-        }
-
-        private void onClear()
-        {
-            _textbox.ResetAll();
-        }
-
-        private void hide()
-        {
-            _background.enabled = false;
-            _textbox.enabled = false;
-        }
-
-        private void show()
-        {
-            _background.enabled = true;
-            _textbox.enabled = true;
+            GameManager.MGR.LevelLoaded -= HandleLevelLoaded;
+            GameManager.MGR.ArtifactInteraction -= HandleArtifactInteraction;
+            QuestionManager.MGR.WindowReset -= Clear;
         }
 
         public void DisplayInteractionPrompt()
         {
-            show();
-            onClear();
+            Show();
+            Clear();
 
             string message = _interactionPrompt;
             message = message.Replace("<>", $"{GameManager.MGR.InteractKey}");
@@ -65,8 +38,35 @@ namespace StellarFactor
 
         public void ClosePrompt()
         {
+            Clear();
+            Hide();
+        }
+
+        private void HandleLevelLoaded(int buildIndex)
+        {
+            ClosePrompt();
+        }
+
+        private void HandleArtifactInteraction(Artifact artifact)
+        {
+            Hide();
+        }
+
+        private void Clear()
+        {
             _textbox.ResetAll();
-            hide();
+        }
+
+        private void Hide()
+        {
+            _background.enabled = false;
+            _textbox.enabled = false;
+        }
+
+        private void Show()
+        {
+            _background.enabled = true;
+            _textbox.enabled = true;
         }
     }
 }

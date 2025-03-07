@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class WaitThenDo
 {
-    private readonly MonoBehaviour runner;
-    private readonly Func<bool> condition;
-    private readonly Action action;
+    protected readonly MonoBehaviour runner;
+    protected readonly Func<bool> finishCondition;
+    protected readonly Func<bool> cancelCondition;
+    protected readonly Action action;
+    protected readonly Action ifCancelled;
 
-    private Coroutine process;
+    protected Coroutine process;
 
     public bool IsStarted { get; private set; }
     public bool IsFinished { get; private set; }
+    public bool BeenCanceled { get; protected set; }
 
-    public WaitThenDo(MonoBehaviour runner, Func<bool> condition, Action action)
+    public WaitThenDo(
+        MonoBehaviour runner,
+        Func<bool> finishCondition,
+        Func<bool> cancelCondition,
+        Action action,
+        Action ifCancelled)
     {
         this.runner = runner;
-        this.condition = condition;
+        this.finishCondition = finishCondition;
+        this.cancelCondition = cancelCondition;
         this.action = action;
+        this.ifCancelled = ifCancelled;
     }
 
     public void Start()
     {
+        if (IsStarted) { return; }
+
         IsStarted = true;
         IsFinished = false;
+        BeenCanceled = false;
 
         process = runner.StartCoroutine(Routine());
     }
@@ -31,7 +44,8 @@ public class WaitThenDo
     public void Cancel()
     {
         IsStarted = true;
-        IsFinished = false;
+        IsFinished = true;
+        BeenCanceled = true;
 
         if (process != null)
         {
@@ -43,9 +57,20 @@ public class WaitThenDo
 
     private IEnumerator Routine()
     {
-        while (!condition())
+        while (!finishCondition())
         {
-            Debug.LogWarning($"{this} not done. condition: {condition()}");
+            if (cancelCondition())
+            {
+                Cancel();
+            }
+
+            if (BeenCanceled)
+            {
+                ifCancelled?.Invoke();
+                yield break;
+            }
+
+            Debug.LogWarning($"{this} not done. condition: {finishCondition()}");
             yield return null;
         }
 

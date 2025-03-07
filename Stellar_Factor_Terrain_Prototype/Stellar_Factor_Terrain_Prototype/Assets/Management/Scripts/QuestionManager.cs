@@ -4,24 +4,27 @@ using UnityEngine;
 
 namespace StellarFactor
 {
+    public enum QuestionLoadOrder { RANDOM, INSPECTOR_INDEX, INTERACTION_ORDER };
     public class QuestionManager : Singleton<QuestionManager>
     {
         [Header("Settings")]
-        [SerializeField] private bool _randomMode;
+        [SerializeField] private QuestionLoadOrder questionLoadOrder;
 
         [Header("Question Pools")]
         [SerializeField] private QuestionPool _easy;
         [SerializeField] private QuestionPool _medium;
         [SerializeField] private QuestionPool _hard;
 
-        public Action Open;
-        public Action Close;
-        public Action Reset;
-        public Action<int> SelectAnswer;
-        public Action CorrectAnswer;
-        public Action IncorrectAnswer;
+        private int currentArtifactInteractionCount;
 
-        public bool RandomMode { get { return _randomMode; } }
+        public Action WindowOpened;
+        public Action WindowClosed;
+        public Action WindowReset;
+        public Action<int> AnswerSelected;
+        public Action AnsweredCorrectly;
+        public Action AnsweredIncorrectly;
+
+        public QuestionLoadOrder QuestionLoadOrder { get { return questionLoadOrder; } }
 
         private void OnEnable()
         {
@@ -41,6 +44,7 @@ namespace StellarFactor
 
         private void onArtifactFound(Artifact artifact)
         {
+            currentArtifactInteractionCount++;
             OpenWindow();
         }
 
@@ -73,19 +77,31 @@ namespace StellarFactor
             return pool.GetQuestionAt(artifactIndex);
         }
 
+        public QuestionSO GetNextQuestion(Difficulty difficulty)
+        {
+            QuestionPool pool = getPool(difficulty);
+
+            // Null checks
+            if (pool == null) { return null; }
+            if (pool.Empty) { return null; }
+
+            return pool.GetQuestionAt(currentArtifactInteractionCount);
+
+        }
+
         public void OpenWindow()
         {
-            Open?.Invoke();
+            WindowOpened?.Invoke();
         }
 
         public void CloseWindow()
         {
-            Close?.Invoke();
+            WindowClosed?.Invoke();
         }
 
         public void ResetWindow()
         {
-            Reset?.Invoke();
+            WindowReset?.Invoke();
         }
 
         private QuestionPool getPool(Difficulty difficulty)

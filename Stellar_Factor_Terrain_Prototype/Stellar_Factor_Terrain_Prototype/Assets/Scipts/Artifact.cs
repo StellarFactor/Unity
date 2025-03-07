@@ -22,24 +22,24 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            QuestionManager.MGR.AnsweredCorrectly += HandleCorrectAnswer;
+            QuestionManager.MGR.AnsweredIncorrectly += HandleIncorrectAnswer;
         }
 
 
         private void OnDisable()
         {
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            QuestionManager.MGR.AnsweredCorrectly -= HandleCorrectAnswer;
+            QuestionManager.MGR.AnsweredIncorrectly -= HandleIncorrectAnswer;
         }
 
-        private void Start()
-        {
-            // Fill this with a question when it's loaded
-            _question = getQuestion();
-        }
+        //private void Start()
+        //{
+        //    // Fill this with a question when it's loaded
+        //    _question = getQuestion();
+        //}
 
-        private void onCorrectAnswer()
+        private void HandleCorrectAnswer()
         {
             if (!_playerHere) { return; }
 
@@ -69,7 +69,7 @@ namespace StellarFactor
             Destroy(gameObject, 1f);
         }
 
-        private void onIncorrectAnswer()
+        private void HandleIncorrectAnswer()
         {
             if (!_playerHere) { return; }
 
@@ -89,6 +89,9 @@ namespace StellarFactor
         {
             _playerHere = true;
             OnPlayerEnter?.Invoke();
+
+            // If question is null get a question, else don't
+            _question = (_question != null) ? _question : getQuestion();
         }
 
         public void Interact()
@@ -105,13 +108,17 @@ namespace StellarFactor
 
         private QuestionSO getQuestion()
         {
-            if (QuestionManager.MGR.RandomMode)
+            switch (QuestionManager.MGR.QuestionLoadOrder)
             {
-                return QuestionManager.MGR.GetQuestion(_difficulty);
-            }
-            else
-            {
-                return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+                default:
+                case QuestionLoadOrder.RANDOM:
+                    return QuestionManager.MGR.GetQuestion(_difficulty);
+
+                case QuestionLoadOrder.INSPECTOR_INDEX:
+                    return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+
+                case QuestionLoadOrder.INTERACTION_ORDER:
+                    return QuestionManager.MGR.GetNextQuestion(_difficulty);
             }
         }
     }

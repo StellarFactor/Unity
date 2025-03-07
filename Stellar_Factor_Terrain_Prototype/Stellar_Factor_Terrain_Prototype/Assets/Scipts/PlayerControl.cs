@@ -1,4 +1,5 @@
 using StellarFactor.Minimap;
+using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -6,10 +7,10 @@ namespace StellarFactor
 {
     public class PlayerControl : MonoBehaviour
     {
-        private FirstPersonController _controller;
-
         [SerializeField] private Node lastDeathMinimapNode;
         [SerializeField] private StaticNodeColorsSO deathNodeColors;
+
+        private FirstPersonController _controller;
         private DeathLocation lastDeathLocation;
 
         private int lockInteractionStack = 0;
@@ -23,21 +24,19 @@ namespace StellarFactor
         {
             GameManager.MGR.Pause += HandlePause;
             GameManager.MGR.Resume += HandleResume;
-            GameManager.MGR.ArtifactInteraction += HandleArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction += HandleCancelArtifactInteraction;
             GameManager.MGR.PanelCyclerInteraction += HandlePanelCyclerInteraction;
-            QuestionManager.MGR.CorrectAnswer += HandleCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += HandleIncorrectAnswer;
+            QuestionManager.MGR.WindowOpened += HandleQuestionWindowOpened;
+            QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
         }
 
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactInteraction -= HandleArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction -= HandleCancelArtifactInteraction;
+            GameManager.MGR.Pause -= HandlePause;
+            GameManager.MGR.Resume -= HandleResume;
             GameManager.MGR.PanelCyclerInteraction -= HandlePanelCyclerInteraction;
-            QuestionManager.MGR.CorrectAnswer -= HandleCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= HandleIncorrectAnswer;
+            QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
+            QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
         }
 
         public void Die(Vector3 respawnPoint)
@@ -71,65 +70,77 @@ namespace StellarFactor
 
         private void HandlePause()
         {
-            lockInteractionStack++;
-            lockControls();
+            requestLockControls();
         }
 
         private void HandleResume()
         {
-            if (--lockInteractionStack > 0) { return; }
-
-            unlockControls();
+            requestUnlockControls();
         }
 
-        private void HandleArtifactInteraction(Artifact artifact)
+        private void HandleQuestionWindowClosed()
         {
-            lockInteractionStack++;
-
-            lockControls();
+            requestUnlockControls();
         }
 
-        private void HandleCancelArtifactInteraction()
+        private void HandleQuestionWindowOpened()
         {
-            if (--lockInteractionStack > 0) { return; }
-
-            unlockControls();
+            requestLockControls();
         }
 
-        private void HandleCorrectAnswer()
-        {
-            if (--lockInteractionStack > 0) { return; }
+        //private void HandleArtifactInteraction(Artifact artifact)
+        //{
+        //}
 
-            unlockControls();
+        //private void HandleCancelArtifactInteraction()
+        //{
+        //}
 
-            // TODO:
-            // Add "artifact" to "inventory" (probably
-            // just flip a bool? lol)
-        }
+        // TODO:
+        // Probably should add an Artifact param to the correctAnswer event
+        // and add "artifact" to "inventory"
+        // but I think this script doesn't need to concern itself with
+        // whether the player got the question right or not, just whether any UI
+        // windows are open.
+        //private void HandleCorrectAnswer()
+        //{
+        //}
 
-        private void HandleIncorrectAnswer()
-        {
-            // TODO:
-            // Lose health? Anything else?
-        }
+        //private void HandleIncorrectAnswer()
+        //{
+        //    // TODO:
+        //    // Lose health? Anything else?
+        //}
 
         private void HandlePanelCyclerInteraction(PanelCycler cycler)
         {
-            lockInteractionStack++;
+            requestLockControls();
 
-            lockControls();
-
-            void tryDecrementedUnlock() {
-                if (--lockInteractionStack > 0) { return; }
-                unlockControls();
-            }
-
-            WaitThenDo waitForFinish = new(
+            WaitThenDo waitForPanelCycler = new WaitThenDo(
                 this,
                 () => !cycler.IsRunning,
-                tryDecrementedUnlock);
+                () => false,
+                () => requestUnlockControls(),
+                () => { });
 
-            waitForFinish.Start();
+            waitForPanelCycler.Start();
+        }
+
+        private void requestLockControls()
+        {
+            lockInteractionStack++;
+            lockControls();
+        }
+
+        private bool requestUnlockControls()
+        {
+            if (--lockInteractionStack <= 0)
+            {
+                unlockControls();
+                return true;
+            }
+
+            return false;
         }
 
         private void lockControls()
