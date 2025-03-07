@@ -21,28 +21,28 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.ArtifactInteraction += onArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction += onCancelArtifactInteraction;
-            QuestionManager.MGR.Open += onOpen;
-            QuestionManager.MGR.Close += onClose;
-            QuestionManager.MGR.Reset += onReset;
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            GameManager.MGR.ArtifactInteraction += HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction += HandleCancelArtifactInteraction;
+            QuestionManager.MGR.WindowOpened += HandleQuestionWindowOpened;
+            QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
+            QuestionManager.MGR.WindowReset += HandleQuestionWindowReset;
+            QuestionManager.MGR.AnsweredCorrectly += HandleAnsweredCorrectly;
+            QuestionManager.MGR.AnsweredIncorrectly += HandleAnsweredIncorrectly;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactInteraction -= onArtifactInteraction;
-            GameManager.MGR.CancelArtifactInteraction -= onCancelArtifactInteraction;
-            QuestionManager.MGR.Open -= onOpen;
-            QuestionManager.MGR.Close -= onClose;
-            QuestionManager.MGR.Reset -= onReset;
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            GameManager.MGR.ArtifactInteraction -= HandleArtifactInteraction;
+            GameManager.MGR.CancelArtifactInteraction -= HandleCancelArtifactInteraction;
+            QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
+            QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
+            QuestionManager.MGR.WindowReset -= HandleQuestionWindowReset;
+            QuestionManager.MGR.AnsweredCorrectly -= HandleAnsweredCorrectly;
+            QuestionManager.MGR.AnsweredIncorrectly -= HandleAnsweredIncorrectly;
         }
 
 
-        private void onArtifactInteraction(Artifact artifact)
+        private void HandleArtifactInteraction(Artifact artifact)
         {
             if (artifact == null)
             {
@@ -58,7 +58,7 @@ namespace StellarFactor
 
             _questionBox.enabled = true;
 
-            QuestionManager.MGR.Reset.Invoke();
+            QuestionManager.MGR.ResetWindow();
 
             _questionText = artifact.Question.Text;
             _questionBox.Text.Set(_questionText);
@@ -75,38 +75,57 @@ namespace StellarFactor
             Initialized = true;
         }
 
-        private void onCancelArtifactInteraction()
+        private void HandleCancelArtifactInteraction()
         {
             QuestionManager.MGR.CloseWindow();
         }
 
-        private void onOpen()
+        private void HandleQuestionWindowOpened()
         {
             _canvas.enabled = true;
         }
 
-        private void onClose()
+        private void HandleQuestionWindowClosed()
         {
             _canvas.enabled = false;
         }
-        private void onReset()
+        private void HandleQuestionWindowReset()
         {
             _questionBox.enabled = true;
         }
 
-        private void onCorrectAnswer()
+        private void HandleAnsweredCorrectly()
         {
             _questionBox.enabled = false;
 
-            QuestionManager.MGR.Invoke("CloseWindow", 2f);
+            CountdownTimer timer = new(this, 2f);
+            timer.Start();
+
+            WaitThenDo waitAndClose = new(
+                this,
+                () => timer.IsFinished,
+                () => timer.BeenCanceled,
+                () => QuestionManager.MGR.CloseWindow(),
+                () => { });
+
+            waitAndClose.Start();
         }
 
-        private void onIncorrectAnswer()
+        private void HandleAnsweredIncorrectly()
         {
             _questionBox.enabled = false;
 
-            //QuestionManager.MGR.Invoke("CloseWindow", 2f);
-            QuestionManager.MGR.Invoke("ResetWindow", 2f);
+            CountdownTimer timer = new(this, 2f);
+            timer.Start();
+
+            WaitThenDo waitAndReset = new(
+                this,
+                () => timer.IsFinished,
+                () => timer.BeenCanceled,
+                () => QuestionManager.MGR.ResetWindow(),
+                () => { });
+
+            waitAndReset.Start();
         }
     }
 }

@@ -15,16 +15,16 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            QuestionManager.MGR.Reset += onClear;
-            QuestionManager.MGR.SelectAnswer += onAnswerSelected;
+            QuestionManager.MGR.WindowReset += onClear;
+            QuestionManager.MGR.AnswerSelected += onAnswerSelected;
             _ready = true;
         }
 
         private void OnDisable()
         {
             _ready = false;
-            QuestionManager.MGR.Reset -= onClear;
-            QuestionManager.MGR.SelectAnswer -= onAnswerSelected;
+            QuestionManager.MGR.WindowReset -= onClear;
+            QuestionManager.MGR.AnswerSelected -= onAnswerSelected;
         }
 
         private void onClear()
@@ -47,12 +47,12 @@ namespace StellarFactor
                 if (_answer.Correct)
                 {
                     color = _colors.Correct;
-                    QuestionManager.MGR.CorrectAnswer.Invoke();
+                    QuestionManager.MGR.AnsweredCorrectly.Invoke();
                 }
                 else
                 {
                     color = _colors.Incorrect;
-                    QuestionManager.MGR.IncorrectAnswer.Invoke();
+                    QuestionManager.MGR.AnsweredIncorrectly.Invoke();
                 }
             }
             else
@@ -94,7 +94,7 @@ namespace StellarFactor
             if (!_ready) { return; }
             _ready = false;
 
-            QuestionManager.MGR.SelectAnswer.Invoke(_index);
+            QuestionManager.MGR.AnswerSelected.Invoke(_index);
         }
     }
 }

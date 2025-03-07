@@ -24,21 +24,21 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            QuestionManager.MGR.Open += onOpen;
-            QuestionManager.MGR.Close += onClose;
-            QuestionManager.MGR.Reset += onClear;
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            QuestionManager.MGR.WindowOpened += onOpen;
+            QuestionManager.MGR.WindowClosed += onClose;
+            QuestionManager.MGR.WindowReset += onClear;
+            QuestionManager.MGR.AnsweredCorrectly += onCorrectAnswer;
+            QuestionManager.MGR.AnsweredIncorrectly += onIncorrectAnswer;
         }
 
 
         private void OnDisable()
         {
-            QuestionManager.MGR.Open -= onOpen;
-            QuestionManager.MGR.Close -= onClose;
-            QuestionManager.MGR.Reset -= onClear;
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            QuestionManager.MGR.WindowOpened -= onOpen;
+            QuestionManager.MGR.WindowClosed -= onClose;
+            QuestionManager.MGR.WindowReset -= onClear;
+            QuestionManager.MGR.AnsweredCorrectly -= onCorrectAnswer;
+            QuestionManager.MGR.AnsweredIncorrectly -= onIncorrectAnswer;
         }
 
         private void Start()
