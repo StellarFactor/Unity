@@ -8,6 +8,8 @@ TagManager:
   - Stargate
   - Checkpoint
   - Minimap
+  - Teleporter
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
