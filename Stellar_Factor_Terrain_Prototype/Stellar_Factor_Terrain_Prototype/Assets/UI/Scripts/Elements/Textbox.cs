@@ -20,10 +20,27 @@ namespace StellarFactor
         {
             _text.enabled = true;
         }
-
         private void OnDisable()
         {
             _text.enabled = false;
+        }
+
+        private void Update()
+        {
+            _text.text = Text.Get();
+            _text.color = TextColor.Get();
+        }
+
+        public void ResetAll()
+        {
+            Text.Reset();
+            TextColor.Reset();
+        }
+
+        public void RevertAll()
+        {
+            Text.Revert();
+            TextColor.Revert();
         }
 
         private void findComponents()
@@ -44,24 +61,6 @@ namespace StellarFactor
             {
                 TextColor = new StructSwitcher<Color>(_text.color);
             }
-        }
-
-        private void Update()
-        {
-            _text.text = Text.Get();
-            _text.color = TextColor.Get();
-        }
-
-        public void ResetAll()
-        {
-            Text.Reset();
-            TextColor.Reset();
-        }
-
-        public void RevertAll()
-        {
-            Text.Revert();
-            TextColor.Revert();
         }
     }
 }

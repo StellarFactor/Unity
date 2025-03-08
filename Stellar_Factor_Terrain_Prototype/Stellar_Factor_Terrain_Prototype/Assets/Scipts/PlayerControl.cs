@@ -15,6 +15,10 @@ namespace StellarFactor
 
         private int lockInteractionStack = 0;
 
+        public bool PauseKeyPressed =>
+            Input.GetKeyDown(GameManager.MGR.PauseKey);
+
+
         private void Awake()
         {
             _controller = GetComponent<FirstPersonController>();
@@ -22,9 +26,9 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.Pause += HandlePause;
-            GameManager.MGR.Resume += HandleResume;
-            GameManager.MGR.PanelCyclerInteraction += HandlePanelCyclerInteraction;
+            GameManager.MGR.GamePaused += HandlePause;
+            GameManager.MGR.GameResumed += HandleResume;
+            GameManager.MGR.PanelCyclerInteractionStarted += HandlePanelCyclerInteraction;
             QuestionManager.MGR.WindowOpened += HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
         }
@@ -32,11 +36,19 @@ namespace StellarFactor
 
         private void OnDisable()
         {
-            GameManager.MGR.Pause -= HandlePause;
-            GameManager.MGR.Resume -= HandleResume;
-            GameManager.MGR.PanelCyclerInteraction -= HandlePanelCyclerInteraction;
+            GameManager.MGR.GamePaused -= HandlePause;
+            GameManager.MGR.GameResumed -= HandleResume;
+            GameManager.MGR.PanelCyclerInteractionStarted -= HandlePanelCyclerInteraction;
             QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
+        }
+
+        private void Update()
+        {
+            if (PauseKeyPressed)
+            {
+                GameManager.MGR.PauseGame();
+            }
         }
 
         public void Die(Vector3 respawnPoint)
@@ -59,7 +71,7 @@ namespace StellarFactor
 
         protected virtual void OnDeath()
         {
-            GameManager.MGR.OnPlayerDeath();
+            GameManager.MGR.PlayerDeath();
         }
 
         public void Teleport(Vector3 position)
@@ -129,12 +141,19 @@ namespace StellarFactor
         private void requestLockControls()
         {
             lockInteractionStack++;
+            Debug.LogWarning($"Requesting Lock Controls.  Lock Stack : {lockInteractionStack}");
             lockControls();
         }
 
         private bool requestUnlockControls()
         {
-            if (--lockInteractionStack <= 0)
+            lockInteractionStack = (int)Mathf.Clamp(
+                --lockInteractionStack,
+                0,
+                Mathf.Infinity
+            );
+
+            if (lockInteractionStack == 0)
             {
                 unlockControls();
                 return true;

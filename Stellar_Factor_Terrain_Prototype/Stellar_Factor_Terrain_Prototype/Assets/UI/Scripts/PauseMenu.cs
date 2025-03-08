@@ -10,14 +10,14 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.Pause += onPause;
-            GameManager.MGR.Resume += onResume;
+            GameManager.MGR.GamePaused += onPause;
+            GameManager.MGR.GameResumed += onResume;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.Pause -= onPause;
-            GameManager.MGR.Resume -= onResume;
+            GameManager.MGR.GamePaused -= onPause;
+            GameManager.MGR.GameResumed -= onResume;
         }
 
         private void Start()

@@ -4,6 +4,8 @@ namespace StellarFactor
 {
     public class ResponsePanel : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
+
         [SerializeField] private AnswerColorsSO _answerColors;
 
         [Header("Question Response Settings")]
@@ -22,91 +24,43 @@ namespace StellarFactor
         [SerializeField] private string _acquiredArtifactMessasge;
         [SerializeField] private string _failedArtifactMessage;
 
-        private void OnEnable()
-        {
-            QuestionManager.MGR.WindowOpened += onOpen;
-            QuestionManager.MGR.WindowClosed += onClose;
-            QuestionManager.MGR.WindowReset += onClear;
-            QuestionManager.MGR.AnsweredCorrectly += onCorrectAnswer;
-            QuestionManager.MGR.AnsweredIncorrectly += onIncorrectAnswer;
-        }
-
-
-        private void OnDisable()
-        {
-            QuestionManager.MGR.WindowOpened -= onOpen;
-            QuestionManager.MGR.WindowClosed -= onClose;
-            QuestionManager.MGR.WindowReset -= onClear;
-            QuestionManager.MGR.AnsweredCorrectly -= onCorrectAnswer;
-            QuestionManager.MGR.AnsweredIncorrectly -= onIncorrectAnswer;
-        }
-
         private void Start()
         {
-            onClear();
+            Close();
         }
 
-        private void onOpen()
+        public void Open()
         {
-            showAll();
+            _canvas.enabled = true;
         }
 
-        private void onClose()
+        public void Close()
         {
-            _questionResponseBox.ResetAll();
-            _artifactResponseBox.ResetAll();
-
-            hideAll();
+            _canvas.enabled = false;
         }
 
-        private void onClear()
+        public void SetCorrect()
         {
-            _questionResponseBox.ResetAll();
-            _artifactResponseBox.ResetAll();
-
-            hideAll();
-        }
-
-        private void onCorrectAnswer()
-        {
-            showAll();
-
             _questionResponseBox.Text.Set(_correctMessage);
             _questionResponseBox.TextColor.Set(_answerColors.Correct);
 
             _artifactResponseBox.Text.Set(_acquiredArtifactMessasge);
             _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hideAll", 2f);
         }
 
-        private void onIncorrectAnswer()
+        public void SetIncorrect()
         {
-            showAll();
-
             _questionResponseBox.Text.Set(_incorrectMessage);
             _questionResponseBox.TextColor.Set(_answerColors.Incorrect);
 
             _artifactResponseBox.Text.Set(_failedArtifactMessage);
             _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hideAll", 2f);
         }
 
-        private void hideAll()
+        public void ResetPanel()
         {
-            _questionResponseBox.enabled = false;
-
-            _artifactResponseBKG.enabled = false;
-            _artifactResponseBox.enabled = false;
-        }
-
-        private void showAll()
-        {
-            _questionResponseBox.enabled = true;
-
-            _artifactResponseBKG.enabled = true;
-            _artifactResponseBox.enabled = true;
+            _questionResponseBox.ResetAll();
+            _artifactResponseBox.ResetAll();
         }
     }
 }

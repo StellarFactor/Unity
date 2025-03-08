@@ -1,52 +1,56 @@
 using StellarFactor.Global;
 using System;
 using UnityEngine;
+using UnityStandardAssets.Water;
 
 namespace StellarFactor
 {
     public enum QuestionLoadOrder { RANDOM, INSPECTOR_INDEX, INTERACTION_ORDER };
+
     public class QuestionManager : Singleton<QuestionManager>
     {
         [Header("Settings")]
         [SerializeField] private QuestionLoadOrder questionLoadOrder;
+        [SerializeField] private float answerResponseDuration;
 
         [Header("Question Pools")]
         [SerializeField] private QuestionPool _easy;
         [SerializeField] private QuestionPool _medium;
         [SerializeField] private QuestionPool _hard;
 
+        [Header("External References")]
+        [SerializeField] private QuestionPanel questionPanel;
+        [SerializeField] private ResponsePanel responsePanel;
+
         private int currentArtifactInteractionCount;
 
-        public Action WindowOpened;
-        public Action WindowClosed;
-        public Action WindowReset;
-        public Action<int> AnswerSelected;
-        public Action AnsweredCorrectly;
-        public Action AnsweredIncorrectly;
+        public event Action WindowOpened;
+        public event Action WindowClosed;
+        public event Action WindowReset;
+        public event Action<bool> QuestionAnswered; // bool for correctly answered
+        public event Action AnsweredCorrectly;
+        public event Action AnsweredIncorrectly;
 
         public QuestionLoadOrder QuestionLoadOrder { get { return questionLoadOrder; } }
 
         private void OnEnable()
         {
-            GameManager.MGR.LevelLoaded += onLevelLoaded;
-            GameManager.MGR.ArtifactInteraction += onArtifactFound;
+            GameManager.MGR.ArtifactInteractionStarted += HandleArtifactInteractionStarted;
+            GameManager.MGR.ArtifactInteractionCanceled += HangleArtifactInteractionCanceled;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactInteraction -= onArtifactFound;
+            GameManager.MGR.ArtifactInteractionStarted -= HandleArtifactInteractionStarted;
+            GameManager.MGR.ArtifactInteractionCanceled -= HangleArtifactInteractionCanceled;
+
         }
 
-        private void onLevelLoaded(int obj)
+        private void Start()
         {
             CloseWindow();
         }
 
-        private void onArtifactFound(Artifact artifact)
-        {
-            currentArtifactInteractionCount++;
-            OpenWindow();
-        }
 
         /// <summary>
         /// Gets a random question from the appropriate pool.
@@ -57,7 +61,7 @@ namespace StellarFactor
         /// <returns></returns>
         public QuestionSO GetQuestion(Difficulty difficulty)
         {
-            QuestionPool pool = getPool(difficulty);
+            QuestionPool pool = GetPool(difficulty);
 
             // Null checks
             if (pool == null) { return null; }
@@ -68,7 +72,7 @@ namespace StellarFactor
 
         public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
         {
-            QuestionPool pool = getPool(difficulty);
+            QuestionPool pool = GetPool(difficulty);
 
             // Null checks
             if (pool == null) { return null; }
@@ -79,7 +83,7 @@ namespace StellarFactor
 
         public QuestionSO GetNextQuestion(Difficulty difficulty)
         {
-            QuestionPool pool = getPool(difficulty);
+            QuestionPool pool = GetPool(difficulty);
 
             // Null checks
             if (pool == null) { return null; }
@@ -91,20 +95,88 @@ namespace StellarFactor
 
         public void OpenWindow()
         {
+            questionPanel.Open();
+
+            responsePanel.ResetPanel();
+            responsePanel.Close();
+
             WindowOpened?.Invoke();
         }
 
         public void CloseWindow()
         {
+            questionPanel.ResetPanel();
+            questionPanel.Close();
+
+
+            responsePanel.ResetPanel();
+            responsePanel.Close();
+
             WindowClosed?.Invoke();
         }
 
         public void ResetWindow()
         {
+            questionPanel.ResetPanel();
+            questionPanel.Open();
+
+            responsePanel.ResetPanel();
+            responsePanel.Close();
+
             WindowReset?.Invoke();
         }
 
-        private QuestionPool getPool(Difficulty difficulty)
+        public void AnswerQuestion(bool answeredCorrectly)
+        {
+            Debug.Log($"Answering Question {answeredCorrectly}");
+
+            // Set strategies
+            Action responsePanelAction = answeredCorrectly
+                ? () => responsePanel.SetCorrect()
+                : () => responsePanel.SetIncorrect();
+
+            Action onTimerCompleteAction = answeredCorrectly
+                ? () => CloseWindow()
+                : () => ResetWindow();
+
+            // Perform Question UI related responses
+            questionPanel.HideQuestion();
+
+            responsePanelAction();
+            responsePanel.Open();
+
+            // Start a timer
+            CountdownTimer timer = new(this, answerResponseDuration);
+            timer.Start();
+
+            // Create a process to wait for the timer to finish and then
+            // perform the action we set above.
+            WaitThenDo waitAndClose = new(
+                this,
+                () => timer.IsFinished,
+                () => timer.BeenCanceled,
+                onTimerCompleteAction,
+                () => { }
+            );
+
+            waitAndClose.Start();
+
+            // Raise the question answered event immediately
+            QuestionAnswered?.Invoke(answeredCorrectly);
+        }
+
+        private void HandleArtifactInteractionStarted(Artifact artifact)
+        {
+            currentArtifactInteractionCount++;
+            OpenWindow();
+        }
+
+        private void HangleArtifactInteractionCanceled()
+        {
+            CloseWindow();
+        }
+
+        private QuestionPool GetPool(Difficulty difficulty)
         {
             // Find the right pool.
             QuestionPool pool = difficulty switch
