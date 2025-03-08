@@ -1,4 +1,5 @@
 using StellarFactor.Global;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,65 +16,34 @@ namespace StellarFactor
 
         [SerializeField] private GameObject particleEffect;
 
-        private bool _playerHere;
+        [Header("Prompt")]
+        [SerializeField] private string actionToPrompt;
+
         private QuestionSO _question;
+        private bool isPlayerHere;
+        private bool wasPreviousAttemptCorrect;
 
         public QuestionSO Question { get { return _question; } }
 
         private void OnEnable()
         {
-            QuestionManager.MGR.AnsweredCorrectly += HandleCorrectAnswer;
-            QuestionManager.MGR.AnsweredIncorrectly += HandleIncorrectAnswer;
+            QuestionManager.MGR.QuestionAnswered += HandleQuestionAnswered;
+            QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
         }
-
 
         private void OnDisable()
         {
-            QuestionManager.MGR.AnsweredCorrectly -= HandleCorrectAnswer;
-            QuestionManager.MGR.AnsweredIncorrectly -= HandleIncorrectAnswer;
+            QuestionManager.MGR.QuestionAnswered -= HandleQuestionAnswered;
+            QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
         }
 
-        //private void Start()
-        //{
-        //    // Fill this with a question when it's loaded
-        //    _question = getQuestion();
-        //}
-
-        private void HandleCorrectAnswer()
+        private void HandleQuestionAnswered(bool answeredCorrectly)
         {
-            if (!_playerHere) { return; }
+            if (!isPlayerHere) { return; }
 
-            // When a particle system gets assigned to the artifact, itll stop and destroy itself
-            // once the question is answered correctly.
-            if (particleEffect != null)
-            {
-                ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
-                if (ps!= null)
-                {
-                    ps.Stop();
-                }
+            wasPreviousAttemptCorrect = answeredCorrectly;
 
-                //Instead of the particle instantly destroying itself, itll take a second to look less awkward.
-                Destroy(particleEffect, 1f);
-            }
-            // TODO:
-            // animate?
-            // anything else?
-
-            // Temporarily setting this to get destroyed after
-            // one second, but we could/should tie the time to
-            // something else.
-            // Waiting for the player to have it in their inventory?
-            // Waiting for the end of an anim?
-            // idk.
-            Destroy(gameObject, 1f);
-        }
-
-        private void HandleIncorrectAnswer()
-        {
-            if (!_playerHere) { return; }
-
-            // Anything we might want in here?
+            // Anything we might want in here if wrong answer?
             // A cooldown? (i.e. gotta go try a different one first)
 
             // Maybe load a new question? ==============================
@@ -81,32 +51,70 @@ namespace StellarFactor
             // but I'll leave it here as a comment just in case.
 
             //_question = QuestionManager.MGR.GetQuestion(_difficulty);
-            //GameManager.MGR.PlayerDeath.Invoke();
             // =========================================================
+        }
+
+        private void HandleQuestionWindowClosed()
+        {
+            if (!isPlayerHere) { return; }
+
+            if (wasPreviousAttemptCorrect)
+            {
+                Destroy(gameObject);
+                // TODO:
+                // animate?
+                // anything else?
+
+                //// When a particle system gets assigned to the artifact, itll stop and destroy itself
+                //// once the question is answered correctly.
+                //if (particleEffect != null)
+                //{
+                //    ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
+                //    if (ps != null)
+                //    {
+                //        ps.Stop();
+                //    }
+                //}
+            }
+            // Got it wrong last time, so we know player is
+            // closing window to come back to it later.
+            else
+            {
+                GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
+            }
         }
 
         public void PlayerEnterRange()
         {
-            _playerHere = true;
-            OnPlayerEnter?.Invoke();
+            isPlayerHere = true;
 
             // If question is null get a question, else don't
-            _question = (_question != null) ? _question : getQuestion();
+            _question = (_question != null) ? _question : GetQuestion();
+
+            GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
+
+            OnPlayerEnter?.Invoke();
         }
 
         public void Interact()
         {
+            GameManager.MGR.RequestCloseInteractionPrompt();
+
+            GameManager.MGR.StartArtifactInteraction(this);
+
             OnInteract?.Invoke();
-            GameManager.MGR.OnArtifactInteraction(this);
         }
 
         public void PlayerExitRange()
         {
+            isPlayerHere = false;
+
+            GameManager.MGR.RequestCloseInteractionPrompt();
+
             OnPlayerExit?.Invoke();
-            _playerHere = false;
         }
 
-        private QuestionSO getQuestion()
+        private QuestionSO GetQuestion()
         {
             switch (QuestionManager.MGR.QuestionLoadOrder)
             {

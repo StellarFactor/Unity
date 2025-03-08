@@ -1,76 +1,52 @@
 #if UNITY_EDITOR
 #endif
 
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace StellarFactor
 {
     public class PausePrompt : MonoBehaviour
     {
-        [SerializeField] Textbox _pauseText;
-        [SerializeField] Spritebox _background;
+        [SerializeField] private Spritebox background;
+        [SerializeField] private Textbox textbox;
 
-        private bool _isPaused;
-        private bool _canPause;
+        [SerializeField, Tooltip(
+            "The token substring to replace (in the \"pausePrompt\" " +
+            "below) that will be replaced with the text of the key to press.")]
+        private string keyReplacementToken;
 
-        private void OnEnable()
+        [SerializeField] private string promptMessage;
+
+        public void OpenPrompt()
         {
-            GameManager.MGR.LevelLoaded += onLevelLoaded;
-            GameManager.MGR.Pause += onPause;
-            GameManager.MGR.Resume += onResume;
+            Show();
+            Clear();
+            promptMessage = promptMessage.Replace(keyReplacementToken, $"{GameManager.MGR.PauseKey}");
+            textbox.Text.Set(promptMessage);
         }
 
-        private void OnDisable()
+        public void ClosePrompt()
         {
-            GameManager.MGR.LevelLoaded -= onLevelLoaded;
-            GameManager.MGR.Pause -= onPause;
-            GameManager.MGR.Resume -= onResume;
+            Clear();
+            Hide();
         }
 
-        private void Start()
+        private void Clear()
         {
-            _canPause = true;
+            textbox.ResetAll();
         }
 
-        private void Update()
+        private void Hide()
         {
-            if (!_canPause) { return; }
-
-            if (Input.GetKeyDown(GameManager.MGR.PauseKey))
-            {
-                if (_isPaused)
-                {
-                    GameManager.MGR.OnResume();
-                }
-                else
-                {
-                    GameManager.MGR.OnPause();
-                }
-            }
+            textbox.enabled = false;
+            background.enabled = false;
         }
 
-        private void onLevelLoaded(int obj)
+        private void Show()
         {
-            string message = _pauseText.Text.Get();
-
-            message = message.Replace("<>", $"{GameManager.MGR.PauseKey}");
-
-            _pauseText.Text.Set(message);
-            _pauseText.TextColor.Reset();
-        }
-
-        private void onPause()
-        {
-            _canPause = false;
-            _pauseText.enabled = false;
-            _background.enabled = false;
-        }
-
-        private void onResume()
-        {
-            _canPause = true;
-            _pauseText.enabled = true;
-            _background.enabled = true;
+            textbox.enabled = true;
+            background.enabled = true;
         }
     }
 }

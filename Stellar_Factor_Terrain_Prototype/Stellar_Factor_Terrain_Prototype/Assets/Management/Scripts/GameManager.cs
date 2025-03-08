@@ -8,70 +8,53 @@ namespace StellarFactor
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private KeyCode _interactKey;
-        [SerializeField] private KeyCode _pauseKey;
+        [Header("Prompts")]
+        [SerializeField] private KeyCode interactKey;
+        [SerializeField] private PromptWindow interactionPrompt;
+        [SerializeField] private KeyCode pauseKey;
+        [SerializeField] private PausePrompt pausePrompt;
 
-        private int _currentLevel;
+        public KeyCode InteractKey { get { return interactKey; } }
+        public KeyCode PauseKey { get { return pauseKey; } }
+        public bool IsPaused { get; private set; }
 
-        public int CurrentLevel { get { return _currentLevel; } }
-        public KeyCode InteractKey { get { return _interactKey; } }
-        public KeyCode PauseKey { get { return _pauseKey; } }
-
-        public event Action<int> LevelLoaded;
-        public event Action Pause;
-        public event Action Resume;
-        public event Action PlayerDeath;
+        public event Action GamePaused;
+        public event Action GameResumed;
+        public event Action PlayerDied;
         public event Action Quit;
-        public event Action<Artifact> ArtifactInteraction;
-        public event Action CancelArtifactInteraction;
-        public event Action<PanelCycler> PanelCyclerInteraction;
+        public event Action<Artifact> ArtifactInteractionStarted;
+        public event Action ArtifactInteractionCanceled;
+        public event Action<PanelCycler> PanelCyclerInteractionStarted;
+
 
         private void Start()
         {
-            LevelLoaded?.Invoke(CurrentLevel);
+            interactionPrompt.ClosePrompt();
+            pausePrompt.OpenPrompt();
         }
 
-        public void OnPauseGame()
+        public void PauseGame()
         {
-            Pause?.Invoke();
-        }
-        public void OnResumeGame()
-        {
-            Resume?.Invoke();
-        }
-        public void OnPlayerDeath()
-        {
-            PlayerDeath?.Invoke();
-        }
-        public void OnArtifactInteraction(Artifact artifact)
-        {
-            ArtifactInteraction?.Invoke(artifact);
-        }
-        public void OnCancelArtifactInteraction()
-        {
-            CancelArtifactInteraction?.Invoke();
-        }
-        public void OnLevelLoaded(int level)
-        {
-            LevelLoaded?.Invoke(level);
-        }
-        public void OnPause()
-        {
-            Pause?.Invoke();
-        }
-        public void OnResume()
-        {
-            Resume?.Invoke();
-        }
-        //public void OnQuit()
-        //{
-        //    Quit?.Invoke();
-        //}
-        public void OnPanelCyclerInteraction(PanelCycler cycler)
-        {
-            PanelCyclerInteraction?.Invoke(cycler);
-        }
+            if (IsPaused) { return; }
 
+            pausePrompt.ClosePrompt();
+
+            IsPaused = true;
+            pausePrompt.OpenPrompt();
+
+            GamePaused?.Invoke();
+        }
+        public void ResumeGame()
+        {
+            if (!IsPaused) { return; }
+
+            pausePrompt.OpenPrompt();
+
+            IsPaused = false;
+            pausePrompt.OpenPrompt();
+
+            GameResumed?.Invoke();
+        }
         public void QuitGame()
         {
             #if UNITY_EDITOR
@@ -81,6 +64,53 @@ namespace StellarFactor
             Application.Quit();
             #endif
         }
-    }
 
+        public void PlayerDeath()
+        {
+            PlayerDied?.Invoke();
+        }
+        public void StartArtifactInteraction(Artifact artifact)
+        {
+            ArtifactInteractionStarted?.Invoke(artifact);
+        }
+        public void CancelArtifactInteraction()
+        {
+            ArtifactInteractionCanceled?.Invoke();
+        }
+
+        public void StartPanelCyclerInteraction(PanelCycler cycler)
+        {
+            PanelCyclerInteractionStarted?.Invoke(cycler);
+        }
+
+        public bool RequestInteractionPrompt(string actionToPrompt)
+        {
+            if (interactionPrompt.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to open an interaction prompt; " +
+                    $"There is already an active interaction prompt.");
+
+                return false;
+            }
+
+            interactionPrompt.OpenPrompt(actionToPrompt);
+            return true;
+        }
+
+        public bool RequestCloseInteractionPrompt()
+        {
+            if (!interactionPrompt.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to close interaction prompt; " +
+                    $"Interaction prompt is not active.");
+
+                return false;
+            }
+
+            interactionPrompt.ClosePrompt();
+            return true;
+        }
+    }
 }

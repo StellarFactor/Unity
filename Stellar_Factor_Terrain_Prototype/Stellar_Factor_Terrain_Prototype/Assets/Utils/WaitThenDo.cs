@@ -7,8 +7,8 @@ public class WaitThenDo
     protected readonly MonoBehaviour runner;
     protected readonly Func<bool> finishCondition;
     protected readonly Func<bool> cancelCondition;
-    protected readonly Action action;
-    protected readonly Action ifCancelled;
+    protected readonly Action onConditionMet;
+    protected readonly Action onProcessCancelled;
 
     protected Coroutine process;
 
@@ -20,14 +20,14 @@ public class WaitThenDo
         MonoBehaviour runner,
         Func<bool> finishCondition,
         Func<bool> cancelCondition,
-        Action action,
-        Action ifCancelled)
+        Action onConditionMet,
+        Action onProcessCancelled)
     {
         this.runner = runner;
         this.finishCondition = finishCondition;
         this.cancelCondition = cancelCondition;
-        this.action = action;
-        this.ifCancelled = ifCancelled;
+        this.onConditionMet = onConditionMet;
+        this.onProcessCancelled = onProcessCancelled;
     }
 
     public void Start()
@@ -66,7 +66,7 @@ public class WaitThenDo
 
             if (BeenCanceled)
             {
-                ifCancelled?.Invoke();
+                onProcessCancelled?.Invoke();
                 yield break;
             }
 
@@ -74,7 +74,7 @@ public class WaitThenDo
             yield return null;
         }
 
-        action.Invoke();
+        onConditionMet.Invoke();
         yield return null;
         IsFinished = true;
     }
