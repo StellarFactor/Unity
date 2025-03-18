@@ -10,6 +10,8 @@ TagManager:
   - Minimap
   - Teleporter
   - MovingPlatform
+  - Fire
+  - Laser
   layers:
   - Default
   - TransparentFX
