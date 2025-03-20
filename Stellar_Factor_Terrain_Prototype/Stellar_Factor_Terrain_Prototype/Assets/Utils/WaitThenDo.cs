@@ -70,7 +70,7 @@ public class WaitThenDo
                 yield break;
             }
 
-            Debug.LogWarning($"{this} not done. condition: {finishCondition()}");
+            Debug.LogWarning($"{this} not done. condition: {finishCondition}, {finishCondition()}");
             yield return null;
         }
 

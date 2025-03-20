@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaf4bc83c9decc43b389b4eb219bbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyReplacementToken: <>
+  actionReplacementToken: '[]'
+  promptMessage: Press <> to []
   _background: {fileID: 8075661762103422226}
   _textbox: {fileID: 6583275880332264626}
-  _interactionPrompt: Press <> to Examine
 --- !u!1 &883858960548599851
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d716ba2fc90dfca49aea3f0e9a320fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseText: {fileID: 4110538925736853124}
-  _background: {fileID: 8530720756079702787}
+  background: {fileID: 8530720756079702787}
+  textbox: {fileID: 4110538925736853124}
+  keyReplacementToken: <>
+  promptMessage: Press <> to Pause
 --- !u!1 &3595865049216234038
 GameObject:
   m_ObjectHideFlags: 0

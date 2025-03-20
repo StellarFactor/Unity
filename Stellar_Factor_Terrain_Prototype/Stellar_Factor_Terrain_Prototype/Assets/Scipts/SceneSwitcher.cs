@@ -3,15 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public void SwitchToGame(string sceneName)
+    public void SwitchToGame()
     {
         SceneManager.LoadScene("Interaction Test");
     }
-    public void SwitchToMainMenu(string sceneName)
+    public void SwitchToMainMenu()
     {
         SceneManager.LoadScene("MainMenuScene");
     }
-    public void SwitchToSettings(string sceneName)
+    public void SwitchToSettings()
     {
         SceneManager.LoadScene("Settings");
     }
