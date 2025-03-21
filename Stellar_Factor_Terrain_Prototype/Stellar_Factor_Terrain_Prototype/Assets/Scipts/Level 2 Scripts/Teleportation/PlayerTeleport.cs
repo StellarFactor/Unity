@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TeleportPlayer : MonoBehaviour
+public class PlayerTeleport : MonoBehaviour
 {
     private Transform currentTeleportPoint;
 

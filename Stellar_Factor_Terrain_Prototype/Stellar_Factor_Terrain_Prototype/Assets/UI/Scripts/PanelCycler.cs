@@ -52,6 +52,10 @@ public class PanelCycler : MonoBehaviour
         {
             BeginCycle();
         }
+        else
+        {
+            Panels.ForEach(panel => panel.SetActive(false));
+        }
     }
 
     private void Update()
