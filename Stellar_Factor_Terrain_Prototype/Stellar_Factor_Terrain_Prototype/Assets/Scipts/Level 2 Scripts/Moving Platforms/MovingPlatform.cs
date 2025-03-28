@@ -1,3 +1,4 @@
+using StellarFactor;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour

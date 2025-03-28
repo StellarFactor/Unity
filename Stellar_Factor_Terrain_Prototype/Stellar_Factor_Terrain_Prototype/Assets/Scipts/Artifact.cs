@@ -1,5 +1,6 @@
 using StellarFactor.Global;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,6 +25,13 @@ namespace StellarFactor
         private bool wasPreviousAttemptCorrect;
 
         public QuestionSO Question { get { return _question; } }
+
+        public bool BeenVisited { get; private set; }
+
+        private void Awake()
+        {
+            BeenVisited = false;
+        }
 
         private void OnEnable()
         {
@@ -103,6 +111,11 @@ namespace StellarFactor
             GameManager.MGR.StartArtifactInteraction(this);
 
             OnInteract?.Invoke();
+        }
+
+        public void Visit()
+        {
+            BeenVisited = true;
         }
 
         public void PlayerExitRange()

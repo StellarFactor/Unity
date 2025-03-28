@@ -61,6 +61,7 @@ namespace StellarFactor
         /// <returns></returns>
         public QuestionSO GetQuestion(Difficulty difficulty)
         {
+            Debug.Log($"{name} getting next question via GetQuestion(Difficulty)");
             QuestionPool pool = GetPool(difficulty);
 
             // Null checks
@@ -72,6 +73,8 @@ namespace StellarFactor
 
         public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
         {
+            Debug.Log($"{name} getting next question via GetQuestion(Difficulty, int)");
+
             QuestionPool pool = GetPool(difficulty);
 
             // Null checks
@@ -83,14 +86,15 @@ namespace StellarFactor
 
         public QuestionSO GetNextQuestion(Difficulty difficulty)
         {
+            Debug.Log($"{name} getting next question via GetNextQuestion(Difficulty)");
             QuestionPool pool = GetPool(difficulty);
 
             // Null checks
-            if (pool == null) { return null; }
-            if (pool.Empty) { return null; }
+            if (pool == null)
+            { Debug.Log($"pool was null"); return null; }
+            if (pool.Empty) { Debug.Log($"pool was empty"); return null; }
 
             return pool.GetQuestionAt(currentArtifactInteractionCount);
-
         }
 
         public void OpenWindow()
@@ -167,7 +171,12 @@ namespace StellarFactor
 
         private void HandleArtifactInteractionStarted(Artifact artifact)
         {
-            currentArtifactInteractionCount++;
+            if (!artifact.BeenVisited)
+            {
+                currentArtifactInteractionCount++;
+                artifact.Visit();
+            }
+
             OpenWindow();
         }
 
