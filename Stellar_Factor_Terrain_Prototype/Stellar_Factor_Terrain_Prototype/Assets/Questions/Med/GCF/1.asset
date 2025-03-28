@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
+  _text: 'Find the GCF for the list:
 
-    36, 15'
+    14m<sup>4</sup>, 56m<sup>7</sup>'
   _answers:
-  - _answerText: 1
+  - _answerText: 14m<sup>3</sup>
+    _correct: 1
+  - _answerText: 56m<sup>4</sup>
     _correct: 0
-  - _answerText: 3
-    _correct: 0
-  - _answerText: 6
-    _correct: 0
-  - _answerText: 15
+  - _answerText: 14m<sup>4</sup>
+    _correct: 1
+  - _answerText: 784m<sup>3</sup>
     _correct: 0

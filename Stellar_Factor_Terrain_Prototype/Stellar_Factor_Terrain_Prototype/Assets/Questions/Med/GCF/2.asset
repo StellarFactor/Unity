@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
-
-    140, 60'
+  _text: "Find the GCF for the list:\n56x<sup>2</sup>, 28x<sup>7</sup>\r\r"
   _answers:
-  - _answerText: 
+  - _answerText: 56x<sup>2</sup>
     _correct: 0
-  - _answerText: 
+  - _answerText: '14x<sup>5</sup> '
     _correct: 0
-  - _answerText: 
+  - _answerText: '42x<sup>2</sup> '
     _correct: 0
-  - _answerText: 
-    _correct: 0
+  - _answerText: '28x<sup>2</sup> '
+    _correct: 1
