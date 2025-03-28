@@ -17,17 +17,17 @@ namespace StellarFactor
 
         public bool IsOn { get; private set; }
 
+        public void PlayerEnterRange(PlayerControl player)
+        {
+            GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
+        }
+
         public void Interact()
         {
             Toggle();
         }
 
-        public void PlayerEnterRange()
-        {
-            GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
-        }
-
-        public void PlayerExitRange()
+        public void PlayerExitRange(PlayerControl player)
         {
             GameManager.MGR.RequestCloseInteractionPrompt();
         }

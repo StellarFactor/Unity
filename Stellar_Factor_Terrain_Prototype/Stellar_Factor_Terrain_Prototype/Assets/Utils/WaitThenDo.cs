@@ -70,7 +70,9 @@ public class WaitThenDo
                 yield break;
             }
 
+            #if UNITY_EDITOR
             Debug.LogWarning($"{this} not done. condition: {finishCondition}, {finishCondition()}");
+            #endif
             yield return null;
         }
 

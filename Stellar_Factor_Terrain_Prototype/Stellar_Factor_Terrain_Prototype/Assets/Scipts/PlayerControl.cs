@@ -5,6 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 namespace StellarFactor
 {
+    [RequireComponent(typeof(Inventory))]
     public class PlayerControl : MonoBehaviour
     {
         [SerializeField] private Node lastDeathMinimapNode;
@@ -15,6 +16,8 @@ namespace StellarFactor
 
         private int lockInteractionStack = 0;
 
+        public Inventory Inventory { get; private set; }
+
         public bool PauseKeyPressed =>
             Input.GetKeyDown(GameManager.MGR.PauseKey);
 
@@ -22,6 +25,7 @@ namespace StellarFactor
         private void Awake()
         {
             _controller = GetComponent<FirstPersonController>();
+            Inventory = GetComponent<Inventory>();
         }
 
         private void OnEnable()

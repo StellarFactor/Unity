@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace StellarFactor
 {
@@ -21,28 +22,25 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            GameManager.MGR.ArtifactInteractionStarted += HandleArtifactInteraction;
+            QuestionManager.MGR.QuestionStarted += HandleQuestionStarted;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.ArtifactInteractionStarted -= HandleArtifactInteraction;
+            QuestionManager.MGR.QuestionStarted -= HandleQuestionStarted;
         }
 
 
-        private void HandleArtifactInteraction(Artifact artifact)
+        private void HandleQuestionStarted(Artifact artifact)
         {
-            if (artifact == null)
-            {
-                Debug.LogWarning("artifact null");
-                return;            
-            }
+            Assert.IsNotNull(artifact,
+                $"{name}'s HandleQuestionStarted(Artifact) was " +
+                $"passed NULL instead of an Artifact.");
 
-            if (artifact.Question == null)
-            {
-                Debug.LogWarning($"{artifact.gameObject.name} question was null");
-                return;
-            }
+            Assert.IsNotNull(artifact.Question,
+                $"{name}'s HandleQuestionStarted(Artifact) was " +
+                $"passed {artifact.name}, whose Question was NULL instead " +
+                $"of a QuestionSO");
 
             _questionBox.enabled = true;
 

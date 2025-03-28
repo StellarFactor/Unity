@@ -1,32 +1,52 @@
 using StellarFactor.Global;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace StellarFactor
 {
-    public class Artifact : MonoBehaviour, IInteractable
+    public class Artifact : MonoBehaviour, IInteractable, IAcquirable, IFiller
     {
+        [Header("UI Settings")]
+        [SerializeField] private string artifactName;
+        [SerializeField] private Sprite uiIcon;
+        [SerializeField] private string actionToPrompt;
+        [SerializeField] private string actionToPromptAfterAquired;
+
+        [Header("QuestionSettings")]
         [SerializeField] private Difficulty _difficulty;
         [SerializeField] private int _index;
 
+        [Header("Serialized Events")]
         [SerializeField] private UnityEvent OnPlayerEnter;
         [SerializeField] private UnityEvent OnInteract;
         [SerializeField] private UnityEvent OnPlayerExit;
 
+        [Header("VFX")]
         [SerializeField] private GameObject particleEffect;
 
-        [Header("Prompt")]
-        [SerializeField] private string actionToPrompt;
+        private QuestionSO question;
+        private PlayerControl player;
+        private bool wasRecentAttemptCorrect;
 
-        private QuestionSO _question;
-        private bool isPlayerHere;
-        private bool wasPreviousAttemptCorrect;
+        private bool IsPlayerHere => player != null;
 
-        public QuestionSO Question { get { return _question; } }
-
-        public bool BeenVisited { get; private set; }
+        public Difficulty Difficulty => _difficulty;
+        public int Index => _index;
+        public QuestionSO Question
+        {
+            get { return question; }
+            set
+            {
+                Debug.Log($"{name}'s Question is being set externally.");
+                question = value;
+            }
+        }
+        public bool BeenVisited { get; private set; } = false;
+        public bool PreviouslyAquired { get; private set; } = false;
+        public string ActionToPrompt => PreviouslyAquired
+            ? actionToPromptAfterAquired
+            : actionToPrompt;
 
         private void Awake()
         {
@@ -45,61 +65,57 @@ namespace StellarFactor
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
         }
 
+
+        #region Event Responses
+        // =====================================================================
         private void HandleQuestionAnswered(bool answeredCorrectly)
         {
-            if (!isPlayerHere) { return; }
+            if (!IsPlayerHere) { return; }
 
-            wasPreviousAttemptCorrect = answeredCorrectly;
+            wasRecentAttemptCorrect = answeredCorrectly;
 
-            // Anything we might want in here if wrong answer?
-            // A cooldown? (i.e. gotta go try a different one first)
+            if (!wasRecentAttemptCorrect)
+            {
+                // Anything we might want in here?
+                // A cooldown? (i.e. gotta go try a different one first)
 
-            // Maybe load a new question? ==============================
-            // Dr T. said this was too complicated,
-            // but I'll leave it here as a comment just in case.
+                // Maybe load a new question? ==============================
+                // Dr T. said this was too complicated,
+                // but I'll leave it here as a comment just in case.
 
-            //_question = QuestionManager.MGR.GetQuestion(_difficulty);
-            // =========================================================
+                //_question = QuestionManager.MGR.GetQuestion(_difficulty);
+                // =========================================================
+            }
         }
 
         private void HandleQuestionWindowClosed()
         {
-            if (!isPlayerHere) { return; }
+            if (!IsPlayerHere) { return; }
 
-            if (wasPreviousAttemptCorrect)
+            if (wasRecentAttemptCorrect)
             {
-                Destroy(gameObject);
-                // TODO:
-                // animate?
-                // anything else?
-
-                //// When a particle system gets assigned to the artifact, itll stop and destroy itself
-                //// once the question is answered correctly.
-                //if (particleEffect != null)
-                //{
-                //    ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
-                //    if (ps != null)
-                //    {
-                //        ps.Stop();
-                //    }
-                //}
+                player?.Inventory.AquireItem(this);
             }
             // Got it wrong last time, so we know player is
             // closing window to come back to it later.
             else
             {
-                GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
+                GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
             }
         }
+        #endregion // ==========================================================
 
-        public void PlayerEnterRange()
+
+        #region IInteractable Implementation
+        // =====================================================================
+        public void PlayerEnterRange(PlayerControl player)
         {
-            isPlayerHere = true;
+            this.player = player;
 
-            // If question is null get a question, else don't
-            _question = (_question != null) ? _question : GetQuestion();
+            //// If question is null get a question, else don't
+            //question = (question != null) ? question : GetQuestion();
 
-            GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
+            GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
 
             OnPlayerEnter?.Invoke();
         }
@@ -108,39 +124,59 @@ namespace StellarFactor
         {
             GameManager.MGR.RequestCloseInteractionPrompt();
 
-            GameManager.MGR.StartArtifactInteraction(this);
+            if (!PreviouslyAquired)
+            {
+                QuestionManager.MGR.StartQuestion(this);
+            }
 
             OnInteract?.Invoke();
         }
 
-        public void Visit()
+        public void PlayerExitRange(PlayerControl player)
         {
-            BeenVisited = true;
-        }
-
-        public void PlayerExitRange()
-        {
-            isPlayerHere = false;
+            if (this.player == player)
+            {
+                this.player = null;
+            }
 
             GameManager.MGR.RequestCloseInteractionPrompt();
 
             OnPlayerExit?.Invoke();
         }
+        #endregion // IInteractable Implementation =============================
 
-        private QuestionSO GetQuestion()
+
+        #region IAcquirable Implementation
+        // =====================================================================
+        public void AquireBy(Inventory inventory)
         {
-            switch (QuestionManager.MGR.QuestionLoadOrder)
-            {
-                default:
-                case QuestionLoadOrder.RANDOM:
-                    return QuestionManager.MGR.GetQuestion(_difficulty);
+            PreviouslyAquired = true;
 
-                case QuestionLoadOrder.INSPECTOR_INDEX:
-                    return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+            // TODO:
+            // animate?
+            // anything else?
 
-                case QuestionLoadOrder.INTERACTION_ORDER:
-                    return QuestionManager.MGR.GetNextQuestion(_difficulty);
-            }
+            inventory.AquireItem(this);
+        }
+
+        public void RemoveFrom(Inventory inventory)
+        {
+            inventory.RemoveItem(this);
+        }
+        #endregion // ==========================================================
+
+
+        #region IFiller Implementation
+        // =====================================================================
+        public UIFillData GetFillData()
+        {
+            return new(artifactName, uiIcon);
+        }
+        #endregion // ==========================================================
+
+        public void Visit()
+        {
+            BeenVisited = true;
         }
     }
 }

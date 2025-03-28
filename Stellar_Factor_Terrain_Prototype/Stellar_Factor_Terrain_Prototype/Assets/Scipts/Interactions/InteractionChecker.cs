@@ -9,6 +9,8 @@ namespace StellarFactor
 
         private bool canInteract;
 
+        private PlayerControl player;
+
         private void OnEnable()
         {
             GameManager.MGR.GamePaused += HandlePause;
@@ -24,6 +26,12 @@ namespace StellarFactor
         private void Start()
         {
             canInteract = true;
+
+            if (!TryGetComponent(out player))
+            {
+                Debug.LogError($"{name} should be attached to a(the) " +
+                    $"GameObject with a(the) PlayerControl Component.");
+            }
         }
 
         private void Update()
@@ -43,7 +51,7 @@ namespace StellarFactor
                 return;
             }
 
-            _currentInteraction.PlayerEnterRange();
+            _currentInteraction.PlayerEnterRange(player);
         }
 
         private void OnTriggerExit(Collider other)
@@ -53,7 +61,7 @@ namespace StellarFactor
                 return;
             }
 
-            _currentInteraction.PlayerExitRange();
+            _currentInteraction.PlayerExitRange(player);
             _currentInteraction = null;
         }
 

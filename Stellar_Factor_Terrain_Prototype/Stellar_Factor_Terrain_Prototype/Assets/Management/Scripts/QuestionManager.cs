@@ -1,7 +1,8 @@
 using StellarFactor.Global;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.Water;
+using UnityEngine.Assertions;
 
 namespace StellarFactor
 {
@@ -22,80 +23,178 @@ namespace StellarFactor
         [SerializeField] private QuestionPanel questionPanel;
         [SerializeField] private ResponsePanel responsePanel;
 
+        private Dictionary<Difficulty, QuestionPool> questionBank = new();
+
         private int currentArtifactInteractionCount;
 
         public event Action WindowOpened;
         public event Action WindowClosed;
         public event Action WindowReset;
-        public event Action<bool> QuestionAnswered; // bool for correctly answered
-        public event Action AnsweredCorrectly;
-        public event Action AnsweredIncorrectly;
+        public event Action<Artifact> QuestionStarted;
+        public event Action QuestionCanceled;
+
+        /// <summary>
+        /// Subscribe to this for any actions that need to be performed as soon
+        /// as the QuestionManager reads the answer input.
+        /// Distinct from <c><see cref="WindowClosed"/></c>, which will fire
+        /// <c><see cref="answerResponseDuration"/></c> seconds after
+        /// the answer is read.
+        /// </summary>
+        public event Action<bool> QuestionAnswered; // bool for
+                                                    // correctly answered
 
         public QuestionLoadOrder QuestionLoadOrder { get { return questionLoadOrder; } }
 
-        private void OnEnable()
-        {
-            GameManager.MGR.ArtifactInteractionStarted += HandleArtifactInteractionStarted;
-            GameManager.MGR.ArtifactInteractionCanceled += HangleArtifactInteractionCanceled;
-        }
-
-        private void OnDisable()
-        {
-            GameManager.MGR.ArtifactInteractionStarted -= HandleArtifactInteractionStarted;
-            GameManager.MGR.ArtifactInteractionCanceled -= HangleArtifactInteractionCanceled;
-
-        }
-
         private void Start()
         {
+            InitQuestionDictionary();
             CloseWindow();
         }
 
-
-        /// <summary>
-        /// Gets a random question from the appropriate pool.
-        /// If the requested pool doesn't exist or doesnt have
-        /// any questions, this function returns null.
-        /// </summary>
-        /// <param name="difficulty"></param>
-        /// <returns></returns>
-        public QuestionSO GetQuestion(Difficulty difficulty)
+        private void InitQuestionDictionary()
         {
-            Debug.Log($"{name} getting next question via GetQuestion(Difficulty)");
-            QuestionPool pool = GetPool(difficulty);
-
-            // Null checks
-            if (pool == null) { return null; }
-            if (pool.Empty) { return null; }
-
-            return pool.GetRandomQuestion();
+            questionBank = new Dictionary<Difficulty, QuestionPool>()
+            {
+                { Difficulty.EASY, _easy },
+                { Difficulty.MEDIUM, _medium },
+                { Difficulty.HARD, _hard },
+            };
         }
 
-        public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
+        public void StartQuestion(Artifact artifact)
         {
-            Debug.Log($"{name} getting next question via GetQuestion(Difficulty, int)");
+            Assert.IsNotNull(artifact,
+                $"{name}'s StartQuestion(Artifact) was " +
+                $"passed NULL instead of an Artifact.");
 
-            QuestionPool pool = GetPool(difficulty);
+            if (!artifact.BeenVisited)
+            {
+                currentArtifactInteractionCount++;
+                artifact.Visit();
+            }
 
-            // Null checks
-            if (pool == null) { return null; }
-            if (pool.Empty) { return null; }
+            OpenWindow();
 
-            return pool.GetQuestionAt(artifactIndex);
+            // If the artifact hasn't been assigned a question yet, get one
+            artifact.Question ??= GetQuestion(artifact);
+
+            OnQuestionStarted(artifact);
         }
 
-        public QuestionSO GetNextQuestion(Difficulty difficulty)
+        public void CancelQuestion()
         {
-            Debug.Log($"{name} getting next question via GetNextQuestion(Difficulty)");
-            QuestionPool pool = GetPool(difficulty);
+            CloseWindow();
 
-            // Null checks
-            if (pool == null)
-            { Debug.Log($"pool was null"); return null; }
-            if (pool.Empty) { Debug.Log($"pool was empty"); return null; }
-
-            return pool.GetQuestionAt(currentArtifactInteractionCount);
+            OnQuestionCanceled();
         }
+
+        public void AnswerQuestion(bool answeredCorrectly)
+        {
+            // Set strategies
+            Action responsePanelAction = answeredCorrectly
+                ? () => responsePanel.SetCorrect()
+                : () => responsePanel.SetIncorrect();
+
+            Action questionWindowAction = answeredCorrectly
+                ? () => CloseWindow()
+                : () => ResetWindow();
+
+
+            // Perform Question UI related responses
+            responsePanelAction();      // Set the response panel state immediately
+            responsePanel.Open();       // Open the response panel after setting it.
+            questionPanel.HideQuestion();   // Hide the question part of the
+                                            // question panel
+
+            // Create a timer that will run for some float secs
+            CountdownTimer timer = new(this, answerResponseDuration);
+
+            // Create a process that will perform the question window
+            // strategy we set above once the timer finishes.
+            WaitThenDo waitAndClose = new(
+                this,
+                () => timer.IsFinished,
+                () => timer.BeenCanceled,
+                questionWindowAction,
+                () => { }
+            );
+
+            timer.Start();          // Start the timer
+            waitAndClose.Start();   // Start the wait process
+
+
+            // Raise the question answered event immediately
+            // (distinguishing  WindowClosed or WindowReset
+            // events. Listeners can subsribe to v_this_v if they want
+            // something done right away, or the other events if they want to
+            // sync to the delay.
+            OnQuestionAnswered(answeredCorrectly);
+        }
+
+        public QuestionSO GetQuestion(Artifact artifact)
+        {
+            Assert.IsNotNull(artifact,
+                $"{name}'s GetQuestion(Artifact) was " +
+                $"passed NULL instead of an Artifact.");
+
+            Assert.IsTrue(questionBank.ContainsKey(artifact.Difficulty),
+                $"{name}'s questionBank did not contain an entry with " +
+                $"a key for {artifact.Difficulty}. Make sure the question bank " +
+                $"has a {artifact.Difficulty} key with a matching QuestionPool");
+
+            return QuestionLoadOrder switch
+            {
+                QuestionLoadOrder.RANDOM
+                    => questionBank[artifact.Difficulty].GetRandomQuestion(),
+                QuestionLoadOrder.INTERACTION_ORDER
+                    => questionBank[artifact.Difficulty].GetQuestionAt(currentArtifactInteractionCount),
+                QuestionLoadOrder.INSPECTOR_INDEX
+                    => questionBank[artifact.Difficulty].GetQuestionAt(artifact.Index),
+
+                _   => questionBank[artifact.Difficulty].GetRandomQuestion() //default
+            };
+        }
+
+        ///// <summary>
+        ///// Gets a random question from the appropriate pool.
+        ///// If the requested pool doesn't exist or doesnt have
+        ///// any questions, this function returns null.
+        ///// </summary>
+        ///// <param name="difficulty"></param>
+        ///// <returns></returns>
+        //public QuestionSO GetQuestion(Difficulty difficulty)
+        //{
+        //    QuestionPool pool = GetPool(difficulty);
+
+        //    // Null checks
+        //    if (pool == null) { return null; }
+        //    if (pool.Empty) { return null; }
+
+        //    return pool.GetRandomQuestion();
+        //}
+
+        //public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
+        //{
+        //    QuestionPool pool = GetPool(difficulty);
+
+        //    // Null checks
+        //    if (pool == null) { return null; }
+        //    if (pool.Empty) { return null; }
+
+        //    return pool.GetQuestionAt(artifactIndex);
+        //}
+
+        //public QuestionSO GetNextQuestion(Difficulty difficulty)
+        //{
+        //    Debug.Log($"{name} getting next question via GetNextQuestion(Difficulty)");
+        //    QuestionPool pool = GetPool(difficulty);
+
+        //    // Null checks
+        //    if (pool == null) { return null; }
+        //    if (pool.Empty) { return null; }
+
+        //    return pool.GetQuestionAt(currentArtifactInteractionCount);
+        //}
 
         public void OpenWindow()
         {
@@ -111,7 +210,6 @@ namespace StellarFactor
         {
             questionPanel.ResetPanel();
             questionPanel.Close();
-
 
             responsePanel.ResetPanel();
             responsePanel.Close();
@@ -130,59 +228,19 @@ namespace StellarFactor
             WindowReset?.Invoke();
         }
 
-        public void AnswerQuestion(bool answeredCorrectly)
+        protected virtual void OnQuestionStarted(Artifact artifact)
         {
-            Debug.Log($"Answering Question {answeredCorrectly}");
-
-            // Set strategies
-            Action responsePanelAction = answeredCorrectly
-                ? () => responsePanel.SetCorrect()
-                : () => responsePanel.SetIncorrect();
-
-            Action onTimerCompleteAction = answeredCorrectly
-                ? () => CloseWindow()
-                : () => ResetWindow();
-
-            // Perform Question UI related responses
-            questionPanel.HideQuestion();
-
-            responsePanelAction();
-            responsePanel.Open();
-
-            // Start a timer
-            CountdownTimer timer = new(this, answerResponseDuration);
-            timer.Start();
-
-            // Create a process to wait for the timer to finish and then
-            // perform the action we set above.
-            WaitThenDo waitAndClose = new(
-                this,
-                () => timer.IsFinished,
-                () => timer.BeenCanceled,
-                onTimerCompleteAction,
-                () => { }
-            );
-
-            waitAndClose.Start();
-
-            // Raise the question answered event immediately
-            QuestionAnswered?.Invoke(answeredCorrectly);
+            QuestionStarted?.Invoke(artifact);
         }
 
-        private void HandleArtifactInteractionStarted(Artifact artifact)
+        private void OnQuestionCanceled()
         {
-            if (!artifact.BeenVisited)
-            {
-                currentArtifactInteractionCount++;
-                artifact.Visit();
-            }
-
-            OpenWindow();
+            QuestionCanceled?.Invoke();
         }
 
-        private void HangleArtifactInteractionCanceled()
+        protected virtual void OnQuestionAnswered(bool correctly)
         {
-            CloseWindow();
+            QuestionAnswered?.Invoke(correctly);
         }
 
         private QuestionPool GetPool(Difficulty difficulty)
