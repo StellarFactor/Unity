@@ -333,10 +333,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pause
+  m_text: Game Paused
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c250e44e8e518f948892829dd910b304, type: 2}
-  m_sharedMaterial: {fileID: 7881911299101549819, guid: c250e44e8e518f948892829dd910b304, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+  m_sharedMaterial: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -510,6 +510,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
     - target: {fileID: 4074123288217929044, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
       propertyPath: m_Name
       value: Main Menu
@@ -652,6 +660,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
     - target: {fileID: 4074123288217929044, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
       propertyPath: m_Name
       value: Quit
@@ -778,6 +794,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+    - target: {fileID: 3555689163127831284, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
     - target: {fileID: 4074123288217929044, guid: 3b34bae5bea761645ba0810a016b9025, type: 3}
       propertyPath: m_Name
       value: Resume

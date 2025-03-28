@@ -3,9 +3,14 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-    public class Stargate : IToggleable
+    public class Stargate : MonoBehaviour, IToggleable
     {
         [SerializeField] private List<GameObject> portalGameObjects;
+
+        private void Start()
+        {
+            TurnOff();
+        }
 
         public bool IsOn { get; private set; }
         public void TurnOn()
