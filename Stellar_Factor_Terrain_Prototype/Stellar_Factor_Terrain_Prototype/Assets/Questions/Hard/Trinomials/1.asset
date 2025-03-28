@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
-
-    36, 15'
+  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
+    write \u02BAprime.\u02BA\n3x<sup>2</sup> + 11x - 4"
   _answers:
-  - _answerText: 1
+  - _answerText: (3x + 1)(x - 4)
     _correct: 0
-  - _answerText: 3
+  - _answerText: (3x - 1)(x + 4)
+    _correct: 1
+  - _answerText: (3x - 4)(x + 1)
     _correct: 0
-  - _answerText: 6
-    _correct: 0
-  - _answerText: 15
+  - _answerText: (3x + 4)(x - 1)
     _correct: 0

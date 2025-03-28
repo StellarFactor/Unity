@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
+  _text: 'Factor out the GCF from the polynomial:
 
-    36, 15'
+    24x<sup>6</sup> y + 21xy<sup>4</sup>'
   _answers:
-  - _answerText: 1
+  - _answerText: 3x(8x<sup>5</sup> y + 7y<sup>4</sup>)
     _correct: 0
-  - _answerText: 3
+  - _answerText: ' 3y(8x<sup>6</sup>  + 7xy<sup>3</sup>)'
     _correct: 0
-  - _answerText: 6
+  - _answerText: xy(24x<sup>5</sup>  + 21y<sup>3</sup>)
     _correct: 0
-  - _answerText: 15
-    _correct: 0
+  - _answerText: ' 3xy(8x<sup>5</sup>  + 7y<sup>3</sup>) '
+    _correct: 1

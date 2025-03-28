@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  _text: 'Find the Greatest Common Factor (GCF) for:
+  _text: 'Factor out the GCF from the polynomial:
 
-    40, 6, 15'
+    x(y + 7) + 5(y + 7)
+
+'
   _answers:
-  - _answerText: 
+  - _answerText: (y + 7)(x + 5)
+    _correct: 1
+  - _answerText: '5x(y + 7) '
     _correct: 0
-  - _answerText: 
+  - _answerText: 7y(x + 5)
     _correct: 0
-  - _answerText: 
-    _correct: 0
-  - _answerText: 
+  - _answerText: (xy + 7x) + (5y + 35)
     _correct: 0
