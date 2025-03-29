@@ -7,7 +7,7 @@ namespace StellarFactor.Minimap
         #region Serialized Vars
         // ======================================================
         [Header("Debug")]
-        [SerializeField] private Logger log;
+        [SerializeField] private DbugLog log;
         [SerializeField] private bool triggerVisit;
 
         [Header("Node")]

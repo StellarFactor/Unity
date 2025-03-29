@@ -47,11 +47,12 @@ namespace StellarFactor
                 return;
             }
 
+            artifact.transform.SetParent(transform);
             artifact.gameObject.SetActive(false);
             slotDictionary[key].FillWith(artifact);
         }
 
-        public void EmptyArtifactSlot(Artifact artifact)
+        public Artifact EmptyArtifactSlot(Artifact artifact)
         {
             string key = artifact.ArtifactName;
 
@@ -63,7 +64,7 @@ namespace StellarFactor
                     $"the list in the inspector has the correct number of " +
                     $"ArtifactInventorySlots",
                     this);
-                return;
+                return null;
             }
 
             if (slotDictionary[key].Artifact != artifact)
@@ -75,12 +76,13 @@ namespace StellarFactor
                     $"the list in the inspector has the correct number of " +
                     $"ArtifactInventorySlots",
                     slotDictionary[key]);
-                return;
+                return null;
             }
 
             Artifact removedArtifact = slotDictionary[key].Empty();
             removedArtifact.gameObject.SetActive(true);
             removedArtifact.transform.SetParent(null);
+            return removedArtifact;
         }
 
         private void InitSlotDictionary()

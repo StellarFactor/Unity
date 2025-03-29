@@ -8,11 +8,14 @@ namespace StellarFactor
 {
     public class GameManager : Singleton<GameManager>
     {
-        [Header("Prompts")]
+        [Header("= Prompts ====")]
+        [SerializeField] private GameObject promptCanvasPrefab;
+        [SerializeField] private PromptsCanvas promptsCanvas;
+        [Space(5)]
         [SerializeField] private KeyCode interactKey;
-        [SerializeField] private PromptWindow interactionPrompt;
+        [Space(5)]
         [SerializeField] private KeyCode pauseKey;
-        [SerializeField] private PausePrompt pausePrompt;
+
 
         public KeyCode InteractKey { get { return interactKey; } }
         public KeyCode PauseKey { get { return pauseKey; } }
@@ -24,21 +27,29 @@ namespace StellarFactor
         public event Action Quit;
         public event Action<PanelCycler> PanelCyclerInteractionStarted;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            if (promptsCanvas == null)
+            {
+                promptsCanvas = Instantiate(promptCanvasPrefab).GetComponent<PromptsCanvas>();
+            }
+        }
 
         private void Start()
         {
-            interactionPrompt.ClosePrompt();
-            pausePrompt.OpenPrompt();
+            promptsCanvas.InteractionPromptWindow.ClosePrompt();
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
         }
 
         public void PauseGame()
         {
             if (IsPaused) { return; }
 
-            pausePrompt.ClosePrompt();
+            promptsCanvas.PausePromptWindow.ClosePrompt();
 
             IsPaused = true;
-            pausePrompt.OpenPrompt();
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
 
             GamePaused?.Invoke();
         }
@@ -46,10 +57,10 @@ namespace StellarFactor
         {
             if (!IsPaused) { return; }
 
-            pausePrompt.OpenPrompt();
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
 
             IsPaused = false;
-            pausePrompt.OpenPrompt();
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
 
             GameResumed?.Invoke();
         }
@@ -75,7 +86,7 @@ namespace StellarFactor
 
         public bool RequestInteractionPrompt(string actionToPrompt)
         {
-            if (interactionPrompt.IsOpen)
+            if (promptsCanvas.InteractionPromptWindow.IsOpen)
             {
                 Debug.LogWarning(
                     $"Couldn't complete request to open an interaction prompt; " +
@@ -84,13 +95,13 @@ namespace StellarFactor
                 return false;
             }
 
-            interactionPrompt.OpenPrompt(actionToPrompt);
+            promptsCanvas.InteractionPromptWindow.OpenPrompt(interactKey, actionToPrompt);
             return true;
         }
 
         public bool RequestCloseInteractionPrompt()
         {
-            if (!interactionPrompt.IsOpen)
+            if (!promptsCanvas.InteractionPromptWindow.IsOpen)
             {
                 Debug.LogWarning(
                     $"Couldn't complete request to close interaction prompt; " +
@@ -99,7 +110,7 @@ namespace StellarFactor
                 return false;
             }
 
-            interactionPrompt.ClosePrompt();
+            promptsCanvas.InteractionPromptWindow.ClosePrompt();
             return true;
         }
     }

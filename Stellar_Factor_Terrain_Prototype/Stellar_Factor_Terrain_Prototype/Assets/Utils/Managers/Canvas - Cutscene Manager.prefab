@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 2843419277352006458}
   - component: {fileID: 475967670845906355}
   m_Layer: 5
-  m_Name: Cutscene Manager
+  m_Name: Canvas - Cutscene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

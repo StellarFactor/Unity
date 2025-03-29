@@ -3,13 +3,13 @@ using UnityEngine;
 namespace StellarFactor
 {
     [System.Serializable]
-    public class Logger
+    public class DbugLog
     {
         public bool showDebug = true;
 
-        public Logger() : this(true) { }
+        public DbugLog() : this(true) { }
 
-        public Logger(bool showDebug)
+        public DbugLog(bool showDebug)
         {
             this.showDebug = showDebug;
         }
@@ -26,7 +26,7 @@ namespace StellarFactor
             Debug.LogWarning(msg);
         }
 
-        public void Throw(string msg)
+        public void Error(string msg)
         {
             if (!showDebug) { return; }
             Debug.LogException(new System.Exception(msg));

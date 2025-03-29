@@ -31,23 +31,18 @@ namespace StellarFactor
         }
 
 
-        private void HandleQuestionStarted(Artifact artifact)
+        private void HandleQuestionStarted(QuestionSO question)
         {
-            Assert.IsNotNull(artifact,
-                $"{name}'s HandleQuestionStarted(Artifact) was " +
-                $"passed NULL instead of an Artifact.");
-
-            Assert.IsNotNull(artifact.Question,
-                $"{name}'s HandleQuestionStarted(Artifact) was " +
-                $"passed {artifact.name}, whose Question was NULL instead " +
-                $"of a QuestionSO");
+            Assert.IsNotNull(question,
+                $"{name}'s HandleQuestionStarted(QuestionSO) was " +
+                $"passed NULL instead of a QuestionSO.");
 
             _questionBox.enabled = true;
 
-            _questionText = artifact.Question.Text;
+            _questionText = question.Text;
             _questionBox.Text.Set(_questionText);
 
-            _answers = artifact.Question.Answers;
+            _answers = question.Answers;
 
             for(int i = 0; i < _answers.Length; i++)
             {

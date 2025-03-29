@@ -5,7 +5,7 @@ namespace StellarFactor
     [System.Serializable]
     public class StructSwitcher<T> where T : struct
     {
-        Logger log = new();
+        DbugLog log = new();
         [SerializeField] private T _default;
         private T _current;
         private T _buffer;

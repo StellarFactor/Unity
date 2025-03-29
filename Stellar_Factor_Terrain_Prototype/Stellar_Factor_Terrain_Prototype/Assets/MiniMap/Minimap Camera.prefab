@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5054621675409294339}
   - component: {fileID: 5689767166676441524}
-  - component: {fileID: 4817826395951758608}
   - component: {fileID: 3951028672582894451}
   - component: {fileID: 5660784804618575349}
+  - component: {fileID: 4817826395951758608}
   m_Layer: 7
   m_Name: Minimap Camera
   m_TagString: Minimap
@@ -86,21 +86,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &4817826395951758608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7748227864367334158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68cb4866cfccb044088520f685ca6956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  heightAbovePlayer: 50
-  isRotationLocked: 0
 --- !u!65 &3951028672582894451
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,3 +134,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4817826395951758608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748227864367334158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68cb4866cfccb044088520f685ca6956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  heightAbovePlayer: 50
+  isRotationLocked: 0

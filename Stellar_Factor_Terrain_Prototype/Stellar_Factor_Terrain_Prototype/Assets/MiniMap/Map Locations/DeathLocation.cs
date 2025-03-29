@@ -5,7 +5,7 @@ namespace StellarFactor.Minimap
 {
     public class DeathLocation : IMapLocation
     {
-        private Logger log = new();
+        private DbugLog log = new();
 
         private readonly Node nodePrefab;
         private readonly Vector3 position;

@@ -126,7 +126,22 @@ namespace StellarFactor
 
             if (!PreviouslyAquired)
             {
-                QuestionManager.MGR.StartQuestion(this);
+                if (Question == null
+                    && !QuestionManager.MGR.TryGetQuestion(this, out question))
+                {
+                    Debug.LogError(
+                        $"Something went v wrong in trying to assign" +
+                        $"a question to {name}. Its Question is still null.",
+                        this);
+
+                    return;
+                }
+
+                QuestionManager.MGR.StartQuestion(Question);
+            }
+            else
+            {
+                AquireBy(player.Inventory);
             }
 
             OnInteract?.Invoke();

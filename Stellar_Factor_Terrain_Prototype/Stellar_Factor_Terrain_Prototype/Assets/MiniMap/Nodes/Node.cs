@@ -8,7 +8,7 @@ namespace StellarFactor.Minimap
         typeof(Image))]
     public class Node : MonoBehaviour
     {
-        public Logger log = new();
+        public DbugLog log = new();
 
         private RectTransform rt;
         private Image image;

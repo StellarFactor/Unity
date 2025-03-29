@@ -25,12 +25,12 @@ namespace StellarFactor
 
         private Dictionary<Difficulty, QuestionPool> questionBank = new();
 
-        private int currentArtifactInteractionCount;
+        private int successfulQuestionLoadCount;
 
         public event Action WindowOpened;
         public event Action WindowClosed;
         public event Action WindowReset;
-        public event Action<Artifact> QuestionStarted;
+        public event Action<QuestionSO> QuestionStarted;
         public event Action QuestionCanceled;
 
         /// <summary>
@@ -61,24 +61,15 @@ namespace StellarFactor
             };
         }
 
-        public void StartQuestion(Artifact artifact)
+        public void StartQuestion(QuestionSO question)
         {
-            Assert.IsNotNull(artifact,
-                $"{name}'s StartQuestion(Artifact) was " +
-                $"passed NULL instead of an Artifact.");
-
-            if (!artifact.BeenVisited)
-            {
-                currentArtifactInteractionCount++;
-                artifact.Visit();
-            }
+            Assert.IsNotNull(question,
+                $"{name}'s StartQuestion(QuestionSO) was " +
+                $"passed NULL instead of a QuestionSO.");
 
             OpenWindow();
 
-            // If the artifact hasn't been assigned a question yet, get one
-            artifact.Question ??= GetQuestion(artifact);
-
-            OnQuestionStarted(artifact);
+            OnQuestionStarted(question);
         }
 
         public void CancelQuestion()
@@ -131,7 +122,7 @@ namespace StellarFactor
             OnQuestionAnswered(answeredCorrectly);
         }
 
-        public QuestionSO GetQuestion(Artifact artifact)
+        public bool TryGetQuestion(Artifact artifact, out QuestionSO question)
         {
             Assert.IsNotNull(artifact,
                 $"{name}'s GetQuestion(Artifact) was " +
@@ -142,59 +133,43 @@ namespace StellarFactor
                 $"a key for {artifact.Difficulty}. Make sure the question bank " +
                 $"has a {artifact.Difficulty} key with a matching QuestionPool");
 
-            return QuestionLoadOrder switch
+            if (artifact.Question != null)
+            {
+                Debug.LogError(
+                    $"{artifact.name} is already assigned a question, " +
+                    $"(\"{artifact.Question}\"). " +
+                    $"currentArtifactInteractionCount will NOT be incremented " +
+                    $"and the outgoing QuestionSO var will NOT be assigned.");
+                question = null;
+                return false;
+            }
+
+            question = QuestionLoadOrder switch
             {
                 QuestionLoadOrder.RANDOM
                     => questionBank[artifact.Difficulty].GetRandomQuestion(),
                 QuestionLoadOrder.INTERACTION_ORDER
-                    => questionBank[artifact.Difficulty].GetQuestionAt(currentArtifactInteractionCount),
+                    => questionBank[artifact.Difficulty].GetQuestionAt(successfulQuestionLoadCount),
                 QuestionLoadOrder.INSPECTOR_INDEX
                     => questionBank[artifact.Difficulty].GetQuestionAt(artifact.Index),
 
                 _   => questionBank[artifact.Difficulty].GetRandomQuestion() //default
             };
+
+            if (question == null)
+            {
+                Debug.LogError(
+                    $"Something went wrong when assigning" +
+                    $"a question to {artifact.name}.",
+                    this);
+                return false;
+            }
+            else
+            {
+                successfulQuestionLoadCount++;
+                return true;
+            }
         }
-
-        ///// <summary>
-        ///// Gets a random question from the appropriate pool.
-        ///// If the requested pool doesn't exist or doesnt have
-        ///// any questions, this function returns null.
-        ///// </summary>
-        ///// <param name="difficulty"></param>
-        ///// <returns></returns>
-        //public QuestionSO GetQuestion(Difficulty difficulty)
-        //{
-        //    QuestionPool pool = GetPool(difficulty);
-
-        //    // Null checks
-        //    if (pool == null) { return null; }
-        //    if (pool.Empty) { return null; }
-
-        //    return pool.GetRandomQuestion();
-        //}
-
-        //public QuestionSO GetQuestion(Difficulty difficulty, int artifactIndex)
-        //{
-        //    QuestionPool pool = GetPool(difficulty);
-
-        //    // Null checks
-        //    if (pool == null) { return null; }
-        //    if (pool.Empty) { return null; }
-
-        //    return pool.GetQuestionAt(artifactIndex);
-        //}
-
-        //public QuestionSO GetNextQuestion(Difficulty difficulty)
-        //{
-        //    Debug.Log($"{name} getting next question via GetNextQuestion(Difficulty)");
-        //    QuestionPool pool = GetPool(difficulty);
-
-        //    // Null checks
-        //    if (pool == null) { return null; }
-        //    if (pool.Empty) { return null; }
-
-        //    return pool.GetQuestionAt(currentArtifactInteractionCount);
-        //}
 
         public void OpenWindow()
         {
@@ -228,9 +203,9 @@ namespace StellarFactor
             WindowReset?.Invoke();
         }
 
-        protected virtual void OnQuestionStarted(Artifact artifact)
+        protected virtual void OnQuestionStarted(QuestionSO question)
         {
-            QuestionStarted?.Invoke(artifact);
+            QuestionStarted?.Invoke(question);
         }
 
         private void OnQuestionCanceled()

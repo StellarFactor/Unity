@@ -34,7 +34,7 @@ namespace StellarFactor
             QuestionManager.MGR.WindowReset -= Clear;
         }
 
-        public void OpenPrompt(string actionToPrompt)
+        public void OpenPrompt(KeyCode key, string actionToPrompt)
         {
             IsOpen = true;
 
@@ -42,7 +42,7 @@ namespace StellarFactor
             Clear();
 
             string message = promptMessage;
-            message = message.Replace(keyReplacementToken, $"{GameManager.MGR.InteractKey}");
+            message = message.Replace(keyReplacementToken, $"{key}");
             message = message.Replace(actionReplacementToken, actionToPrompt);
 
             _textbox.Text.Set(message);

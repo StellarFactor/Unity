@@ -9,7 +9,7 @@ namespace StellarFactor.Minimap
         #region Serialized Vars
         // ======================================================
         [Header("Debug")]
-        [SerializeField] Logger log = new();
+        [SerializeField] DbugLog log = new();
 
         [Header("Camera")]
         [SerializeField] private Camera cam;

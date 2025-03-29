@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb7dffcaa8cdf34c9ef840cf750faf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutsceneClip: {fileID: 0}
+  cutsceneClip: {fileID: 32900000, guid: 4f3bcb83ca5e97e428dd9d0eb6fa21b7, type: 3}
   nextSceneName: Level 2 Inside
   delayAfterVideo: 1
 --- !u!4 &8306331391373794511 stripped

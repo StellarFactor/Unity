@@ -8,6 +8,8 @@ namespace StellarFactor
     [RequireComponent(typeof(PlayerControl))]
     public class Inventory : MonoBehaviour
     {
+        [SerializeField] private Transform dropPoint;
+
         private List<IAcquirable> allItems = new();
 
         // Return a copy of the list, rather than a ref to the list.
@@ -25,7 +27,6 @@ namespace StellarFactor
 
                 if (c is Artifact artifact)
                 {
-                    artifact.transform.SetParent(GetComponent<PlayerControl>().transform);
                     Assert.IsNotNull(ArtifactInventoryUI.MGR);
                     ArtifactInventoryUI.MGR.FillArtifactSlot(artifact);
                 }
@@ -39,7 +40,8 @@ namespace StellarFactor
 
             if (item is Artifact artifact)
             {
-                ArtifactInventoryUI.MGR.EmptyArtifactSlot(artifact);
+                Artifact removed = ArtifactInventoryUI.MGR.EmptyArtifactSlot(artifact);
+                removed.transform.position = dropPoint.position;
             }
             allItems.Remove(item);
         }
