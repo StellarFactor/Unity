@@ -118,6 +118,14 @@ PrefabInstance:
       propertyPath: _index
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: 738292830, guid: 95c4a0bd1da6d6a4f83ceabe3d72fcd9, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: The Book of the Dead
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4556621653823252549, guid: 5582df72eab72934592c6376263d3882, type: 3}

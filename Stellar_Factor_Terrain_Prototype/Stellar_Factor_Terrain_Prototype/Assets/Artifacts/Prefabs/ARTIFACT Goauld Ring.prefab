@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalRotation.x
@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalRotation.z
@@ -46,10 +46,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3410513918628614118, guid: 0a7caa3ddaab2dd4ab2f661c0e981d26, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -141,6 +145,18 @@ PrefabInstance:
     - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
       propertyPath: _index
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: -1311974041, guid: 8ebf919e893c25549b78c14b496e2f5d, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: The Goa'uld Ring
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
       objectReference: {fileID: 0}
     - target: {fileID: 7836275330670042582, guid: 5582df72eab72934592c6376263d3882, type: 3}
       propertyPath: m_LocalPosition.x

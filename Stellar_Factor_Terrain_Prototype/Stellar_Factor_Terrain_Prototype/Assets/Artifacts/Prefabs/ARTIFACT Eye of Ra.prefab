@@ -52,6 +52,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: -1747611011, guid: 8cbe0dacf23282340bda726918380bf0, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: The Eye of Ra
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4556621653823252549, guid: 5582df72eab72934592c6376263d3882, type: 3}

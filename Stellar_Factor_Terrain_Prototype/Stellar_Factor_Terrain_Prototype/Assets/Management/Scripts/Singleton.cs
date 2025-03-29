@@ -6,7 +6,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     public static T MGR { get { return _instance; } }
 
-    void Awake()
+    protected virtual void Awake()
     {
         if (_instance != null)
         {

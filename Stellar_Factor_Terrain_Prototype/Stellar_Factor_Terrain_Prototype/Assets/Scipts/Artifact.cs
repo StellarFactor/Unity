@@ -5,11 +5,10 @@ using UnityEngine.Events;
 
 namespace StellarFactor
 {
-    public class Artifact : MonoBehaviour, IInteractable, IAcquirable, IFiller
+    public class Artifact : MonoBehaviour, IInteractable, IAcquirable
     {
         [Header("UI Settings")]
         [SerializeField] private string artifactName;
-        [SerializeField] private Sprite uiIcon;
         [SerializeField] private string actionToPrompt;
         [SerializeField] private string actionToPromptAfterAquired;
 
@@ -31,6 +30,7 @@ namespace StellarFactor
 
         private bool IsPlayerHere => player != null;
 
+        public string ArtifactName => artifactName;
         public Difficulty Difficulty => _difficulty;
         public int Index => _index;
         public QuestionSO Question
@@ -162,15 +162,6 @@ namespace StellarFactor
         public void RemoveFrom(Inventory inventory)
         {
             inventory.RemoveItem(this);
-        }
-        #endregion // ==========================================================
-
-
-        #region IFiller Implementation
-        // =====================================================================
-        public UIFillData GetFillData()
-        {
-            return new(artifactName, uiIcon);
         }
         #endregion // ==========================================================
 

@@ -9922,6 +9922,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feffc17be6769fc429c6bcfb027a1d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  artifactName: 
+  uiIcon: {fileID: 0}
+  actionToPrompt: Examine
+  actionToPromptAfterAquired: Pick Up
   _difficulty: 0
   _index: 0
   OnPlayerEnter:
@@ -9946,7 +9950,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   particleEffect: {fileID: 2487878501561250823}
-  actionToPrompt: Examine
 --- !u!114 &8217145132734470548
 MonoBehaviour:
   m_ObjectHideFlags: 0

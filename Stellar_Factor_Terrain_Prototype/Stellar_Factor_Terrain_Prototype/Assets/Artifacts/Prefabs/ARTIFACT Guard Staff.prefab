@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: _index
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: 160819289, guid: b07a261e0ec5aff4bbce0d566fe01467, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: Ma'Tok Staff
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4556621653823252549, guid: 5582df72eab72934592c6376263d3882, type: 3}

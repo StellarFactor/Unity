@@ -1,47 +1,60 @@
-using StellarFactor;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.Assertions;
 
-public class Inventory : MonoBehaviour
+namespace StellarFactor
 {
-    private List<IAcquirable> allItems = new();
-    private List<Artifact> artifacts = new();
-
-    // Return a copy of the list, rather than a ref to the list.
-    public List<Artifact> ArtifactsAquired => new(artifacts);
-
-    public void AquireItem(IAcquirable item)
+    [RequireComponent(typeof(PlayerControl))]
+    public class Inventory : MonoBehaviour
     {
-        if (allItems.Contains(item)) { return; }
+        private List<IAcquirable> allItems = new();
 
-        if (item is Component c)
+        // Return a copy of the list, rather than a ref to the list.
+        public List<Artifact> ArtifactsAcquired => allItems
+            .Where(item => item is Artifact).ToList()
+            .ConvertAll(item => item as Artifact);
+
+        public void AquireItem(IAcquirable item)
         {
-            c.gameObject.SetActive(false);
+            if (allItems.Contains(item)) { return; }
 
-            if (c is Artifact artifact
-                && !artifacts.Contains(artifact))
+            if (item is Component c)
             {
-                artifacts.Add(artifact);
+                c.gameObject.SetActive(false);
 
-
-                List<string> artifactNames = new();
-                foreach (Artifact a in artifacts)
+                if (c is Artifact artifact)
                 {
-                    artifactNames.Add(a.GetFillData().name);
+                    artifact.transform.SetParent(GetComponent<PlayerControl>().transform);
+                    Assert.IsNotNull(ArtifactInventoryUI.MGR);
+                    ArtifactInventoryUI.MGR.FillArtifactSlot(artifact);
                 }
-                Debug.Log($"{name} added {artifact.name} to its inventory.\n" +
-                    $"New artifact list:\n" +
-                    $"{string.Join("\n", artifactNames)}");
-                // add to slot;
             }
+            allItems.Add(item);
         }
-        allItems.Add(item);
-    }
 
-    public void RemoveItem(IAcquirable item)
-    {
-        if (!allItems.Contains(item)) { return; }
+        public void RemoveItem(IAcquirable item)
+        {
+            if (!allItems.Contains(item)) { return; }
 
-        allItems.Remove(item);
+            if (item is Artifact artifact)
+            {
+                ArtifactInventoryUI.MGR.EmptyArtifactSlot(artifact);
+            }
+            allItems.Remove(item);
+        }
+
+        private void PrintArtifactListDebug()
+        {
+            List<string> artifactNames = new()
+        {
+            "New artifact list:"
+        };
+            foreach (Artifact a in ArtifactsAcquired)
+            {
+                artifactNames.Add(a.ArtifactName);
+            }
+            Debug.Log(string.Join("\n", artifactNames));
+        }
     }
 }

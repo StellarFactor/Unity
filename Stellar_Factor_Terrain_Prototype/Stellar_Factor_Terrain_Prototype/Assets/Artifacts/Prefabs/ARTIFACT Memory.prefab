@@ -142,6 +142,18 @@ PrefabInstance:
       propertyPath: _index
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: -257660006, guid: 41ff3e5c2d411504681950ad3faf294d, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: The Atlantis Crystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
+      objectReference: {fileID: 0}
     - target: {fileID: 7836275330670042582, guid: 5582df72eab72934592c6376263d3882, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

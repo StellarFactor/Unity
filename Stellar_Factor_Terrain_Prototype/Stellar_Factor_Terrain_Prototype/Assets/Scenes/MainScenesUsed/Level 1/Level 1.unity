@@ -17705,10 +17705,6 @@ PrefabInstance:
       value: ARTIFACT Guard Staff
       objectReference: {fileID: 0}
     - target: {fileID: 8309518142731417775, guid: 958cc78ab49ac3b40b0ce4812bb2536c, type: 3}
-      propertyPath: particleEffect
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8309518142731417775, guid: 958cc78ab49ac3b40b0ce4812bb2536c, type: 3}
       propertyPath: OnPlayerExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 145038271}
@@ -31935,6 +31931,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 342184738041545885, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 7435e9fa2bac2f84aa813e7356411fd1, type: 2}
     - target: {fileID: 1865240474736318367, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -32015,10 +32015,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3495599047651707021, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 36270e33403206d4a8e6d3fc04eae54c, type: 2}
+    - target: {fileID: 3635456508668057207, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 49aa01a84b40b9045877a0a3365058ea, type: 2}
     - target: {fileID: 5143517070785001223, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
       propertyPath: m_Name
       value: Canvas - Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 6711519324827877328, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: d744677c901b2054fb8b26631d363fe2, type: 2}
+    - target: {fileID: 6882587296861700207, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: ebbfc152cdf90274cba5e2f6a95d496c, type: 2}
+    - target: {fileID: 7893024908954907081, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: d91940518fba6d548b6cd789bc3bb8b5, type: 2}
+    - target: {fileID: 8318846083299958032, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f4089a329579fd43be47a4b5c65b8d9, type: 2}
+    - target: {fileID: 9000809189150048513, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: <FullColorSet>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 542c27158a1660b4e86fe0a1b3ce4fee, type: 2}
+    - target: {fileID: 9000809189150048513, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: <EmptyColorSet>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 5815904dd016b4346be5ad3dd002a73b, type: 2}
+    - target: {fileID: 9000809189150048513, guid: d065de9d850e95142a13d9c8b1231f80, type: 3}
+      propertyPath: <FullColorSelectedSet>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: e0548ae4db418e14588673a88ba48a93, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
