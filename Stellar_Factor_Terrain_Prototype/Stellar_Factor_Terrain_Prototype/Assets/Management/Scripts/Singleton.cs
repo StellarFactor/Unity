@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace StellarFactor
 {
-    private static T _instance;
-
-    public static T MGR { get { return _instance; } }
-
-    protected virtual void Awake()
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        if (_instance != null)
+        private static T _instance;
+
+        public static T MGR { get { return _instance; } }
+
+        protected virtual void Awake()
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this as T;
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this as T;
+            }
         }
     }
 }

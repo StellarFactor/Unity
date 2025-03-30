@@ -45,6 +45,9 @@ namespace StellarFactor
             GameManager.MGR.PanelCyclerInteractionStarted -= HandlePanelCyclerInteraction;
             QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
+
+            LockControls();
+            lockInteractionStack = 0;
         }
 
         private void Update()
@@ -86,22 +89,22 @@ namespace StellarFactor
 
         private void HandlePause()
         {
-            requestLockControls();
+            RequestLockControls();
         }
 
         private void HandleResume()
         {
-            requestUnlockControls();
+            RequestUnlockControls();
         }
 
         private void HandleQuestionWindowClosed()
         {
-            requestUnlockControls();
+            RequestUnlockControls();
         }
 
         private void HandleQuestionWindowOpened()
         {
-            requestLockControls();
+            RequestLockControls();
         }
 
         //private void HandleArtifactInteraction(Artifact artifact)
@@ -130,26 +133,26 @@ namespace StellarFactor
 
         private void HandlePanelCyclerInteraction(PanelCycler cycler)
         {
-            requestLockControls();
+            RequestLockControls();
 
             WaitThenDo waitForPanelCycler = new WaitThenDo(
                 this,
                 () => !cycler.IsRunning,
                 () => false,
-                () => requestUnlockControls(),
+                () => RequestUnlockControls(),
                 () => { });
 
             waitForPanelCycler.Start();
         }
 
-        private void requestLockControls()
+        private void RequestLockControls()
         {
             lockInteractionStack++;
             Debug.LogWarning($"Requesting Lock Controls.  Lock Stack : {lockInteractionStack}");
-            lockControls();
+            LockControls();
         }
 
-        private bool requestUnlockControls()
+        private bool RequestUnlockControls()
         {
             lockInteractionStack = (int)Mathf.Clamp(
                 --lockInteractionStack,
@@ -159,21 +162,21 @@ namespace StellarFactor
 
             if (lockInteractionStack == 0)
             {
-                unlockControls();
+                UnlockControls();
                 return true;
             }
 
             return false;
         }
 
-        private void lockControls()
+        private void LockControls()
         {
             _controller.enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
 
-        private void unlockControls()
+        private void UnlockControls()
         {
             _controller.enabled = true;
             Cursor.visible = false;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-    public class GameManager : Singleton<GameManager>
+public class GameManager : Singleton<GameManager>
     {
         [Header("= Spawning ====")]
         [SerializeField] private Transform startingSpawnPos;
@@ -19,6 +19,9 @@ namespace StellarFactor
         [SerializeField] private KeyCode interactKey;
         [Space(5)]
         [SerializeField] private KeyCode pauseKey;
+
+        [Header("= Inventory ====")]
+        [SerializeField] private GameObject inventoryPrefab;
 
 
         public KeyCode InteractKey { get { return interactKey; } }
@@ -34,14 +37,20 @@ namespace StellarFactor
         protected override void Awake()
         {
             base.Awake();
-            if (promptsCanvas == null)
-            {
-                promptsCanvas = Instantiate(promptCanvasPrefab).GetComponent<PromptsCanvas>();
-            }
         }
 
         private void Start()
         {
+            if (promptsCanvas == null)
+            {
+                promptsCanvas = Instantiate(promptCanvasPrefab).GetComponent<PromptsCanvas>();
+            }
+
+            if (ArtifactInventoryUI.MGR == null)
+            {
+                Instantiate(inventoryPrefab);
+            }
+
             promptsCanvas.InteractionPromptWindow.ClosePrompt();
             promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
             if (!overrideStartingSpawnPos)

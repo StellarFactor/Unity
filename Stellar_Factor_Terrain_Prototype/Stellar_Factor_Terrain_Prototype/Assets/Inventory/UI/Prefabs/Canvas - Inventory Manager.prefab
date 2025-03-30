@@ -132,6 +132,9 @@ MonoBehaviour:
   - {fileID: 3495599047651707021}
   - {fileID: 6882587296861700207}
   - {fileID: 6711519324827877328}
+  <EmptyColorSet>k__BackingField: {fileID: 11400000, guid: 5815904dd016b4346be5ad3dd002a73b, type: 2}
+  <FullColorSet>k__BackingField: {fileID: 11400000, guid: 542c27158a1660b4e86fe0a1b3ce4fee, type: 2}
+  <FullColorSelectedSet>k__BackingField: {fileID: 11400000, guid: e0548ae4db418e14588673a88ba48a93, type: 2}
 --- !u!1 &8679103442247487540
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +219,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 36270e33403206d4a8e6d3fc04eae54c, type: 2}
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
       objectReference: {fileID: -1182111708, guid: eea5d7f4a189c0e42b354ffc30593c12, type: 3}
@@ -285,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2702480753170459177, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 95.9999
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 2702480753170459177, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -337,6 +344,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 49aa01a84b40b9045877a0a3365058ea, type: 2}
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
@@ -460,6 +471,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 7435e9fa2bac2f84aa813e7356411fd1, type: 2}
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
       objectReference: {fileID: -257660006, guid: 41ff3e5c2d411504681950ad3faf294d, type: 3}
@@ -582,6 +597,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: d91940518fba6d548b6cd789bc3bb8b5, type: 2}
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
       objectReference: {fileID: -1311974041, guid: 8ebf919e893c25549b78c14b496e2f5d, type: 3}
@@ -703,6 +722,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f4089a329579fd43be47a4b5c65b8d9, type: 2}
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
@@ -906,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2702480753170459177, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 95.9999
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 2702480753170459177, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -958,6 +981,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: d744677c901b2054fb8b26631d363fe2, type: 2}
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
@@ -1124,6 +1151,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1865240474736318367}
     m_Modifications:
+    - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
+      propertyPath: iconMask
+      value: 
+      objectReference: {fileID: 11400000, guid: ebbfc152cdf90274cba5e2f6a95d496c, type: 2}
     - target: {fileID: 2337992561962671873, guid: 35a8e1a6a7724ef408243abd36523127, type: 3}
       propertyPath: iconSprite
       value: 
