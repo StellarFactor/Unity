@@ -1,7 +1,6 @@
 #if UNITY_EDITOR
 #endif
 
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace StellarFactor
