@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 1
+  m_Name: Med GCF 4
   m_EditorClassIdentifier: 
-  _text: "Factor the four-term polynomial by grouping:\n 6x<sup>2</sup>  + 10x -
-    9x - 15"
+  _text: 'Find the GCF for the list:
+
+    4x<sup>4</sup>y<sup>8</sup>, 16y<sup>6</sup>z<sup>4</sup>'
   _answers:
-  - _answerText: (2x + 3)(3x - 5)
+  - _answerText: 'x<sup>4</sup>y<sup>6</sup>  '
     _correct: 0
-  - _answerText: (6x + 3)(x - 5)
+  - _answerText: '2y<sup>6</sup> '
     _correct: 0
-  - _answerText: (2x - 3)(3x + 5)
+  - _answerText: '4y<sup>6</sup> '
     _correct: 1
-  - _answerText: (6x - 3)(x + 5)
+  - _answerText: 4xyz
     _correct: 0

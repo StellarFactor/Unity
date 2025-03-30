@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 4
+  m_Name: Hard GCF 1
   m_EditorClassIdentifier: 
-  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
-    write \u02BAprime.\u02BA\n 12x<sup>2</sup>  - 17xy + 6y<sup>2</sup>"
+  _text: 'Factor out the GCF from the polynomial:
+
+    24x<sup>6</sup> y + 21xy<sup>4</sup>'
   _answers:
-  - _answerText: (4x - 3y)(3x - 2y)
-    _correct: 1
-  - _answerText: prime
+  - _answerText: 3x(8x<sup>5</sup> y + 7y<sup>4</sup>)
     _correct: 0
-  - _answerText: (4x + 3y)(3x + 2y)
-    _correct: 1
-  - _answerText: (12x + 3y)(x + 2y)
+  - _answerText: ' 3y(8x<sup>6</sup>  + 7xy<sup>3</sup>)'
     _correct: 0
+  - _answerText: xy(24x<sup>5</sup>  + 21y<sup>3</sup>)
+    _correct: 0
+  - _answerText: ' 3xy(8x<sup>5</sup>  + 7y<sup>3</sup>) '
+    _correct: 1

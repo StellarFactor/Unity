@@ -1127,15 +1127,16 @@ MonoBehaviour:
   m_text: 'You were sure you had taken it all into account; you were wrong.
 
 
-    Marooned
-    in a dimension far from your home, at the other side of vast spatial and temporal
-    oceans, your collection of powerful artifacts has been strewn throughout the
+    Attempting
+    to return a collection of powerful artifacts to their rightful place, you now
+    find yourself marooned in a dimension far from your home, at the other side of
+    vast spatial and temporal oceans. The Artifacts have been strewn throughout the
     unforgiving landscape, waiting to fall into the wrong hands.
 
 
     You must realign
-    the dial of the dimensional rift to make your way back home. But first, you must
-    retrieve the artifacts, returning them to the safety of your pack.'
+    the dial of the dimensional rift to make your way to the resting place of the
+    Artifacts. But first, you must retrieve them...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 007472686670979448def2ba8670c99e, type: 2}
   m_sharedMaterial: {fileID: -3826434354576013279, guid: 007472686670979448def2ba8670c99e, type: 2}
@@ -1162,7 +1163,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.85
+  m_fontSize: 31.35
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1

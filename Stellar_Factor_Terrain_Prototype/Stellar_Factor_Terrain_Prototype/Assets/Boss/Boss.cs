@@ -3,7 +3,7 @@ using StellarFactor.Global;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BossInteraction : MonoBehaviour, IInteractable
+public class Boss : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject boss;
     [SerializeField] private GameObject blockingWall;
@@ -19,6 +19,7 @@ public class BossInteraction : MonoBehaviour, IInteractable
     [SerializeField] private UnityEvent OnPlayerEnter;
     [SerializeField] private UnityEvent OnInteract;
     [SerializeField] private UnityEvent OnPlayerExit;
+    [SerializeField] private UnityEvent OnBossDefeated;
 
     [Header("VFX")]
     [SerializeField] private GameObject particleEffect;
@@ -80,10 +81,8 @@ public class BossInteraction : MonoBehaviour, IInteractable
 
         if (wasRecentAttemptCorrect)
         {
-            // TODO: KILL BOSS whatever this might mean.
-            // animate,
-            Destroy(boss);
-            Destroy(blockingWall);
+            // KILL BOSS whatever this might mean.
+            OnBossDefeated.Invoke();
         }
         // Got it wrong last time, so we know player is
         // closing window to come back to it later.
@@ -115,6 +114,7 @@ public class BossInteraction : MonoBehaviour, IInteractable
 
         if (!PreviouslyAquired)
         {
+            Question.QuestionGivenBy = QuestionGivenBy.BOSS;
             QuestionManager.MGR.StartQuestion(Question);
         }
 

@@ -77,6 +77,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6619422791957134128}
     m_Modifications:
+    - target: {fileID: 3125801443668962998, guid: 7f4b5b8fec4938748a88325b2d02fc0f, type: 3}
+      propertyPath: _bossDefeatedMessage
+      value: Threat Defeated! You can now use the Dial to activate the Gate!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125801443668962998, guid: 7f4b5b8fec4938748a88325b2d02fc0f, type: 3}
+      propertyPath: _bossNotDefeatedMessage
+      value: Threat remains active!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125801443668962998, guid: 7f4b5b8fec4938748a88325b2d02fc0f, type: 3}
+      propertyPath: _pedistalArtifactFailMessage
+      value: Unable to place the artifact on the Pedistal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125801443668962998, guid: 7f4b5b8fec4938748a88325b2d02fc0f, type: 3}
+      propertyPath: _pedistalArtifactSuccessMessage
+      value: You place the artifact on the Pedistal.
+      objectReference: {fileID: 0}
     - target: {fileID: 4531434511159912492, guid: 7f4b5b8fec4938748a88325b2d02fc0f, type: 3}
       propertyPath: m_Name
       value: Response Canvas

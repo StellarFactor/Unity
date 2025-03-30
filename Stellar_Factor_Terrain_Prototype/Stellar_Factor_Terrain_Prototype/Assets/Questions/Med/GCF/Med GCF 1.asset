@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 2
+  m_Name: Med GCF 1
   m_EditorClassIdentifier: 
-  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
-    write \u02BAprime.\u02BA\n x<sup>2</sup>  + x - 56"
+  _text: 'Find the GCF for the list:
+
+    14m<sup>4</sup>, 56m<sup>7</sup>'
   _answers:
-  - _answerText: (x + 1)(x - 56)
-    _correct: 0
-  - _answerText: prime
-    _correct: 0
-  - _answerText: (x - 7)(x + 8)
+  - _answerText: 14m<sup>3</sup>
     _correct: 1
-  - _answerText: (x - 8)(x + 7)
+  - _answerText: 56m<sup>4</sup>
+    _correct: 0
+  - _answerText: 14m<sup>4</sup>
+    _correct: 1
+  - _answerText: 784m<sup>3</sup>
     _correct: 0

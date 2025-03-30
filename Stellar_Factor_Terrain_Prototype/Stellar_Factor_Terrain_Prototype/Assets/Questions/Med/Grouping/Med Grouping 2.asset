@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 4
+  m_Name: Med Grouping 2
   m_EditorClassIdentifier: 
-  _text: 'Find the GCF for the list:
+  _text: 'Factor the four-term polynomial by grouping:
 
-    4x<sup>4</sup>y<sup>8</sup>, 16y<sup>6</sup>z<sup>4</sup>'
+    2x + 16 + xy + 8y'
   _answers:
-  - _answerText: 'x<sup>4</sup>y<sup>6</sup>  '
+  - _answerText: (y + 8)(x + 2)
     _correct: 0
-  - _answerText: '2y<sup>6</sup> '
+  - _answerText: (y + 8)(2x + y)
     _correct: 0
-  - _answerText: '4y<sup>6</sup> '
+  - _answerText: (x + 8y)(2 + y)
+    _correct: 0
+  - _answerText: (x + 8)(2 + y)
     _correct: 1
-  - _answerText: 4xyz
-    _correct: 0

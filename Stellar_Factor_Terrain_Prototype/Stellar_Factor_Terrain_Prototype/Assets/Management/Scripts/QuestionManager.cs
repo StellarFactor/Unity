@@ -43,6 +43,7 @@ namespace StellarFactor
         public event Action<bool> QuestionAnswered; // bool for
                                                     // correctly answered
 
+        public QuestionSO CurrentQuestion { get; private set; }
         public QuestionLoadOrder QuestionLoadOrder { get { return questionLoadOrder; } }
 
         private void Start()
@@ -67,6 +68,9 @@ namespace StellarFactor
                 $"{name}'s StartQuestion(QuestionSO) was " +
                 $"passed NULL instead of a QuestionSO.");
 
+            CurrentQuestion = question;
+            CurrentQuestion.OnLoadIntoWindow();
+
             OpenWindow();
 
             OnQuestionStarted(question);
@@ -83,19 +87,23 @@ namespace StellarFactor
         {
             // Set strategies
             Action responsePanelAction = answeredCorrectly
-                ? () => responsePanel.SetCorrect()
-                : () => responsePanel.SetIncorrect();
+                ? () => responsePanel.SetCorrect(CurrentQuestion.QuestionGivenBy)
+                : () => responsePanel.SetIncorrect(CurrentQuestion.QuestionGivenBy);
 
             Action questionWindowAction = answeredCorrectly
                 ? () => CloseWindow()
                 : () => ResetWindow();
 
 
-            // Perform Question UI related responses
-            responsePanelAction();      // Set the response panel state immediately
-            responsePanel.Open();       // Open the response panel after setting it.
-            questionPanel.HideQuestion();   // Hide the question part of the
-                                            // question panel
+            // == Perform Question UI related responses ==
+            // Set the response panel state immediately
+            responsePanelAction();
+
+            // Open the response panel after setting it.
+            responsePanel.Open();
+
+            // Hide the question part of the question panel
+            questionPanel.HideQuestion();
 
             // Create a timer that will run for some float secs
             CountdownTimer timer = new(this, answerResponseDuration);

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 1
+  m_Name: Hard GCF 4
   m_EditorClassIdentifier: 
-  _text: 'Find the GCF for the list:
+  _text: 'Factor out the GCF from the polynomial:
 
-    14m<sup>4</sup>, 56m<sup>7</sup>'
+    -18x<sup>7</sup>  - 18x'
   _answers:
-  - _answerText: 14m<sup>3</sup>
-    _correct: 1
-  - _answerText: 56m<sup>4</sup>
+  - _answerText: -18(x<sup>7</sup>  + x)
     _correct: 0
-  - _answerText: 14m<sup>4</sup>
+  - _answerText: -18x(x<sup>6</sup>  + 1)
     _correct: 1
-  - _answerText: 784m<sup>3</sup>
+  - _answerText: -18x(x<sup>6</sup> )
+    _correct: 0
+  - _answerText: -18(x<sup>8</sup>  + 1)
     _correct: 0

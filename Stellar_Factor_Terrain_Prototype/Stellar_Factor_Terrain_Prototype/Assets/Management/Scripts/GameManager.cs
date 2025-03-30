@@ -8,6 +8,10 @@ namespace StellarFactor
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Header("= Spawning ====")]
+        [SerializeField] private Transform startingSpawnPos;
+        [SerializeField] private bool overrideStartingSpawnPos;
+
         [Header("= Prompts ====")]
         [SerializeField] private GameObject promptCanvasPrefab;
         [SerializeField] private PromptsCanvas promptsCanvas;
@@ -40,6 +44,10 @@ namespace StellarFactor
         {
             promptsCanvas.InteractionPromptWindow.ClosePrompt();
             promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
+            if (!overrideStartingSpawnPos)
+            {
+                FindObjectOfType<PlayerControl>().transform.position = startingSpawnPos.position;
+            }
         }
 
         public void PauseGame()

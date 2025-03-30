@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 3
+  m_Name: Med Trinomials 2
   m_EditorClassIdentifier: 
-  _text: 'Factor out the GCF from the polynomial:
-
-    x(y + 7) + 5(y + 7)
-
-'
+  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
+    write \u02BAprime.\u02BA\n x<sup>2</sup>  + x - 56"
   _answers:
-  - _answerText: (y + 7)(x + 5)
+  - _answerText: (x + 1)(x - 56)
+    _correct: 0
+  - _answerText: prime
+    _correct: 0
+  - _answerText: (x - 7)(x + 8)
     _correct: 1
-  - _answerText: '5x(y + 7) '
-    _correct: 0
-  - _answerText: 7y(x + 5)
-    _correct: 0
-  - _answerText: (xy + 7x) + (5y + 35)
+  - _answerText: (x - 8)(x + 7)
     _correct: 0

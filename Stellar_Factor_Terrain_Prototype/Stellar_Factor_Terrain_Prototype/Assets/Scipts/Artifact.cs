@@ -137,6 +137,7 @@ namespace StellarFactor
                     return;
                 }
 
+                Question.QuestionGivenBy = QuestionGivenBy.ARTIFACT;
                 QuestionManager.MGR.StartQuestion(Question);
             }
             else

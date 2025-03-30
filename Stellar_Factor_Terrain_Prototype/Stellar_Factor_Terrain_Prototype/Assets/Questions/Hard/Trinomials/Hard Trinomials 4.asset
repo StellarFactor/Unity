@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
-  m_Name: 2
+  m_Name: Hard Trinomials 4
   m_EditorClassIdentifier: 
   _text: "Factor the trinomial completely. If the polynomial cannot be factored,
-    write \u02BAprime.\u02BA\n8z<sup>2</sup> - 6z - 9"
+    write \u02BAprime.\u02BA\n 12x<sup>2</sup>  - 17xy + 6y<sup>2</sup>"
   _answers:
-  - _answerText: (4z + 3)(2z - 3)
+  - _answerText: (4x - 3y)(3x - 2y)
     _correct: 1
   - _answerText: prime
     _correct: 0
-  - _answerText: (8z + 3)(z - 3)
-    _correct: 0
-  - _answerText: (4z - 3)(2z + 3)
+  - _answerText: (4x + 3y)(3x + 2y)
+    _correct: 1
+  - _answerText: (12x + 3y)(x + 2y)
     _correct: 0
