@@ -63,10 +63,28 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d67a7e4bf181fb84383f71864d2e1690, type: 2}
   _medium:
     _difficulty: 1
-    _questions: []
+    _questions:
+    - {fileID: 11400000, guid: 5ddd82c4f09a9154e8a93925a5de981e, type: 2}
+    - {fileID: 11400000, guid: ef36816c261b0c941b3b32f3e73ad211, type: 2}
+    - {fileID: 11400000, guid: a7534fe09ba1b5444b96327f54b0da8c, type: 2}
+    - {fileID: 11400000, guid: 113b3de2cebb0464cbfcb9e7ea858c59, type: 2}
+    - {fileID: 11400000, guid: f3d2b3fa5586e4244b4f2588d9b29634, type: 2}
+    - {fileID: 11400000, guid: 898b5bc5544fb3c4885bd4785c4442c2, type: 2}
+    - {fileID: 11400000, guid: 0537019d17ec66749a3b3dcb918e2bcf, type: 2}
+    - {fileID: 11400000, guid: c85eceac96a394b46a1e4f92945c487e, type: 2}
+    - {fileID: 11400000, guid: f056d541377cb174b9cb3bf133e8ba1b, type: 2}
+    - {fileID: 11400000, guid: bda265f15df64c845afbc481b641acbb, type: 2}
   _hard:
     _difficulty: 2
-    _questions: []
+    _questions:
+    - {fileID: 11400000, guid: da532aa5b3282a74a90ed79cc675c468, type: 2}
+    - {fileID: 11400000, guid: ea80c1d1476508d4bbee7f89c52aadc6, type: 2}
+    - {fileID: 11400000, guid: e22145d447216184abcd3ad7ddfda9aa, type: 2}
+    - {fileID: 11400000, guid: 68d68f542df293341afcde64aa08d775, type: 2}
+    - {fileID: 11400000, guid: 8cc4893da0ccc9e4d9c9334e6a4024f8, type: 2}
+    - {fileID: 11400000, guid: 6a93f4f99598a1a42aea7d4da898825b, type: 2}
+    - {fileID: 11400000, guid: e56a4115dceef4b4a92a95e79b95a586, type: 2}
+    - {fileID: 11400000, guid: d5b0388d847076a4cb9d72d5cdf8a34a, type: 2}
   questionPanel: {fileID: 6364119763977858981}
   responsePanel: {fileID: 5563093371045364150}
 --- !u!1001 &7373800138184584960

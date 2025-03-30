@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class CountdownTimer
 {
@@ -53,8 +54,18 @@ public class CountdownTimer
     {
         while (timeRemaining > 0f && !BeenCanceled)
         {
+            int truncatedRemaining = (int)timeRemaining;
             timeRemaining -= Time.deltaTime;
-            Debug.LogWarning($"Time Remaining: {Mathf.Round(timeRemaining):F2}");
+
+            // If the second has ticked over into the whole second
+            // after subtracting frame time,
+            if (truncatedRemaining != (int)timeRemaining)
+            {
+                Debug.LogWarning(
+                    $"Time Remaining: {Mathf.Round(timeRemaining):F2}",
+                    runner);
+            }
+
             yield return null;
         }
 

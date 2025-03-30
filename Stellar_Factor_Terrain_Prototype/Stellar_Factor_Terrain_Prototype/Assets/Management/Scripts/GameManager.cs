@@ -64,9 +64,7 @@ public class GameManager : Singleton<GameManager>
             if (IsPaused) { return; }
 
             promptsCanvas.PausePromptWindow.ClosePrompt();
-
             IsPaused = true;
-            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
 
             GamePaused?.Invoke();
         }
@@ -75,9 +73,7 @@ public class GameManager : Singleton<GameManager>
             if (!IsPaused) { return; }
 
             promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
-
             IsPaused = false;
-            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
 
             GameResumed?.Invoke();
         }

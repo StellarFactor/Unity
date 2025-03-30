@@ -20,16 +20,37 @@ namespace StellarFactor
             Debug.Log(msg);
         }
 
+        public void Print(string msg, Object context)
+        {
+            if (!showDebug) { return; }
+
+            Debug.Log(msg, context);
+        }
+
         public void Warn(string msg)
         {
             if (!showDebug) { return; }
             Debug.LogWarning(msg);
         }
 
+        public void Warn(string msg, Object context)
+        {
+            if (!showDebug) { return; }
+
+            Debug.LogWarning(msg, context);
+        }
+
         public void Error(string msg)
         {
             if (!showDebug) { return; }
-            Debug.LogException(new System.Exception(msg));
+            Debug.LogError(msg);
+        }
+
+        public void Error(string msg, Object context)
+        {
+            if (!showDebug) { return; }
+
+            Debug.LogError(msg, context);
         }
     }
 }

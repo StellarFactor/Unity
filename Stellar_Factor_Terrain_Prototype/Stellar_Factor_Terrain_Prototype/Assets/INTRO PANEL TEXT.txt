@@ -1,0 +1,60 @@
+V1 | Level One | (objective is to collect your artifacts & bring them home)
+- Header
+	- You thought you had assessed every possible factor...
+- Body
+	- Panel 1.
+		- You were sure you had taken it all into account; you were wrong.
+
+		Marooned in a dimension far from your home, at the other side of vast spatial and temporal oceans, The Artifacts have been strewn throughout the unforgiving landscape, waiting to fall into the wrong hands.
+
+		You must realign the dial of the dimensional rift to make your way home. But first, you must return the Artifacts to the safety of your pack...
+	- Panel 2.
+		- You just hope you remember enough algebra to get past that
+		- "factoring authentication"
+		- system you implemented to protect your valuable relics...
+		
+
+V1 | Level Two | (objective is to collect your artifacts & bring them home)
+- Header
+	- Halfway there...
+- Body
+	- Panel 1.
+		- You've made it to Abydos. You know this realm contains a gate with a functioning path home.
+
+		But it seems as though your pack wasn't fully secured (again).
+
+		You'll have to wander the corridors of the central pyramid to collect them again before you can make your dramatic exit.
+	- Panel 2.
+		- The authentication protocol has been increased to
+		- Level 2
+		
+
+V2 | Level One | (objective is to collect artifacts & bring them to their pedestals)
+- Header
+	- You thought you had assessed every possible factor...
+- Body
+	- Panel 1.
+		- You were sure you had taken it all into account; you were wrong.
+
+		Attempting to return a collection of powerful artifacts to their rightful place, you now find yourself marooned in a dimension far from your home, at the other side of vast spatial and temporal oceans. The Artifacts have been strewn throughout the unforgiving landscape, waiting to fall into the wrong hands.
+
+		You must realign the dial of the dimensional rift to make your way to the resting place of the Artifacts. But first, you must retrieve them...
+	- Panel 2.
+		- You just hope you remember enough algebra to get past that
+		- "factoring authentication"
+		- system you implemented to protect your valuable relics...
+
+V2 | Level Two | (objective is to collect artifacts & bring them to their pedestals)
+- Header
+	- Halfway there...
+- Body
+	- Panel 1.
+		- You've made it to Abydos. You know this realm contains a gate with a functioning path home.
+
+		But it seems as though your pack wasn't fully secured (again).
+
+		You'll have to wander the corridors of the central pyramid to collect them, return them to their rightful place on their ancient Pedestals, and finally make your dramatic return home.
+	- Panel 2.
+		- The authentication protocol has been increased to
+		- Level 2
+

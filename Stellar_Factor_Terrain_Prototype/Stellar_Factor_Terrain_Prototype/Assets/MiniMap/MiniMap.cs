@@ -32,6 +32,7 @@ namespace StellarFactor.Minimap
         // ======================================================
         private void Update()
         {
+            canvas.enabled = !IsScrambled;
             if (IsScrambled) { return; }
 
             NodeUpdates.Invoke();

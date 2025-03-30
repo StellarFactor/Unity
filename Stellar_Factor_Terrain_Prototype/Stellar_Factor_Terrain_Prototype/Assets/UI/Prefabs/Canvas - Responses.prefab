@@ -59,6 +59,10 @@ MonoBehaviour:
   _artifactResponseBox: {fileID: 7132474959396698535}
   _acquiredArtifactMessasge: Artifact Aquired!
   _failedArtifactMessage: Unable to aquire artifact
+  _pedistalArtifactSuccessMessage: 
+  _pedistalArtifactFailMessage: 
+  _bossDefeatedMessage: 
+  _bossNotDefeatedMessage: 
 --- !u!1 &2418069876535402021
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,8 +240,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c250e44e8e518f948892829dd910b304, type: 2}
-  m_sharedMaterial: {fileID: 7881911299101549819, guid: c250e44e8e518f948892829dd910b304, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+  m_sharedMaterial: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -267,7 +271,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 200
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -473,8 +477,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Response
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c250e44e8e518f948892829dd910b304, type: 2}
-  m_sharedMaterial: {fileID: 7881911299101549819, guid: c250e44e8e518f948892829dd910b304, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
+  m_sharedMaterial: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -504,7 +508,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535

@@ -48,8 +48,15 @@ namespace StellarFactor
             }
 
             artifact.transform.SetParent(transform);
+
+            // So interaction checker will clear its current interaction.
+            Collider[] cols = artifact.GetComponentsInChildren<Collider>();
+            cols.ToList().ForEach(col => col.enabled = false);
+
             artifact.gameObject.SetActive(false);
             slotDictionary[key].FillWith(artifact);
+
+            cols.ToList().ForEach(col => col.enabled = true);
         }
 
         public Artifact EmptyArtifactSlot(Artifact artifact)

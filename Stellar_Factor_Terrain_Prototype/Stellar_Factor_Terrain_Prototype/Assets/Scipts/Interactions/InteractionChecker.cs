@@ -5,7 +5,9 @@ namespace StellarFactor
 {
     public class InteractionChecker : MonoBehaviour
     {
-        private IInteractable _currentInteraction;
+        [SerializeField] private DbugLog log;
+
+        private IInteractable currentInteraction;
 
         private bool canInteract;
 
@@ -29,7 +31,7 @@ namespace StellarFactor
 
             if (!TryGetComponent(out player))
             {
-                Debug.LogError($"{name} should be attached to a(the) " +
+                log.Error($"{name} should be attached to a(the) " +
                     $"GameObject with a(the) PlayerControl Component.");
             }
         }
@@ -40,29 +42,69 @@ namespace StellarFactor
 
             if (Input.GetKeyDown(GameManager.MGR.InteractKey))
             {
-                _currentInteraction?.Interact();
+                currentInteraction?.Interact();
+            }
+
+            // This is a bug fix. OnTriggerExit is only being called when the
+            // IInteractable object
+            // a) Remains active and enabled when interaction is done
+            // b) Destroys itself when interaction is done.
+            // 
+            // So in cases where the IInteractable object disables itself,
+            // rather than doing one of the above, OnTriggerExit was not being
+            // called. This ensures that currentInteraction is being properly
+            // cleared if its gameObject gets set inactive or the component
+            // that implements it gets disabled.
+            if (currentInteraction is MonoBehaviour interactableMono
+                && !interactableMono.isActiveAndEnabled)
+            {
+                log.Print(
+                    $"{name} stopped interacting with a MonoBehaviour that " +
+                    $"implements IInteractable ({interactableMono.name}) " +
+                    $"without exiting the collider.",
+                    interactableMono);
+                currentInteraction.PlayerExitRange(player);
+                currentInteraction = null;
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out _currentInteraction))
+            if (!other.TryGetComponent(out IInteractable interactable))
             {
                 return;
             }
 
-            _currentInteraction.PlayerEnterRange(player);
+            log.Print(
+                $"{name} entered the collider of a {interactable.GetType()}-type" +
+                $" IInteractable object");
+            if (currentInteraction != null
+                && interactable != currentInteraction)
+            {
+                currentInteraction.PlayerExitRange(player);
+            }
+
+            currentInteraction = interactable;
+            currentInteraction.PlayerEnterRange(player);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out _currentInteraction))
+            if (!other.TryGetComponent(out IInteractable interactable))
             {
                 return;
             }
 
-            _currentInteraction.PlayerExitRange(player);
-            _currentInteraction = null;
+            log.Print(
+                $"{name} exited the collider of a {interactable.GetType()}-type" +
+                $" IInteractable object");
+
+            interactable.PlayerExitRange(player);
+
+            if (interactable == currentInteraction)
+            {
+                currentInteraction = null;
+            }
         }
 
         private void HandlePause()
