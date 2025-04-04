@@ -717,23 +717,132 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "I'd like to give a special thank you to the entire team that took their
-    time to work on Stellar Factor !\n\n\n\n\nKevin Hernandez\r\n\n\nAna Jimenez\r\n\n\nGustavo
-    Pereira\r\n\n\nLayla Hoey\r\n\n\nAlong with that, I'd also like to give a thank
-    you to the leads that helped make sure that Stellar Factor could come to exist\n\n\nProfessor
-    Mel Tomeo\n\nProfessor Silvia Sayaz\n\nProfessor Manini Nguyen\n\n\nLastly, Thank
-    you all of the talented creators that posted all of the different wonderful assets
-    that helped create Stellar Factor. \n\nStampIT! Collection: Made by Rowlan\n\n\nUltimate
-    StampIT! Bundle: Made by Rowlan\n\n\nFree Stylized Textures - RPG Environment:
-    Made by Blink\n\n\nStylized Lava Texture: Made by LowlyPoly\n\n\nFree Lava Shader:
-    Made by AYproduct\n\n\nAllSky Free - 10 Sky / Skybox Set: Made by rpgwhitelock\n\n\nLow
-    Poly Rocks - Multiple Variants: Made by BlinkTool\n\n\nSci Fi Doors: Made by
-    MASH Virtual\n\n\nDynamic Cyberpunk Shader 1: Made by COMICOMI\n\n\nMagical Effects
-    FREE: Made by Hovl Studio\n\n\nEgypt Pharoah Bust: Made by AK STUDIO ART\n\n\nVase
-    Egypt Free: Made by Fomenos\n\n\nLow Poly Pillar Set: Made by 3dfancy\n\n\nLow
-    Poly Simple Medieval Props: Made by JustCreate\n\n\nLowpoly Dungeon Assets: Made
-    by Kunniki\n\n\nFree Quick Effects Vol. 1: Made by Gabriel Aguiar Prod\n\n\nCampfires
-    & Torches Models and FX!: Made by Piloto Studio\n"
+  m_text: '----- Dev Tean -----
+
+
+
+
+    Kevin Hernandez
+
+
+
+    Ana Jimenez
+
+
+
+    Gustavo
+    Pereira
+
+
+
+    Layla Hoey
+
+
+
+    -----Leads-----
+
+
+
+    Dr. Mel Tomeo
+
+
+    Professor
+    Silvia Sayaz
+
+
+    Professor Manini Nguyen
+
+
+
+    ----- Assets Used -----
+
+
+    StampIT!
+    Collection: Made by Rowlan
+
+
+
+    Ultimate StampIT! Bundle: Made by Rowlan
+
+
+
+    Free
+    Stylized Textures - RPG Environment: Made by Blink
+
+
+
+    Stylized Lava Texture:
+    Made by LowlyPoly
+
+
+
+    Free Lava Shader: Made by AYproduct
+
+
+
+    AllSky Free
+    - 10 Sky / Skybox Set: Made by rpgwhitelock
+
+
+
+    Low Poly Rocks - Multiple
+    Variants: Made by BlinkTool
+
+
+
+    Sci Fi Doors: Made by MASH Virtual
+
+
+
+    Dynamic
+    Cyberpunk Shader 1: Made by COMICOMI
+
+
+
+    Magical Effects FREE: Made by Hovl
+    Studio
+
+
+
+    Egypt Pharoah Bust: Made by AK STUDIO ART
+
+
+
+    Vase Egypt Free:
+    Made by Fomenos
+
+
+
+    Low Poly Pillar Set: Made by 3dfancy
+
+
+
+    Low Poly Simple
+    Medieval Props: Made by JustCreate
+
+
+
+    Lowpoly Dungeon Assets: Made by Kunniki
+
+
+
+    Free
+    Quick Effects Vol. 1: Made by Gabriel Aguiar Prod
+
+
+
+    Campfires & Torches
+    Models and FX!: Made by Piloto Studio
+
+
+    ----- Music -----
+
+
+    Discovery
+    - Lesion X
+
+
+    Odyssey - John Tasoulas'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
   m_sharedMaterial: {fileID: -6426035288655744716, guid: a7414a93e0b0d7c49b14d3f888c09675, type: 2}
@@ -910,6 +1019,7 @@ GameObject:
   - component: {fileID: 2460910086012070893}
   - component: {fileID: 5603212070422704837}
   - component: {fileID: 554402214906710936}
+  - component: {fileID: 7224526322075436393}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1106,6 +1216,102 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!82 &7224526322075436393
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2754984236846609076}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 63657605e5a03d142ba4a8ed577f1d71, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!222 &7504075357311906940
 CanvasRenderer:
   m_ObjectHideFlags: 0
