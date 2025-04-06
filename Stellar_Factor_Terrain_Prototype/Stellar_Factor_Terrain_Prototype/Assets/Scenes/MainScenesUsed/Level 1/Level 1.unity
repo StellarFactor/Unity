@@ -4285,6 +4285,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3533340965675811936, guid: 6bf086d42c5c5d645b5ba0ea1df7f189, type: 3}
   m_PrefabInstance: {fileID: 283235312}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &286256100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 286256102}
+  - component: {fileID: 286256101}
+  m_Layer: 0
+  m_Name: Thresh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &286256101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286256100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c7e99c6a14cef49835416a55708728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  physicalCollider: {fileID: 0}
+  triggerBox: {fileID: 0}
+  requiredArtifactCount: 8
+  notMetMessage: 
+  metMessage: 
+--- !u!4 &286256102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286256100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.49378, y: 32.16683, z: 70.62807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &286281628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33496,3 +33545,4 @@ SceneRoots:
   - {fileID: 1207804713}
   - {fileID: 1041846190147308863}
   - {fileID: 1796143272}
+  - {fileID: 286256102}
