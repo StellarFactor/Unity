@@ -1,16 +1,20 @@
 using StellarFactor;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 public class ArtifactThreshold : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject physicalCollider;
-    [SerializeField] private TriggerBox triggerBox;
+    [SerializeField] private BoxCollider triggerCollider;
 
     [SerializeField] private int requiredArtifactCount = 8;
-    [SerializeField] private string notMetMessage;
-    [SerializeField] private string metMessage;
+    [SerializeField, TextArea] private string notMetMessage;
+    [SerializeField, TextArea] private string metMessage;
 
+    protected List<Renderer> rends = new();
     protected Inventory playerInventory;
 
     #region Properties
@@ -19,25 +23,24 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
     public bool ThresholdIsActive { get; private set; } = true;
     #endregion // Properties
 
+
     private void Awake()
     {
         Assert.IsNotNull(physicalCollider,
             $"{name}'s Physical collider is null. Cannot check for artifacts.");
-        Assert.IsNotNull(triggerBox,
-            $"{name}'s Trigger box is null. Cannot check for artifacts.");
         Assert.IsTrue(notMetMessage != "",
             $"{name}'s Not Met Message is empty. Cannot display threshold message.");
+
+        rends = transform.parent.GetComponentsInChildren<Renderer>().ToList();
+        rends.ForEach(rend => rend.enabled = false);
     }
 
     private void Update()
     {
         physicalCollider.SetActive(ThresholdIsActive);
-        triggerBox.gameObject.SetActive(ThresholdIsActive);
+        triggerCollider.enabled = ThresholdIsActive;
     }
 
-    public void Interact()
-    {
-    }
 
     public void PlayerEnterRange(PlayerControl playerControl)
     {
@@ -57,6 +60,10 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
         {
             ShowNotMetMessage();
         }
+    }
+
+    public void Interact()
+    {
     }
 
     public void PlayerExitRange(PlayerControl playerControl)
