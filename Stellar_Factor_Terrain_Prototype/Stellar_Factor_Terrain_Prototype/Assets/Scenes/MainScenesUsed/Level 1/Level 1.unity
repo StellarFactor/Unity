@@ -5705,6 +5705,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 437716274}
     m_Modifications:
+    - target: {fileID: 1257428622413578960, guid: 9c5489fec2e0b3c4cad82b1b78c3c57c, type: 3}
+      propertyPath: _index
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3024469212477109201, guid: 9c5489fec2e0b3c4cad82b1b78c3c57c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 247.22928
@@ -6948,12 +6952,12 @@ Transform:
   m_Children:
   - {fileID: 674724344}
   - {fileID: 1210576025}
+  - {fileID: 159707239}
   - {fileID: 1451041285}
   - {fileID: 1676454747}
   - {fileID: 827139555}
   - {fileID: 1417266510}
   - {fileID: 808555326}
-  - {fileID: 159707239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &445581449
@@ -14107,6 +14111,10 @@ PrefabInstance:
     - target: {fileID: 2294847118566116393, guid: 120ac68daaed8d8469e4108ec75a2ab9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833526510523333928, guid: 120ac68daaed8d8469e4108ec75a2ab9, type: 3}
+      propertyPath: _index
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26372,6 +26380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ARTIFACT Staff of Ra
       objectReference: {fileID: 0}
+    - target: {fileID: 3813736877962318227, guid: 8703eab9edc7b0644ba0f6a1f6770f83, type: 3}
+      propertyPath: _index
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30484,6 +30496,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 437716274}
     m_Modifications:
+    - target: {fileID: 14315544364166516, guid: 70d551e85907f094bad9c97008217f9d, type: 3}
+      propertyPath: _index
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2605323615224033651, guid: 70d551e85907f094bad9c97008217f9d, type: 3}
       propertyPath: m_Name
       value: ARTIFACT Goauld Ring
@@ -31115,6 +31131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 437716274}
     m_Modifications:
+    - target: {fileID: 1057799915985112036, guid: ad130f5ada72a5143add44cfc7935c94, type: 3}
+      propertyPath: _index
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3079103717320021987, guid: ad130f5ada72a5143add44cfc7935c94, type: 3}
       propertyPath: m_Name
       value: ARTIFACT Memory
@@ -31801,6 +31821,10 @@ PrefabInstance:
     - target: {fileID: 1285756528853736563, guid: 7c9e6c2431d85504ca8ea5ece027ba62, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296925142781749032, guid: 7c9e6c2431d85504ca8ea5ece027ba62, type: 3}
+      propertyPath: _index
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2840094805490931241, guid: 7c9e6c2431d85504ca8ea5ece027ba62, type: 3}
       propertyPath: m_LocalPosition.x
