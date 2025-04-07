@@ -50,7 +50,7 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
 
         if (ThresholdIsActive && IsConditionMet())
         {
-            if (metMessage == "")
+            if (metMessage != "")
             {
                 ShowMetMessage();
             }
