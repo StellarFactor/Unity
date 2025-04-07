@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
+  m_Name: Hard GCF 2
+  m_EditorClassIdentifier: 
+  _text: 'Factor out the GCF from the polynomial:
+
+    36x<sup>8</sup> y<sup>8</sup> 
+    + 36x<sup>4</sup> y<sup>6</sup>  + 60x<sup>2</sup> y<sup>2</sup>'
+  _answers:
+  - _answerText: 12x<sup>2</sup> (3x<sup>6</sup> y<sup>8</sup>  + 3x<sup>2</sup>
+      y<sup>6</sup>  + 5y<sup>2</sup> )
+    _correct: 0
+  - _answerText: ' 12x<sup>2</sup> y<sup>2</sup> (3x<sup>6</sup> y<sup>6</sup>  +
+      3x<sup>2</sup> y<sup>4</sup>  + 5)'
+    _correct: 1
+  - _answerText: 12(3x<sup>8</sup> y<sup>8</sup>  + 3x<sup>4</sup> y<sup>6</sup> 
+      + 5x<sup>2</sup> y<sup>2</sup> )
+    _correct: 0
+  - _answerText: no common factor
+    _correct: 0

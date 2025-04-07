@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace StellarFactor
@@ -13,54 +14,19 @@ namespace StellarFactor
         private bool _ready;
         private bool _mouseHere;
 
+        private Color CorrectColor => _colors.Correct;
+        private Color IncorrectColor => _showCorrect
+            ? _colors.Incorrect
+            : _colors.Hint;
+
         private void OnEnable()
         {
-            QuestionManager.MGR.Reset += onClear;
-            QuestionManager.MGR.SelectAnswer += onAnswerSelected;
             _ready = true;
         }
 
         private void OnDisable()
         {
             _ready = false;
-            QuestionManager.MGR.Reset -= onClear;
-            QuestionManager.MGR.SelectAnswer -= onAnswerSelected;
-        }
-
-        private void onClear()
-        {
-            Label.TextColor.Reset();
-            Value.TextColor.Reset();
-            _ready = true;
-
-            if (_mouseHere) { OnHighlight(); }
-        }
-
-        private void onAnswerSelected(int selectedIndex)
-        {
-            _ready = false;
-
-            Color color;
-
-            if (selectedIndex == _index)
-            {                
-                if (_answer.Correct)
-                {
-                    color = _colors.Correct;
-                    QuestionManager.MGR.CorrectAnswer.Invoke();
-                }
-                else
-                {
-                    color = _colors.Incorrect;
-                    QuestionManager.MGR.IncorrectAnswer.Invoke();
-                }
-            }
-            else
-            {
-                color = _colors.Hint;
-            }
-
-            Value.TextColor.Set(color);
         }
 
         public void FillWith(Answer answer, AnswerColors colors, int index)
@@ -71,6 +37,19 @@ namespace StellarFactor
 
             Label.Text.Set(((char)(index + 65)).ToString());
             Value.Text.Set(_answer.AnswerText);
+        }
+
+        public void Clear()
+        {
+            Label.TextColor.Reset();
+            Value.TextColor.Reset();
+
+            _ready = true;
+
+            if (_mouseHere)
+            {
+                OnHighlight();
+            }
         }
 
         public void OnHighlight()
@@ -92,9 +71,16 @@ namespace StellarFactor
         public void OnClick()
         {
             if (!_ready) { return; }
+
             _ready = false;
 
-            QuestionManager.MGR.SelectAnswer.Invoke(_index);
+            Color color = _answer.Correct
+                ? CorrectColor
+                : IncorrectColor;
+
+            QuestionManager.MGR.AnswerQuestion(_answer.Correct);
+            
+            Value.TextColor.Set(color);
         }
     }
 }

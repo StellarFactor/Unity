@@ -9,7 +9,7 @@ namespace StellarFactor.Minimap
         #region Serialized Vars
         // ======================================================
         [Header("Debug")]
-        [SerializeField] Logger log = new();
+        [SerializeField] DbugLog log = new();
 
         [Header("Camera")]
         [SerializeField] private Camera cam;
@@ -20,6 +20,7 @@ namespace StellarFactor.Minimap
         [SerializeField] private RawImage map;
         #endregion //Serialized Vars
 
+        [field: SerializeField] public bool IsScrambled { get; private set; }
 
         #region Events
         // ======================================================
@@ -31,6 +32,9 @@ namespace StellarFactor.Minimap
         // ======================================================
         private void Update()
         {
+            canvas.enabled = !IsScrambled;
+            if (IsScrambled) { return; }
+
             NodeUpdates.Invoke();
         }
         #endregion // Unity
@@ -40,6 +44,8 @@ namespace StellarFactor.Minimap
         // ======================================================
         public void InstantiateNodeAt(IMapLocation location)
         {
+            if (IsScrambled) { return; }
+
             Node prefab = location.GetNodePrefab();
             Node instance = Instantiate(prefab, map.transform);
 
@@ -48,6 +54,8 @@ namespace StellarFactor.Minimap
 
         public void UpdateNode(IMapLocation location)
         {
+            if (IsScrambled) { return; }
+
             Vector2 viewportVec
                 = cam.WorldToViewportPoint(location.GetPosition());
 

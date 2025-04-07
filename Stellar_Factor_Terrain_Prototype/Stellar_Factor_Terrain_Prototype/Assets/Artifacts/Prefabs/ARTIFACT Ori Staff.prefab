@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3315005140040537354
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2294847118566116393}
+    m_Modifications:
+    - target: {fileID: 1166943445560667025, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_Name
+      value: MODEL Ori Staff
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+--- !u!4 &3570767812845692022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2273378778638266748, guid: 1ba6de18b6c655142932c274beb97be7, type: 3}
+  m_PrefabInstance: {fileID: 3315005140040537354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4697693915262015902
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4789042808404785329, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_Name
+      value: ARTIFACT Ori Staff
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: _index
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: -1182111708, guid: eea5d7f4a189c0e42b354ffc30593c12, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: Ori Staff
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4556621653823252549, guid: 5582df72eab72934592c6376263d3882, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 3570767812845692022}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5582df72eab72934592c6376263d3882, type: 3}
+--- !u!4 &2294847118566116393 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+  m_PrefabInstance: {fileID: 4697693915262015902}
+  m_PrefabAsset: {fileID: 0}

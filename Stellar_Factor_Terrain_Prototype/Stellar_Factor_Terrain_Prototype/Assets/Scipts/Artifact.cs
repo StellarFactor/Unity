@@ -1,118 +1,189 @@
 using StellarFactor.Global;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace StellarFactor
 {
-    public class Artifact : MonoBehaviour, IInteractable
+    public class Artifact : MonoBehaviour, IInteractable, IAcquirable
     {
+        [Header("UI Settings")]
+        [SerializeField] private string artifactName;
+        [SerializeField] private string actionToPrompt;
+        [SerializeField] private string actionToPromptAfterAquired;
+
+        [Header("QuestionSettings")]
         [SerializeField] private Difficulty _difficulty;
         [SerializeField] private int _index;
 
+        [Header("Serialized Events")]
         [SerializeField] private UnityEvent OnPlayerEnter;
         [SerializeField] private UnityEvent OnInteract;
         [SerializeField] private UnityEvent OnPlayerExit;
 
+        [Header("VFX")]
         [SerializeField] private GameObject particleEffect;
 
-        private bool _playerHere;
-        private QuestionSO _question;
+        private QuestionSO question;
+        private PlayerControl player;
+        private bool wasRecentAttemptCorrect;
 
-        public QuestionSO Question { get { return _question; } }
+        private bool IsPlayerHere => player != null;
+
+        public string ArtifactName => artifactName;
+        public Difficulty Difficulty => _difficulty;
+        public int Index => _index;
+        public QuestionSO Question
+        {
+            get { return question; }
+            set
+            {
+                Debug.Log($"{name}'s Question is being set externally.");
+                question = value;
+            }
+        }
+        public bool BeenVisited { get; private set; } = false;
+        public bool PreviouslyAquired { get; private set; } = false;
+        public string ActionToPrompt => PreviouslyAquired
+            ? actionToPromptAfterAquired
+            : actionToPrompt;
+
+        private void Awake()
+        {
+            BeenVisited = false;
+        }
 
         private void OnEnable()
         {
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
+            QuestionManager.MGR.QuestionAnswered += HandleQuestionAnswered;
+            QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
         }
-
 
         private void OnDisable()
         {
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
+            QuestionManager.MGR.QuestionAnswered -= HandleQuestionAnswered;
+            QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
         }
 
-        private void Start()
-        {
-            // Fill this with a question when it's loaded
-            _question = getQuestion();
-        }
 
-        private void onCorrectAnswer()
+        #region Event Responses
+        // =====================================================================
+        private void HandleQuestionAnswered(bool answeredCorrectly)
         {
-            if (!_playerHere) { return; }
+            if (!IsPlayerHere) { return; }
 
-            // When a particle system gets assigned to the artifact, itll stop and destroy itself
-            // once the question is answered correctly.
-            if (particleEffect != null)
+            wasRecentAttemptCorrect = answeredCorrectly;
+
+            if (!wasRecentAttemptCorrect)
             {
-                ParticleSystem ps = particleEffect.GetComponent<ParticleSystem>();
-                if (ps!= null)
-                {
-                    ps.Stop();
-                }
+                // Anything we might want in here?
+                // A cooldown? (i.e. gotta go try a different one first)
 
-                //Instead of the particle instantly destroying itself, itll take a second to look less awkward.
-                Destroy(particleEffect, 1f);
+                // Maybe load a new question? ==============================
+                // Dr T. said this was too complicated,
+                // but I'll leave it here as a comment just in case.
+
+                //_question = QuestionManager.MGR.GetQuestion(_difficulty);
+                // =========================================================
             }
-            // TODO:
-            // animate?
-            // anything else?
-
-            // Temporarily setting this to get destroyed after
-            // one second, but we could/should tie the time to
-            // something else.
-            // Waiting for the player to have it in their inventory?
-            // Waiting for the end of an anim?
-            // idk.
-            Destroy(gameObject, 1f);
         }
 
-        private void onIncorrectAnswer()
+        private void HandleQuestionWindowClosed()
         {
-            if (!_playerHere) { return; }
+            if (!IsPlayerHere) { return; }
 
-            // Anything we might want in here?
-            // A cooldown? (i.e. gotta go try a different one first)
-
-            // Maybe load a new question? ==============================
-            // Dr T. said this was too complicated,
-            // but I'll leave it here as a comment just in case.
-
-            //_question = QuestionManager.MGR.GetQuestion(_difficulty);
-            //GameManager.MGR.PlayerDeath.Invoke();
-            // =========================================================
+            if (wasRecentAttemptCorrect)
+            {
+                player?.Inventory.AquireItem(this);
+            }
+            // Got it wrong last time, so we know player is
+            // closing window to come back to it later.
+            else
+            {
+                GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
+            }
         }
+        #endregion // ==========================================================
 
-        public void PlayerEnterRange()
+
+        #region IInteractable Implementation
+        // =====================================================================
+        public void PlayerEnterRange(PlayerControl player)
         {
-            _playerHere = true;
+            this.player = player;
+
+            //// If question is null get a question, else don't
+            //question = (question != null) ? question : GetQuestion();
+
+            GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
+
             OnPlayerEnter?.Invoke();
         }
 
         public void Interact()
         {
-            OnInteract?.Invoke();
-            GameManager.MGR.OnArtifactInteraction(this);
-        }
+            GameManager.MGR.RequestClosePrompt();
 
-        public void PlayerExitRange()
-        {
-            OnPlayerExit?.Invoke();
-            _playerHere = false;
-        }
-
-        private QuestionSO getQuestion()
-        {
-            if (QuestionManager.MGR.RandomMode)
+            if (!PreviouslyAquired)
             {
-                return QuestionManager.MGR.GetQuestion(_difficulty);
+                if (Question == null
+                    && !QuestionManager.MGR.TryGetQuestion(this, out question))
+                {
+                    Debug.LogError(
+                        $"Something went v wrong in trying to assign" +
+                        $"a question to {name}. Its Question is still null.",
+                        this);
+
+                    return;
+                }
+
+                Question.QuestionGivenBy = QuestionGivenBy.ARTIFACT;
+                QuestionManager.MGR.StartQuestion(Question);
             }
             else
             {
-                return QuestionManager.MGR.GetQuestion(_difficulty, _index);
+                AquireBy(player.Inventory);
             }
+
+            OnInteract?.Invoke();
+        }
+
+        public void PlayerExitRange(PlayerControl player)
+        {
+            if (this.player == player)
+            {
+                this.player = null;
+            }
+
+            GameManager.MGR.RequestClosePrompt();
+
+            OnPlayerExit?.Invoke();
+        }
+        #endregion // IInteractable Implementation =============================
+
+
+        #region IAcquirable Implementation
+        // =====================================================================
+        public void AquireBy(Inventory inventory)
+        {
+            PreviouslyAquired = true;
+
+            // TODO:
+            // animate?
+            // anything else?
+
+            inventory.AquireItem(this);
+        }
+
+        public void RemoveFrom(Inventory inventory)
+        {
+            inventory.RemoveItem(this);
+        }
+        #endregion // ==========================================================
+
+        public void Visit()
+        {
+            BeenVisited = true;
         }
     }
 }

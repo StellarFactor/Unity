@@ -9,18 +9,25 @@ namespace StellarFactor
         [SerializeField] private UnityEvent OnPlayerExit;
         [SerializeField] private UnityEvent OnInteract;
 
+        private PlayerControl player;
+
+        public void PlayerEnterRange(PlayerControl player)
+        {
+            this.player = player;
+            OnPlayerEnter?.Invoke();
+        }
+
         public void Interact()
         {
             OnInteract?.Invoke();
         }
 
-        public void PlayerEnterRange()
+        public void PlayerExitRange(PlayerControl player)
         {
-            OnPlayerEnter?.Invoke();
-        }
-
-        public void PlayerExitRange()
-        {
+            if (this.player == player)
+            {
+                this.player = null;
+            }
             OnPlayerExit?.Invoke();
         }
     }

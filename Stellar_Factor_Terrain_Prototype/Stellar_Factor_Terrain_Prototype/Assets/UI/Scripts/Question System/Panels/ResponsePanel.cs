@@ -4,6 +4,8 @@ namespace StellarFactor
 {
     public class ResponsePanel : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
+
         [SerializeField] private AnswerColorsSO _answerColors;
 
         [Header("Question Response Settings")]
@@ -22,91 +24,76 @@ namespace StellarFactor
         [SerializeField] private string _acquiredArtifactMessasge;
         [SerializeField] private string _failedArtifactMessage;
 
-        private void OnEnable()
-        {
-            QuestionManager.MGR.Open += onOpen;
-            QuestionManager.MGR.Close += onClose;
-            QuestionManager.MGR.Reset += onClear;
-            QuestionManager.MGR.CorrectAnswer += onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer += onIncorrectAnswer;
-        }
+        [Space(5)]
+        [SerializeField] private string _pedistalArtifactSuccessMessage;
+        [SerializeField] private string _pedistalArtifactFailMessage;
 
+        [Space(5)]
+        [SerializeField] private string _bossDefeatedMessage;
+        [SerializeField] private string _bossNotDefeatedMessage;
 
-        private void OnDisable()
-        {
-            QuestionManager.MGR.Open -= onOpen;
-            QuestionManager.MGR.Close -= onClose;
-            QuestionManager.MGR.Reset -= onClear;
-            QuestionManager.MGR.CorrectAnswer -= onCorrectAnswer;
-            QuestionManager.MGR.IncorrectAnswer -= onIncorrectAnswer;
-        }
+        public QuestionGivenBy QuestionGivenBy { get; private set; }
 
         private void Start()
         {
-            onClear();
+            Close();
         }
 
-        private void onOpen()
+        public void Open()
         {
-            showAll();
+            _canvas.enabled = true;
         }
 
-        private void onClose()
+        public void Close()
         {
-            _questionResponseBox.ResetAll();
-            _artifactResponseBox.ResetAll();
-
-            hideAll();
+            _canvas.enabled = false;
         }
 
-        private void onClear()
+        public void SetCorrect(QuestionGivenBy givenBy)
         {
-            _questionResponseBox.ResetAll();
-            _artifactResponseBox.ResetAll();
-
-            hideAll();
-        }
-
-        private void onCorrectAnswer()
-        {
-            showAll();
+            QuestionGivenBy = givenBy;
 
             _questionResponseBox.Text.Set(_correctMessage);
             _questionResponseBox.TextColor.Set(_answerColors.Correct);
 
-            _artifactResponseBox.Text.Set(_acquiredArtifactMessasge);
+            _artifactResponseBox.Text.Set(GetCorrectDetailMessage(givenBy));
             _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hideAll", 2f);
         }
 
-        private void onIncorrectAnswer()
+        public void SetIncorrect(QuestionGivenBy givenBy)
         {
-            showAll();
-
             _questionResponseBox.Text.Set(_incorrectMessage);
             _questionResponseBox.TextColor.Set(_answerColors.Incorrect);
 
-            _artifactResponseBox.Text.Set(_failedArtifactMessage);
+            _artifactResponseBox.Text.Set(GetIncorrectDetailMessage(givenBy));
             _artifactResponseBox.TextColor.Set(_answerColors.Highlight);
-
-            Invoke("hideAll", 2f);
         }
 
-        private void hideAll()
+        public void ResetPanel()
         {
-            _questionResponseBox.enabled = false;
-
-            _artifactResponseBKG.enabled = false;
-            _artifactResponseBox.enabled = false;
+            _questionResponseBox.ResetAll();
+            _artifactResponseBox.ResetAll();
         }
 
-        private void showAll()
+        private string GetCorrectDetailMessage(QuestionGivenBy givenBy)
         {
-            _questionResponseBox.enabled = true;
+            return givenBy switch {
+                QuestionGivenBy.ARTIFACT => _acquiredArtifactMessasge,
+                QuestionGivenBy.BOSS => _bossDefeatedMessage,
+                QuestionGivenBy.PEDISTAL => _pedistalArtifactSuccessMessage,
+                _ => _acquiredArtifactMessasge
+            };
+        }
 
-            _artifactResponseBKG.enabled = true;
-            _artifactResponseBox.enabled = true;
+        private string GetIncorrectDetailMessage(QuestionGivenBy givenBy)
+        {
+            return givenBy switch
+            {
+                QuestionGivenBy.ARTIFACT => _failedArtifactMessage,
+                QuestionGivenBy.BOSS => _bossNotDefeatedMessage,
+                QuestionGivenBy.PEDISTAL => _pedistalArtifactFailMessage,
+                _ => _failedArtifactMessage
+            };
         }
     }
 }

@@ -8,70 +8,75 @@ namespace StellarFactor
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private KeyCode _interactKey;
-        [SerializeField] private KeyCode _pauseKey;
+        [Header("= Spawning ====")]
+        [SerializeField] private Transform startingSpawnPos;
+        [SerializeField] private bool overrideStartingSpawnPos;
 
-        private int _currentLevel;
+        [Header("= Prompts ====")]
+        [SerializeField] private GameObject promptCanvasPrefab;
+        [SerializeField] private PromptsCanvas promptsCanvas;
+        [Space(5)]
+        [SerializeField] private KeyCode interactKey;
+        [Space(5)]
+        [SerializeField] private KeyCode pauseKey;
 
-        public int CurrentLevel { get { return _currentLevel; } }
-        public KeyCode InteractKey { get { return _interactKey; } }
-        public KeyCode PauseKey { get { return _pauseKey; } }
+        [Header("= Inventory ====")]
+        [SerializeField] private GameObject inventoryPrefab;
 
-        public event Action<int> LevelLoaded;
-        public event Action Pause;
-        public event Action Resume;
-        public event Action PlayerDeath;
+
+        public KeyCode InteractKey { get { return interactKey; } }
+        public KeyCode PauseKey { get { return pauseKey; } }
+        public bool IsPaused { get; private set; }
+
+        public event Action GamePaused;
+        public event Action GameResumed;
+        public event Action PlayerDied;
         public event Action Quit;
-        public event Action<Artifact> ArtifactInteraction;
-        public event Action CancelArtifactInteraction;
-        public event Action<PanelCycler> PanelCyclerInteraction;
+        public event Action<PanelCycler> PanelCyclerInteractionStarted;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         private void Start()
         {
-            LevelLoaded?.Invoke(CurrentLevel);
+            if (promptsCanvas == null)
+            {
+                promptsCanvas = Instantiate(promptCanvasPrefab).GetComponent<PromptsCanvas>();
+            }
+
+            if (ArtifactInventoryUI.MGR == null)
+            {
+                Instantiate(inventoryPrefab);
+            }
+
+            promptsCanvas.InteractionPromptWindow.ClosePrompt();
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
+            if (!overrideStartingSpawnPos)
+            {
+                FindObjectOfType<PlayerControl>().transform.position = startingSpawnPos.position;
+            }
         }
 
-        public void OnPauseGame()
+        public void PauseGame()
         {
-            Pause?.Invoke();
-        }
-        public void OnResumeGame()
-        {
-            Resume?.Invoke();
-        }
-        public void OnPlayerDeath()
-        {
-            PlayerDeath?.Invoke();
-        }
-        public void OnArtifactInteraction(Artifact artifact)
-        {
-            ArtifactInteraction?.Invoke(artifact);
-        }
-        public void OnCancelArtifactInteraction()
-        {
-            CancelArtifactInteraction?.Invoke();
-        }
-        public void OnLevelLoaded(int level)
-        {
-            LevelLoaded?.Invoke(level);
-        }
-        public void OnPause()
-        {
-            Pause?.Invoke();
-        }
-        public void OnResume()
-        {
-            Resume?.Invoke();
-        }
-        //public void OnQuit()
-        //{
-        //    Quit?.Invoke();
-        //}
-        public void OnPanelCyclerInteraction(PanelCycler cycler)
-        {
-            PanelCyclerInteraction?.Invoke(cycler);
-        }
+            if (IsPaused) { return; }
 
+            promptsCanvas.PausePromptWindow.ClosePrompt();
+            IsPaused = true;
+
+            GamePaused?.Invoke();
+        }
+        public void ResumeGame()
+        {
+            if (!IsPaused) { return; }
+
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
+            IsPaused = false;
+
+            GameResumed?.Invoke();
+        }
         public void QuitGame()
         {
             #if UNITY_EDITOR
@@ -81,6 +86,60 @@ namespace StellarFactor
             Application.Quit();
             #endif
         }
-    }
 
+        public void PlayerDeath()
+        {
+            PlayerDied?.Invoke();
+        }
+
+        public void StartPanelCyclerInteraction(PanelCycler cycler)
+        {
+            PanelCyclerInteractionStarted?.Invoke(cycler);
+        }
+
+        public bool RequestInteractionPrompt(string actionToPrompt)
+        {
+            if (promptsCanvas.InteractionPromptWindow.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to open an interaction prompt; " +
+                    $"There is already an active interaction prompt.");
+
+                return false;
+            }
+
+            promptsCanvas.InteractionPromptWindow.OpenPrompt(interactKey, actionToPrompt);
+            return true;
+        }
+
+        public bool RequestSimplePrompt(string message)
+        {
+            if (promptsCanvas.InteractionPromptWindow.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to open an interaction prompt; " +
+                    $"There is already an active interaction prompt.");
+
+                return false;
+            }
+
+            promptsCanvas.InteractionPromptWindow.OpenPrompt(message);
+            return true;
+        }
+
+        public bool RequestClosePrompt()
+        {
+            if (!promptsCanvas.InteractionPromptWindow.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to close interaction prompt; " +
+                    $"Interaction prompt is not active.");
+
+                return false;
+            }
+
+            promptsCanvas.InteractionPromptWindow.ClosePrompt();
+            return true;
+        }
+    }
 }

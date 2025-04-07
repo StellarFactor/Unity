@@ -7,7 +7,7 @@ namespace StellarFactor.Minimap
         #region Serialized Vars
         // ======================================================
         [Header("Debug")]
-        [SerializeField] private Logger log;
+        [SerializeField] private DbugLog log;
         [SerializeField] private bool triggerVisit;
 
         [Header("Node")]
@@ -35,13 +35,13 @@ namespace StellarFactor.Minimap
         // ======================================================
         private void OnEnable()
         {
-            GameManager.MGR.PlayerDeath += HandlePlayerDeath;
+            GameManager.MGR.PlayerDied += HandlePlayerDeath;
             MiniMap.MGR.NodeUpdates += HandleNodeUpdates;
         }
 
         private void OnDisable()
         {
-            GameManager.MGR.PlayerDeath -= HandlePlayerDeath;
+            GameManager.MGR.PlayerDied -= HandlePlayerDeath;
             MiniMap.MGR.NodeUpdates -= HandleNodeUpdates;
 
             DestroyNode();

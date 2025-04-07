@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5948735711960216869
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4789042808404785329, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_Name
+      value: ARTIFACT Staff of Ra
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: _index
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: uiIcon
+      value: 
+      objectReference: {fileID: 999229515, guid: bfd9e4b3248433a4b8827d36d4cac020, type: 3}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: artifactName
+      value: Headpiece of the Staff Of Ra
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377805351461184694, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      propertyPath: actionToPromptAfterAquired
+      value: Pick Up
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4556621653823252549, guid: 5582df72eab72934592c6376263d3882, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 2186036354677211421}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5582df72eab72934592c6376263d3882, type: 3}
+--- !u!4 &893761592977727634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6839104102866261431, guid: 5582df72eab72934592c6376263d3882, type: 3}
+  m_PrefabInstance: {fileID: 5948735711960216869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8746152522203497888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 893761592977727634}
+    m_Modifications:
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7533314979308215888, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+      propertyPath: m_Name
+      value: MODEL Staff of Ra
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+--- !u!4 &2186036354677211421 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7437359548445459645, guid: 398b42c15499f704688545edd7b0767d, type: 3}
+  m_PrefabInstance: {fileID: 8746152522203497888}
+  m_PrefabAsset: {fileID: 0}

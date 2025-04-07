@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
-using Unity.VisualScripting;
 using StellarFactor;
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelCycler : MonoBehaviour
@@ -38,14 +36,14 @@ public class PanelCycler : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.MGR.Pause += HandlePause;
-        GameManager.MGR.Resume += HandleResume;
+        GameManager.MGR.GamePaused += HandlePause;
+        GameManager.MGR.GameResumed += HandleResume;
     }
 
     private void OnDisable()
     {
-        GameManager.MGR.Pause -= HandlePause;
-        GameManager.MGR.Resume -= HandleResume;
+        GameManager.MGR.GamePaused -= HandlePause;
+        GameManager.MGR.GameResumed -= HandleResume;
     }
 
     private void Start()
@@ -53,6 +51,10 @@ public class PanelCycler : MonoBehaviour
         if (openOnStart)
         {
             BeginCycle();
+        }
+        else
+        {
+            Panels.ForEach(panel => panel.SetActive(false));
         }
     }
 
@@ -105,7 +107,7 @@ public class PanelCycler : MonoBehaviour
     {
         IsRunning = true;
         currentIndex = 0;
-        GameManager.MGR.OnPanelCyclerInteraction(this);
+        GameManager.MGR.StartPanelCyclerInteraction(this);
     }
 
     public void EndCycle()

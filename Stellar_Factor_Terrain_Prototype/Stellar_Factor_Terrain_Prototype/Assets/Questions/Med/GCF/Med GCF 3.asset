@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
+  m_Name: Med GCF 3
+  m_EditorClassIdentifier: 
+  _text: "Find the GCF for the list:\n21m<sup>4</sup>, 189m<sup>7</sup>, 441m<sup>5</sup>\r\r"
+  _answers:
+  - _answerText: 21m<sup>4</sup>
+    _correct: 1
+  - _answerText: 3969m<sup>3</sup>
+    _correct: 0
+  - _answerText: 189m<sup>4</sup>
+    _correct: 0
+  - _answerText: 21m<sup>3</sup>
+    _correct: 0

@@ -16,7 +16,9 @@ namespace StellarFactor
         [SerializeField] private Color _selectedColor;
 
         [SerializeField] private bool _startsSelected;
-        private bool _selected = false;
+        
+        public bool IsHighlighted { get; private set; }
+        public bool IsSelected { get; private set; }
 
         private void Start()
         {
@@ -63,19 +65,19 @@ namespace StellarFactor
 
             _additionalOnSelect?.Invoke();
 
-            _selected = true;
+            IsSelected = true;
         }
 
         public void Deselect()
         {
             _additionalOnDeselct?.Invoke();
 
-            _selected = false;
+            IsSelected = false;
         }
 
         public void Toggle()
         {
-            if (_selected)
+            if (IsSelected)
             {
                 Deselect();
             }

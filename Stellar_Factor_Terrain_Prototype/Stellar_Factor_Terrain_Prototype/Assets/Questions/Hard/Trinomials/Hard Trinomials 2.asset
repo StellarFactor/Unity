@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
+  m_Name: Hard Trinomials 2
+  m_EditorClassIdentifier: 
+  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
+    write \u02BAprime.\u02BA\n8z<sup>2</sup> - 6z - 9"
+  _answers:
+  - _answerText: (4z + 3)(2z - 3)
+    _correct: 1
+  - _answerText: prime
+    _correct: 0
+  - _answerText: (8z + 3)(z - 3)
+    _correct: 0
+  - _answerText: (4z - 3)(2z + 3)
+    _correct: 0

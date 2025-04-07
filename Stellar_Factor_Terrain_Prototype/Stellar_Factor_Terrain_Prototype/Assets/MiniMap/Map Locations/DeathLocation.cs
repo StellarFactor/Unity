@@ -5,7 +5,7 @@ namespace StellarFactor.Minimap
 {
     public class DeathLocation : IMapLocation
     {
-        private Logger log = new();
+        private DbugLog log = new();
 
         private readonly Node nodePrefab;
         private readonly Vector3 position;
@@ -24,7 +24,7 @@ namespace StellarFactor.Minimap
             this.position = position;
             this.color = color;
 
-            GameManager.MGR.PlayerDeath += HandlePlayerDeath;
+            GameManager.MGR.PlayerDied += HandlePlayerDeath;
             MiniMap.MGR.NodeUpdates += HandleNodeUpdates;
         }
 
@@ -69,7 +69,7 @@ namespace StellarFactor.Minimap
             log.Print($"{this} is being deconstructed");
 
             /// Unsubscribe
-            GameManager.MGR.PlayerDeath -= HandlePlayerDeath;
+            GameManager.MGR.PlayerDied -= HandlePlayerDeath;
             MiniMap.MGR.NodeUpdates -= HandleNodeUpdates;
         }
     }
