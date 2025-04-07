@@ -34,6 +34,16 @@ namespace StellarFactor
             QuestionManager.MGR.WindowReset -= Clear;
         }
 
+        public void OpenPrompt(string message)
+        {
+            IsOpen = true;
+
+            Show();
+            Clear();
+
+            _textbox.Text.Set(message);
+        }
+
         public void OpenPrompt(KeyCode key, string actionToPrompt)
         {
             IsOpen = true;
