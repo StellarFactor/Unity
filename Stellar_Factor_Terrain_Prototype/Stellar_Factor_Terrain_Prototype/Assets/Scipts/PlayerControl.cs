@@ -1,5 +1,4 @@
 using StellarFactor.Minimap;
-using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -106,30 +105,6 @@ namespace StellarFactor
         {
             RequestLockControls();
         }
-
-        //private void HandleArtifactInteraction(Artifact artifact)
-        //{
-        //}
-
-        //private void HandleCancelArtifactInteraction()
-        //{
-        //}
-
-        // TODO:
-        // Probably should add an Artifact param to the correctAnswer event
-        // and add "artifact" to "inventory"
-        // but I think this script doesn't need to concern itself with
-        // whether the player got the question right or not, just whether any UI
-        // windows are open.
-        //private void HandleCorrectAnswer()
-        //{
-        //}
-
-        //private void HandleIncorrectAnswer()
-        //{
-        //    // TODO:
-        //    // Lose health? Anything else?
-        //}
 
         private void HandlePanelCyclerInteraction(PanelCycler cycler)
         {

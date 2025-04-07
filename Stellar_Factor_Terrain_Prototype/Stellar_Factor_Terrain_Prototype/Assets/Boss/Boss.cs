@@ -110,7 +110,7 @@ public class Boss : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        GameManager.MGR.RequestCloseInteractionPrompt();
+        GameManager.MGR.RequestClosePrompt();
 
         if (!PreviouslyAquired)
         {
@@ -128,7 +128,7 @@ public class Boss : MonoBehaviour, IInteractable
             this.player = null;
         }
 
-        GameManager.MGR.RequestCloseInteractionPrompt();
+        GameManager.MGR.RequestClosePrompt();
 
         OnPlayerExit?.Invoke();
     }

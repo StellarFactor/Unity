@@ -122,7 +122,7 @@ namespace StellarFactor
 
         public void Interact()
         {
-            GameManager.MGR.RequestCloseInteractionPrompt();
+            GameManager.MGR.RequestClosePrompt();
 
             if (!PreviouslyAquired)
             {
@@ -155,7 +155,7 @@ namespace StellarFactor
                 this.player = null;
             }
 
-            GameManager.MGR.RequestCloseInteractionPrompt();
+            GameManager.MGR.RequestClosePrompt();
 
             OnPlayerExit?.Invoke();
         }
