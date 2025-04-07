@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-public class GameManager : Singleton<GameManager>
+    public class GameManager : Singleton<GameManager>
     {
         [Header("= Spawning ====")]
         [SerializeField] private Transform startingSpawnPos;
@@ -112,7 +112,22 @@ public class GameManager : Singleton<GameManager>
             return true;
         }
 
-        public bool RequestCloseInteractionPrompt()
+        public bool RequestSimplePrompt(string message)
+        {
+            if (promptsCanvas.InteractionPromptWindow.IsOpen)
+            {
+                Debug.LogWarning(
+                    $"Couldn't complete request to open an interaction prompt; " +
+                    $"There is already an active interaction prompt.");
+
+                return false;
+            }
+
+            promptsCanvas.InteractionPromptWindow.OpenPrompt(message);
+            return true;
+        }
+
+        public bool RequestClosePrompt()
         {
             if (!promptsCanvas.InteractionPromptWindow.IsOpen)
             {

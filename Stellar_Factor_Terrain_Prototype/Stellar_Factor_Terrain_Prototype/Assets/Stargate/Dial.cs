@@ -43,13 +43,13 @@ namespace StellarFactor
         {
             if (!InteractionEnabled) { return; }
 
-            GameManager.MGR.RequestCloseInteractionPrompt();
+            GameManager.MGR.RequestClosePrompt();
         }
 
         public void TurnOff()
         {
             IsOn = false;
-            GameManager.MGR.RequestCloseInteractionPrompt();
+            GameManager.MGR.RequestClosePrompt();
             GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
             stargate.TurnOff();
         }
@@ -57,7 +57,7 @@ namespace StellarFactor
         public void TurnOn()
         {
             IsOn = true;
-            GameManager.MGR.RequestCloseInteractionPrompt();
+            GameManager.MGR.RequestClosePrompt();
             GameManager.MGR.RequestInteractionPrompt(actionToPrompt);
             stargate.TurnOn();
         }
