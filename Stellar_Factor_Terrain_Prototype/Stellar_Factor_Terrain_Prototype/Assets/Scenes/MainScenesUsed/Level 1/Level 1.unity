@@ -21732,7 +21732,7 @@ PrefabInstance:
       objectReference: {fileID: 107314402}
     - target: {fileID: 7490979112330962554, guid: cfe9fa50156a0544598f6e8ccbee02af, type: 3}
       propertyPath: overrideStartingSpawnPos
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8785184437785472184, guid: cfe9fa50156a0544598f6e8ccbee02af, type: 3}
       propertyPath: m_Name
