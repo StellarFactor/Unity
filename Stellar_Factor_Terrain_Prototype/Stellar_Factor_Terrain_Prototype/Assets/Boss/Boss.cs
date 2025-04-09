@@ -1,12 +1,17 @@
 using StellarFactor;
-using StellarFactor.Global;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Boss : MonoBehaviour, IInteractable
 {
+    [Header("Internal Refs")]
     [SerializeField] private GameObject boss;
     [SerializeField] private GameObject blockingWall;
+
+    [Header("General Settings")]
+    [SerializeField] private bool startEnabled;
 
     [Header("UI Settings")]
     [SerializeField] private string bossName;
@@ -17,12 +22,15 @@ public class Boss : MonoBehaviour, IInteractable
 
     [Header("Serialized Events")]
     [SerializeField] private UnityEvent OnPlayerEnter;
+    [SerializeField] private UnityEvent OnFadeInComplete;
+    [SerializeField] private UnityEvent OnFadeOutComplete;
     [SerializeField] private UnityEvent OnInteract;
     [SerializeField] private UnityEvent OnPlayerExit;
     [SerializeField] private UnityEvent OnBossDefeated;
 
     [Header("VFX")]
     [SerializeField] private GameObject particleEffect;
+    [SerializeField] private float fadeSpeed;
 
     private PlayerControl player;
     private bool wasRecentAttemptCorrect;
@@ -50,6 +58,71 @@ public class Boss : MonoBehaviour, IInteractable
     {
         QuestionManager.MGR.QuestionAnswered -= HandleQuestionAnswered;
         QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
+    }
+
+    private void Start()
+    {
+        if (!startEnabled)
+        {
+            ExitPlay(false);
+        }
+    }
+
+    private IEnumerator FadeRend(Renderer rend, bool fadeIn)
+    {
+        Color startingColor = rend.material.color;
+        float startingAlpha = startingColor.a;
+        float targetAlpha   = fadeIn ? 0 : 1;
+        float totalDistance = targetAlpha - startingAlpha;
+        float currentAlpha = startingAlpha;
+        do
+        {
+            float distanceCovered = Mathf.Abs(currentAlpha - startingAlpha);
+            float t = 1 - (distanceCovered) / (totalDistance);
+            currentAlpha = Mathf.Lerp(startingAlpha, targetAlpha, t) * fadeSpeed;
+
+            Color newColor = new ( startingColor.r, startingColor.g, startingColor.b, currentAlpha);
+            rend.material.color = newColor;
+            yield return null;
+
+        } while (fadeIn
+                ? (currentAlpha > targetAlpha)
+                : (currentAlpha < targetAlpha));
+    }
+
+    public void EnterPlay(bool withFade)
+    {
+        Renderer[] rends = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in rends)
+        {
+            if (withFade)
+            {
+                StartCoroutine(FadeRend(rend, true));
+            }
+            else
+            {
+                rend.enabled = false;
+            }
+        }
+
+        particleEffect.SetActive(true);
+    }
+
+    public void ExitPlay(bool withFade)
+    {
+        Renderer[] rends = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in rends)
+        {
+            rend.enabled = true;
+            if (withFade)
+            {
+                StartCoroutine(FadeRend(rend, false));
+            }
+        }
+
+        particleEffect.SetActive(false);
     }
 
 

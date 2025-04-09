@@ -80,7 +80,7 @@ namespace StellarFactor
             return givenBy switch {
                 QuestionGivenBy.ARTIFACT => _acquiredArtifactMessasge,
                 QuestionGivenBy.BOSS => _bossDefeatedMessage,
-                QuestionGivenBy.PEDISTAL => _pedistalArtifactSuccessMessage,
+                QuestionGivenBy.PEDESTAL => _pedistalArtifactSuccessMessage,
                 _ => _acquiredArtifactMessasge
             };
         }
@@ -91,7 +91,7 @@ namespace StellarFactor
             {
                 QuestionGivenBy.ARTIFACT => _failedArtifactMessage,
                 QuestionGivenBy.BOSS => _bossNotDefeatedMessage,
-                QuestionGivenBy.PEDISTAL => _pedistalArtifactFailMessage,
+                QuestionGivenBy.PEDESTAL => _pedistalArtifactFailMessage,
                 _ => _failedArtifactMessage
             };
         }

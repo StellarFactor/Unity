@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: Hard Grouping 1
   m_EditorClassIdentifier: 
-  _text: "Factor the four-term polynomial by grouping:\n 6x<sup>2</sup>  + 10x -
-    9x - 15"
+  _text: "Factor the four-term polynomial by grouping:\n 6x<sup>2</sup> + 10x - 9x
+    - 15"
   _answers:
   - _answerText: (2x + 3)(3x - 5)
     _correct: 0

@@ -46,6 +46,19 @@ namespace StellarFactor
             allItems.Remove(item);
         }
 
+        public bool ContainsItem(IAcquirable toCheck)
+        {
+            return allItems.Contains(toCheck);
+        }
+
+        public bool ContainsArtifact(string artifactName)
+        {
+            List<Artifact> artifacts = allItems.Cast<Artifact>()
+                .Where(item => item.ArtifactName == artifactName).ToList();
+
+            return artifacts != null && artifacts.Count > 0 && artifacts[0] != null;
+        }
+
         private void PrintArtifactListDebug()
         {
             List<string> artifactNames = new()
