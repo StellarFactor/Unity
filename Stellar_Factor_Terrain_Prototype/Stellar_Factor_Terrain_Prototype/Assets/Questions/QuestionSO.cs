@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StellarFactor
 {
-    public enum QuestionGivenBy { ARTIFACT, PEDISTAL, BOSS };
+    public enum QuestionGivenBy { ARTIFACT, PEDESTAL, BOSS };
 
     [CreateAssetMenu(fileName = "New Question", menuName = "Question")]
     public class QuestionSO : ScriptableObject
@@ -22,7 +22,7 @@ namespace StellarFactor
         /// This way, <see cref="QuestionManager"/> can decide what to send to the
         /// <see cref="ResponsePanel"/>. It's convoluted and awful but we are
         /// out of time to restructure this. Godspeed, future devs.
-        /// We solute you.
+        /// We salute you.
         /// </summary>
         public QuestionGivenBy QuestionGivenBy { get; set; } = QuestionGivenBy.ARTIFACT;
 

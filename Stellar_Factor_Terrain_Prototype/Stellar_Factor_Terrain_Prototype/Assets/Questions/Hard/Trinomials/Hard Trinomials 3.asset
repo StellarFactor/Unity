@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: Hard Trinomials 3
   m_EditorClassIdentifier: 
-  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
-    write \u02BAprime.\u02BA\n10y<sup>2</sup>  - 23y + 12"
+  _text: 'Factor the trinomial completely.
+
+    10y<sup>2</sup> - 23y + 12'
   _answers:
   - _answerText: (2y - 3)(5y - 4)
     _correct: 1
   - _answerText: (10y + 3)(y + 4)
     _correct: 0
-  - _answerText: prime
+  - _answerText: TRINOMIAL IS PRIME
     _correct: 0
   - _answerText: (2y + 3)(5y + 4)
     _correct: 0

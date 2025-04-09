@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: 'Factor out the GCF from the polynomial:
 
-    -18x<sup>7</sup>  - 18x'
+    -18x<sup>7</sup> - 18x'
   _answers:
-  - _answerText: -18(x<sup>7</sup>  + x)
+  - _answerText: -18(x<sup>7</sup> + x)
     _correct: 0
-  - _answerText: -18x(x<sup>6</sup>  + 1)
+  - _answerText: -18x(x<sup>6</sup> + 1)
     _correct: 1
-  - _answerText: -18x(x<sup>6</sup> )
+  - _answerText: -18x(x<sup>6</sup>)
     _correct: 0
-  - _answerText: -18(x<sup>8</sup>  + 1)
+  - _answerText: -18(x<sup>8</sup> + 1)
     _correct: 0

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101e39568582694a86e68b5146dd45c, type: 3}
   m_Name: Hard Trinomials 1
   m_EditorClassIdentifier: 
-  _text: "Factor the trinomial completely. If the polynomial cannot be factored,
-    write \u02BAprime.\u02BA\n3x<sup>2</sup> + 11x - 4"
+  _text: 'Factor the trinomial completely.
+
+    3x<sup>2</sup> + 11x - 4'
   _answers:
   - _answerText: (3x + 1)(x - 4)
     _correct: 0
