@@ -177,7 +177,7 @@ namespace StellarFactor
 
         public void RemoveFrom(Inventory inventory)
         {
-            inventory.RemoveItem(this);
+            inventory.RemoveItem<Artifact>(this);
         }
         #endregion // ==========================================================
 

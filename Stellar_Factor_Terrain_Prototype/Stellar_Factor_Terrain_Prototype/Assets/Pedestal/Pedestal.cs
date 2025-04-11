@@ -73,6 +73,8 @@ namespace StellarFactor
             if (wasRecentAttemptCorrect)
             {
                 PedestalManager.MGR.CompletePedestal(this);
+                // TODOOOOOO if (!player.Inventory.ContainsItem()) {}
+
                 // Remove artifact from player
                 // Place on pedestal
                 OnPedestalDefeated.Invoke();

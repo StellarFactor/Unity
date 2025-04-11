@@ -11,6 +11,7 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
     [SerializeField] private BoxCollider triggerCollider;
 
     [SerializeField] private int requiredArtifactCount = 8;
+    [SerializeField] private bool requireGreater;
     [SerializeField, TextArea] private string notMetMessage;
     [SerializeField, TextArea] private string metMessage;
 
@@ -91,6 +92,8 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
 
     protected virtual bool IsConditionMet()
     {
-        return playerInventory.ArtifactsAcquired.Count >= requiredArtifactCount;
+        return requireGreater
+            ? playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count >= requiredArtifactCount
+            : playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count <= requiredArtifactCount;
     }
 }
