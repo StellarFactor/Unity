@@ -3,6 +3,8 @@ using UnityEngine;
 
 public interface IAcquirable
 {
-    void AquireBy(Inventory inventory);
-    void RemoveFrom(Inventory inventory);
+    Inventory StoredIn { get; }
+    bool CanStack { get; }
+    void OnAcquired(Inventory acquiredBy);
+    void OnRemoved(Inventory removedFrom, Vector3 dropPos, Vector3 dropEuler);
 }

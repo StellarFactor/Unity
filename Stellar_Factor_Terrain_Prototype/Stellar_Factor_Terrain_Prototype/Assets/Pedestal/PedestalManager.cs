@@ -15,6 +15,8 @@ namespace StellarFactor
         public bool ReadyForBoss => emptyPedestals.Count == 0;
 
         public UnityEvent OnAllPedestalsCompletedInspector;
+
+        public event Action<Pedestal> PedestalCompleted;
         public event Action AllPedestalsCompleted;
 
         private void Update()
@@ -31,6 +33,13 @@ namespace StellarFactor
             {
                 fullPedestals.Add(pedestal);
             }
+
+            OnPedestalCompleted(pedestal);
+        }
+
+        protected virtual void OnPedestalCompleted(Pedestal pedestal)
+        {
+            PedestalCompleted.Invoke(pedestal);
         }
 
         protected virtual void OnAllPedestalsComplete()

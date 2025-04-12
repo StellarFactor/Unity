@@ -16,69 +16,44 @@ namespace StellarFactor
         public event Action<IAcquirable> ItemAdded;
         public event Action<IAcquirable> ItemRemoved;
 
-        public void AquireItem(IAcquirable item)
+        public bool AcquireItem(IAcquirable item)
         {
-            Debug.LogWarning($"AcquireItem called on a {item.GetType()} item");
+            Debug.Log($"{name} trying to obtain {item}", item as UnityEngine.Object);
             Type itemType = item.GetType();
-
-            // If a key exists exists for accessing a list of this type of IAcquirable
-            if (itemsByType.ContainsKey(itemType))
-            {
-                // If the list is null, create a new one,
-                // otherwise, use the existing one.
-                itemsByType[itemType] ??= new();
-            }
-            else // If a key doesn't exist for this type
-            {
-                // Create the key and assign it a new empty list.
-                itemsByType[itemType] = new();
-            }
-
-            // Add the item to the list of items of like items.
-            itemsByType[itemType].Add(item);
 
             if (item is Component c)
             {
-                Debug.Log("Recognized as Component");
                 c.gameObject.SetActive(false);
-
-                if (c is Artifact artifact)
-                {
-                    Debug.LogWarning("Regognized as Artifact");
-                    Assert.IsNotNull(ArtifactInventoryUI.MGR);
-                    ArtifactInventoryUI.MGR.FillArtifactSlot(artifact);
-                }
             }
+
+            if (!ContainsItem(item) || item.CanStack)
+            {
+                itemsByType[itemType] ??= new();
+                itemsByType[itemType].Add(item);
+                item.OnAcquired(this);
+                return true;
+            }
+
+            return false;
         }
 
         public bool RemoveItem(IAcquirable item)
         {
-            Type itemType = item.GetType();
-
-            // If the list is null, create a new one,
-            // otherwise, use the existing one.
-            if (itemsByType.ContainsKey(itemType))
-            {
-                itemsByType[itemType] ??= new();
-            }
-            else
-            {
-                itemsByType[itemType] = new();
-            }
-
-            return itemsByType[itemType].Remove(item);
+            return RemoveItem(item, defaultDropPoint.position, defaultDropPoint.localEulerAngles);
         }
 
-        public bool RemoveItem<T>(T item) where T : Component, IAcquirable
+        public bool RemoveItem(IAcquirable item, Vector3 dropPos, Vector3 dropEulers)
         {
-            return RemoveItem(item, defaultDropPoint.localPosition, false);
-        }
-
-        public bool RemoveItem<T>(T item, Vector3 dropPoint, bool worldSpace) where T : Component, IAcquirable
-        {
-            if (RemoveItem(item))
+            if (ContainsItem(item)
+                && itemsByType[item.GetType()].Remove(item))
             {
-                Drop(item, dropPoint, worldSpace);
+                item.OnRemoved(this, dropPos, dropEulers);
+
+                if (item is Component c)
+                {
+                    c.gameObject.SetActive(true);
+                }
+
                 return true;
             }
 
@@ -87,41 +62,36 @@ namespace StellarFactor
 
         public bool ContainsItem(IAcquirable toCheck)
         {
-            foreach(Type itemType in itemsByType.Keys)
+            Type itemType = toCheck.GetType();
+
+            if (!itemsByType.ContainsKey(itemType))
             {
-                if (itemsByType[itemType] == null || !itemsByType[itemType].Contains(toCheck))
-                    return false;
+                itemsByType[itemType] = new();
             }
-            return true;
+
+            return itemsByType[itemType].Contains(toCheck);
         }
 
+        public int StackSize(Type type)
+        {
+            if (!itemsByType.Keys.Contains(type)
+                || itemsByType[type] == null)
+            {
+                return 0;
+            }
+
+            return itemsByType[type].Count;
+        }
+
+        ///<summary>
+        /// Returns an empty list if no items of the type are found in this inventory
+        ///</summary>
         public List<IAcquirable> GetCurrentItemsOfType(Type type)
         {
-            return itemsByType[type] ?? new();
-        }
-
-        private void Drop<T>(T item, Vector3 dropPoint, bool worldSpace) where T : Component, IAcquirable
-        {
-                item.gameObject.SetActive(true);
-
-                if (worldSpace)
-                {
-                    item.transform.position = dropPoint;
-                }
-                else
-                {
-                    item.transform.localPosition = dropPoint;
-                }
-        }
-
-        protected virtual void OnItemAdded(IAcquirable item)
-        {
-            ItemAdded.Invoke(item);
-        }
-
-        protected virtual void OnItemRemoved(IAcquirable item)
-        {
-            ItemRemoved.Invoke(item);
+            // If the dict contains a key for this type,
+            return itemsByType.ContainsKey(type)
+                ? itemsByType[type] ?? new()    // return said list (if not null) or an empty list.
+                : new();                        // if no key for this type, return an empty list.
         }
 
         private void PrintArtifactListDebug()

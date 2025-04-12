@@ -53,10 +53,7 @@ namespace StellarFactor
             Collider[] cols = artifact.GetComponentsInChildren<Collider>();
             cols.ToList().ForEach(col => col.enabled = false);
 
-            artifact.gameObject.SetActive(false);
             slotDictionary[key].FillWith(artifact);
-
-            cols.ToList().ForEach(col => col.enabled = true);
         }
 
         public Artifact EmptyArtifactSlot(Artifact artifact)
@@ -87,8 +84,6 @@ namespace StellarFactor
             }
 
             Artifact removedArtifact = slotDictionary[key].Empty();
-            removedArtifact.gameObject.SetActive(true);
-            removedArtifact.transform.SetParent(null);
             return removedArtifact;
         }
 

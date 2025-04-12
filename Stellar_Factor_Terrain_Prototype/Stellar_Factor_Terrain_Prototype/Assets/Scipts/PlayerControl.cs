@@ -1,4 +1,6 @@
 using StellarFactor.Minimap;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -14,6 +16,10 @@ namespace StellarFactor
         private DeathLocation lastDeathLocation;
 
         private int lockInteractionStack = 0;
+
+        private bool wasRecentAnswerCorrect;
+        private IAcquirable answeringToAcquire;
+        private QuestionSO currentlyAnswering;
 
         public Inventory Inventory { get; private set; }
 
@@ -32,6 +38,9 @@ namespace StellarFactor
             GameManager.MGR.GamePaused += HandlePause;
             GameManager.MGR.GameResumed += HandleResume;
             GameManager.MGR.PanelCyclerInteractionStarted += HandlePanelCyclerInteraction;
+            QuestionManager.MGR.QuestionStarted += HandleQuestionStarted;
+            QuestionManager.MGR.QuestionAnswered += HandleQuestionAnswered;
+            PedestalManager.MGR.PedestalCompleted += HandlePedestalCompleted;
             QuestionManager.MGR.WindowOpened += HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
         }
@@ -42,6 +51,8 @@ namespace StellarFactor
             GameManager.MGR.GamePaused -= HandlePause;
             GameManager.MGR.GameResumed -= HandleResume;
             GameManager.MGR.PanelCyclerInteractionStarted -= HandlePanelCyclerInteraction;
+            QuestionManager.MGR.QuestionAnswered -= HandleQuestionAnswered;
+            PedestalManager.MGR.PedestalCompleted -= HandlePedestalCompleted;
             QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
 
@@ -54,6 +65,63 @@ namespace StellarFactor
             if (PauseKeyPressed)
             {
                 GameManager.MGR.PauseGame();
+            }
+        }
+
+        protected void HandleQuestionStarted(QuestionSO question)
+        {
+            currentlyAnswering = question;
+        }
+
+        protected void HandleQuestionAnswered(bool correctly, IAcquirable toAcquire)
+        {
+            wasRecentAnswerCorrect = correctly;
+            answeringToAcquire = toAcquire;
+        }
+
+        protected void HandlePedestalCompleted(Pedestal pedestal)
+        {
+            List<Artifact> currentArtifacts =
+                Inventory
+                .GetCurrentItemsOfType(typeof(Artifact))
+                .Cast<Artifact>()
+                .ToList();
+
+            if (currentArtifacts.Count <= 0)
+            {
+                Debug.LogWarning(
+                    $"<color=red>No artifacts remaining to place. " +
+                    $"Access should not have been granted to this room " +
+                    $"with less than 8 Artifacts in player inventory.</color>");
+                return;
+            }
+
+            pedestal.Place(currentArtifacts[0]);
+        }
+
+        public void Acquire(IAcquirable item)
+        {
+            if (item == null) { return; }
+            if (Inventory.AcquireItem(item))
+            {
+                Debug.Log($"{name} acquired {item}.");
+            }
+            else
+            {
+                Debug.LogWarning($"{name} couldn't acquire {item}.");
+            }
+        }
+
+        public void Drop(IAcquirable item)
+        {
+            if (item == null) { return; }
+            if (Inventory.RemoveItem(item))
+            {
+                Debug.Log($"{name} dropped {item}.");
+            }
+            else
+            {
+                Debug.LogWarning($"{name} couldn't drop {item}.");
             }
         }
 
@@ -99,6 +167,12 @@ namespace StellarFactor
         private void HandleQuestionWindowClosed()
         {
             RequestUnlockControls();
+
+            if (currentlyAnswering?.QuestionGivenBy == QuestionGivenBy.ARTIFACT
+                && wasRecentAnswerCorrect)
+            {
+                Acquire(answeringToAcquire);
+            }
         }
 
         private void HandleQuestionWindowOpened()
@@ -123,7 +197,7 @@ namespace StellarFactor
         private void RequestLockControls()
         {
             lockInteractionStack++;
-            Debug.LogWarning($"Requesting Lock Controls.  Lock Stack : {lockInteractionStack}");
+            Debug.Log($"Requesting Lock Controls.  Lock Stack : {lockInteractionStack}");
             LockControls();
         }
 
