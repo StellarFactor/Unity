@@ -259,5 +259,8 @@ MonoBehaviour:
   physicalCollider: {fileID: 8716139409194975799}
   triggerCollider: {fileID: 3506341527462056671}
   requiredArtifactCount: 8
+  requireGreater: 1
+  notEnoughMessage: You haven't collected all the Artifacts yet!
+  tooManyMessage: You haven't placed all the Artifacts back on their pedestals yet!
   notMetMessage: You haven't collected all the Artifacts yet!
   metMessage: 
