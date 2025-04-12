@@ -27,6 +27,8 @@ namespace StellarFactor
 
         private int successfulQuestionLoadCount;
 
+        private IAcquirable answeringToAcquire;
+
         public event Action WindowOpened;
         public event Action WindowClosed;
         public event Action WindowReset;
@@ -40,8 +42,8 @@ namespace StellarFactor
         /// <c><see cref="answerResponseDuration"/></c> seconds after
         /// the answer is read.
         /// </summary>
-        public event Action<bool> QuestionAnswered; // bool for
-                                                    // correctly answered
+        public event Action<bool, IAcquirable> QuestionAnswered; // bool for
+                                                                 // correctly answered
 
         public QuestionSO CurrentQuestion { get; private set; }
         public QuestionLoadOrder QuestionLoadOrder { get { return questionLoadOrder; } }
@@ -62,7 +64,7 @@ namespace StellarFactor
             };
         }
 
-        public void StartQuestion(QuestionSO question)
+        public void StartQuestion(QuestionSO question, IAcquirable toAcquire)
         {
             Assert.IsNotNull(question,
                 $"{name}'s StartQuestion(QuestionSO) was " +
@@ -70,6 +72,8 @@ namespace StellarFactor
 
             CurrentQuestion = question;
             CurrentQuestion.OnLoadIntoWindow();
+
+            answeringToAcquire = toAcquire;
 
             OpenWindow();
 
@@ -127,7 +131,7 @@ namespace StellarFactor
             // events. Listeners can subsribe to v_this_v if they want
             // something done right away, or the other events if they want to
             // sync to the delay.
-            OnQuestionAnswered(answeredCorrectly);
+            OnQuestionAnswered(answeredCorrectly, answeringToAcquire);
         }
 
         public bool TryGetQuestion(Artifact artifact, out QuestionSO question)
@@ -213,7 +217,7 @@ namespace StellarFactor
 
         protected virtual void OnQuestionStarted(QuestionSO question)
         {
-            QuestionStarted?.Invoke(question);
+            QuestionStarted.Invoke(question);
         }
 
         private void OnQuestionCanceled()
@@ -221,9 +225,9 @@ namespace StellarFactor
             QuestionCanceled?.Invoke();
         }
 
-        protected virtual void OnQuestionAnswered(bool correctly)
+        protected virtual void OnQuestionAnswered(bool correctly, IAcquirable toAcquire)
         {
-            QuestionAnswered?.Invoke(correctly);
+            QuestionAnswered?.Invoke(correctly, toAcquire);
         }
 
         private QuestionPool GetPool(Difficulty difficulty)

@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace StellarFactor
 {
     public class Pedestal : MonoBehaviour, IInteractable
     {
-        [SerializeField] private GameObject artifact;
-
         [Header("UI Settings")]
         [SerializeField] private string exactNameOfArtifact;
         [SerializeField] private string actionToPrompt;
 
         [Header("QuestionSettings")]
         [SerializeField] private QuestionSO definiteQuestion;
+
+        [Header("PlacementSettings")]
+        [SerializeField] private Transform placementPoint;
+        [SerializeField] private float yOffset;
 
         [Header("Serialized Events")]
         [SerializeField] private UnityEvent OnPlayerEnter;
@@ -27,6 +32,7 @@ namespace StellarFactor
 
         private PlayerControl player;
         private bool wasRecentAttemptCorrect;
+        private Artifact currentArtifact;
 
         private bool IsPlayerHere => player != null;
 
@@ -34,13 +40,17 @@ namespace StellarFactor
         public string PedestalName => exactNameOfArtifact;
         public QuestionSO Question => definiteQuestion;
         public bool BeenVisited { get; private set; } = false;
-        public bool ArtifactPlaced => artifact != null;
+        public bool ArtifactPlaced => currentArtifact != null;
         public string ActionToPrompt => actionToPrompt;
 
 
         private void Awake()
         {
             BeenVisited = false;
+            if (placementPoint == null)
+            {
+                placementPoint = transform;
+            }
         }
 
         private void OnEnable()
@@ -55,10 +65,41 @@ namespace StellarFactor
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
         }
 
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying
+                && currentArtifact != null
+                && Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
+                currentArtifact.transform.position += new Vector3(0f, .25f, 0f);
+            }
+            else if (EditorApplication.isPlaying
+                && currentArtifact != null
+                && Input.GetKeyDown(KeyCode.KeypadMinus))
+            {
+                currentArtifact.transform.position += new Vector3(0f, -.25f, 0f);
+            }
+#endif
+        }
+
+        public void Place(Artifact artifact)
+        {
+            currentArtifact = artifact;
+            currentArtifact.transform.SetParent(transform);
+            Vector3 dropPos = placementPoint.position + new Vector3(0f, yOffset, 0f);
+            Vector3 dropEulers = placementPoint.localEulerAngles + artifact.transform.localEulerAngles;
+
+            if (!artifact.StoredIn.RemoveItem(artifact, dropPos, dropEulers))
+            {
+                Debug.LogWarning($"{name} couldn't place {artifact.name}", this);
+            }
+        }
+
 
         #region Event Responses
         // =====================================================================
-        private void HandleQuestionAnswered(bool answeredCorrectly)
+        private void HandleQuestionAnswered(bool answeredCorrectly, IAcquirable toAcquire)
         {
             if (!IsPlayerHere) { return; }
             if (wasRecentAttemptCorrect) { return; }
@@ -73,9 +114,6 @@ namespace StellarFactor
             if (wasRecentAttemptCorrect)
             {
                 PedestalManager.MGR.CompletePedestal(this);
-                // Remove artifact from player
-                // Place on pedestal
-                OnPedestalDefeated.Invoke();
             }
             // Got it wrong last time, so we know player is
             // closing window to come back to it later.
@@ -93,7 +131,12 @@ namespace StellarFactor
         {
             this.player = player;
 
-            string toSend = ArtifactPlaced ? exactNameOfArtifact : ActionToPrompt;
+            // TODO:
+            // "Artifact" here in the string replace should probably be set to the actual
+            // name of the artifact that would be deployed.  Original idea was that each
+            // pedestal would selectively determine which artifact to place based on an
+            // exact match with the string someArtifact.ArtifactName, but we didn't get to it.
+            string toSend = ArtifactPlaced ? exactNameOfArtifact : ActionToPrompt.Replace("<Artifact>", "Artifact");
             GameManager.MGR.RequestInteractionPrompt(toSend);
 
             OnPlayerEnter?.Invoke();
@@ -107,7 +150,7 @@ namespace StellarFactor
             if (!ArtifactPlaced)
             {
                 Question.QuestionGivenBy = QuestionGivenBy.PEDESTAL;
-                QuestionManager.MGR.StartQuestion(Question);
+                QuestionManager.MGR.StartQuestion(Question, null);
 
                 OnInteract?.Invoke();
             }

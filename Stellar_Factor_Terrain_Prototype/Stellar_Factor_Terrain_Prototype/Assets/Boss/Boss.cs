@@ -128,7 +128,7 @@ public class Boss : MonoBehaviour, IInteractable
 
     #region Event Responses
     // =====================================================================
-    private void HandleQuestionAnswered(bool answeredCorrectly)
+    private void HandleQuestionAnswered(bool answeredCorrectly, IAcquirable toAcquire)
     {
         if (!IsPlayerHere) { return; }
 
@@ -188,7 +188,7 @@ public class Boss : MonoBehaviour, IInteractable
         if (!PreviouslyAquired)
         {
             Question.QuestionGivenBy = QuestionGivenBy.BOSS;
-            QuestionManager.MGR.StartQuestion(Question);
+            QuestionManager.MGR.StartQuestion(Question, null);
         }
 
         OnInteract?.Invoke();

@@ -2,6 +2,7 @@ using StellarFactor.Global;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Assertions;
 
 namespace StellarFactor
 {
@@ -27,6 +28,9 @@ namespace StellarFactor
         private QuestionSO question;
         private PlayerControl player;
         private bool wasRecentAttemptCorrect;
+
+        [field: SerializeField] public bool CanStack { get; private set; }
+        public Inventory StoredIn { get; private set; }
 
         private bool IsPlayerHere => player != null;
 
@@ -68,7 +72,7 @@ namespace StellarFactor
 
         #region Event Responses
         // =====================================================================
-        private void HandleQuestionAnswered(bool answeredCorrectly)
+        private void HandleQuestionAnswered(bool answeredCorrectly, IAcquirable toAcquire)
         {
             if (!IsPlayerHere) { return; }
 
@@ -76,6 +80,7 @@ namespace StellarFactor
 
             if (!wasRecentAttemptCorrect)
             {
+                // TODO
                 // Anything we might want in here?
                 // A cooldown? (i.e. gotta go try a different one first)
 
@@ -92,14 +97,11 @@ namespace StellarFactor
         {
             if (!IsPlayerHere) { return; }
 
-            if (wasRecentAttemptCorrect)
+            if (!wasRecentAttemptCorrect)// Player got the answer wrong in the window that just closed.
             {
-                player?.Inventory.AquireItem(this);
-            }
-            // Got it wrong last time, so we know player is
-            // closing window to come back to it later.
-            else
-            {
+                // But the window doesn't close automatically when the player
+                // answers incorrectly, so we know that this is the moment
+                // where they've closed the window to come back to it later.
                 GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
             }
         }
@@ -111,9 +113,6 @@ namespace StellarFactor
         public void PlayerEnterRange(PlayerControl player)
         {
             this.player = player;
-
-            //// If question is null get a question, else don't
-            //question = (question != null) ? question : GetQuestion();
 
             GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
 
@@ -138,11 +137,11 @@ namespace StellarFactor
                 }
 
                 Question.QuestionGivenBy = QuestionGivenBy.ARTIFACT;
-                QuestionManager.MGR.StartQuestion(Question);
+                QuestionManager.MGR.StartQuestion(Question, this);
             }
             else
             {
-                AquireBy(player.Inventory);
+                player?.Inventory.AcquireItem(this);
             }
 
             OnInteract?.Invoke();
@@ -164,20 +163,30 @@ namespace StellarFactor
 
         #region IAcquirable Implementation
         // =====================================================================
-        public void AquireBy(Inventory inventory)
+        public void OnAcquired(Inventory acquiredBy)
         {
             PreviouslyAquired = true;
+            StoredIn = acquiredBy;
+            ArtifactInventoryUI.MGR.FillArtifactSlot(this);
 
             // TODO:
             // animate?
             // anything else?
-
-            inventory.AquireItem(this);
         }
 
-        public void RemoveFrom(Inventory inventory)
+        void IAcquirable.OnRemoved(Inventory removedFrom, Vector3 dropPos, Vector3 dropEulers)
         {
-            inventory.RemoveItem(this);
+            if (StoredIn != removedFrom)
+            {
+                Debug.LogError(
+                    $"{removedFrom.name} is attempting to remove {name}, " + 
+                    $"but {name} is stored by {StoredIn}.");
+            }
+
+            transform.position = dropPos;
+            transform.localEulerAngles = dropEulers;
+            StoredIn = null;
+            ArtifactInventoryUI.MGR.EmptyArtifactSlot(this);
         }
         #endregion // ==========================================================
 

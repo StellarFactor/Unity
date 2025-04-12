@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Events;
 
 public class ArtifactThreshold : MonoBehaviour, IInteractable
 {
@@ -11,6 +10,9 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
     [SerializeField] private BoxCollider triggerCollider;
 
     [SerializeField] private int requiredArtifactCount = 8;
+    [SerializeField] private bool requireGreater;
+    [SerializeField, TextArea] private string notEnoughMessage = "You haven't collected all the Artifacts yet!";
+    [SerializeField, TextArea] private string tooManyMessage = "You haven't placed all the Artifacts back on their pedestals yet!";
     [SerializeField, TextArea] private string notMetMessage;
     [SerializeField, TextArea] private string metMessage;
 
@@ -81,7 +83,8 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
 
     public void ShowNotMetMessage()
     {
-        MessageIsActive = GameManager.MGR.RequestSimplePrompt(notMetMessage);
+        string msg = requireGreater ? notEnoughMessage : tooManyMessage;
+        MessageIsActive = GameManager.MGR.RequestSimplePrompt(msg);
     }
 
     public void ClearMessage()
@@ -91,6 +94,10 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
 
     protected virtual bool IsConditionMet()
     {
-        return playerInventory.ArtifactsAcquired.Count >= requiredArtifactCount;
+        int artifactCount = playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count;
+        return requireGreater
+            ? artifactCount >= requiredArtifactCount
+            : artifactCount <= requiredArtifactCount;
     }
 }
+

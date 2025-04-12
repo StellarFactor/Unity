@@ -1,49 +1,97 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using UnityEngine.Assertions;
+using UnityEngine;
 
 namespace StellarFactor
 {
     [RequireComponent(typeof(PlayerControl))]
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private Transform dropPoint;
+        [SerializeField] private Transform defaultDropPoint;
 
-        private List<IAcquirable> allItems = new();
+        private Dictionary<Type, List<IAcquirable>> itemsByType = new();
 
-        // Return a copy of the list, rather than a ref to the list.
-        public List<Artifact> ArtifactsAcquired => allItems
-            .Where(item => item is Artifact).ToList()
-            .ConvertAll(item => item as Artifact);
+        public event Action<IAcquirable> ItemAdded;
+        public event Action<IAcquirable> ItemRemoved;
 
-        public void AquireItem(IAcquirable item)
+        public bool AcquireItem(IAcquirable item)
         {
-            if (allItems.Contains(item)) { return; }
+            Debug.Log($"{name} trying to obtain {item}", item as UnityEngine.Object);
+            Type itemType = item.GetType();
 
             if (item is Component c)
             {
                 c.gameObject.SetActive(false);
-
-                if (c is Artifact artifact)
-                {
-                    Assert.IsNotNull(ArtifactInventoryUI.MGR);
-                    ArtifactInventoryUI.MGR.FillArtifactSlot(artifact);
-                }
             }
-            allItems.Add(item);
+
+            if (!ContainsItem(item) || item.CanStack)
+            {
+                itemsByType[itemType] ??= new();
+                itemsByType[itemType].Add(item);
+                item.OnAcquired(this);
+                return true;
+            }
+
+            return false;
         }
 
-        public void RemoveItem(IAcquirable item)
+        public bool RemoveItem(IAcquirable item)
         {
-            if (!allItems.Contains(item)) { return; }
+            return RemoveItem(item, defaultDropPoint.position, defaultDropPoint.localEulerAngles);
+        }
 
-            if (item is Artifact artifact)
+        public bool RemoveItem(IAcquirable item, Vector3 dropPos, Vector3 dropEulers)
+        {
+            if (ContainsItem(item)
+                && itemsByType[item.GetType()].Remove(item))
             {
-                Artifact removed = ArtifactInventoryUI.MGR.EmptyArtifactSlot(artifact);
-                removed.transform.position = dropPoint.position;
+                item.OnRemoved(this, dropPos, dropEulers);
+
+                if (item is Component c)
+                {
+                    c.gameObject.SetActive(true);
+                }
+
+                return true;
             }
-            allItems.Remove(item);
+
+            return false;
+        }
+
+        public bool ContainsItem(IAcquirable toCheck)
+        {
+            Type itemType = toCheck.GetType();
+
+            if (!itemsByType.ContainsKey(itemType))
+            {
+                itemsByType[itemType] = new();
+            }
+
+            return itemsByType[itemType].Contains(toCheck);
+        }
+
+        public int StackSize(Type type)
+        {
+            if (!itemsByType.Keys.Contains(type)
+                || itemsByType[type] == null)
+            {
+                return 0;
+            }
+
+            return itemsByType[type].Count;
+        }
+
+        ///<summary>
+        /// Returns an empty list if no items of the type are found in this inventory
+        ///</summary>
+        public List<IAcquirable> GetCurrentItemsOfType(Type type)
+        {
+            // If the dict contains a key for this type,
+            return itemsByType.ContainsKey(type)
+                ? itemsByType[type] ?? new()    // return said list (if not null) or an empty list.
+                : new();                        // if no key for this type, return an empty list.
         }
 
         public bool ContainsItem(IAcquirable toCheck)
@@ -61,14 +109,18 @@ namespace StellarFactor
 
         private void PrintArtifactListDebug()
         {
+            if (itemsByType[typeof(Artifact)] == null)
+                return;
+
             List<string> artifactNames = new()
-        {
-            "New artifact list:"
-        };
-            foreach (Artifact a in ArtifactsAcquired)
+            {
+                "New artifact list:"
+            };
+            foreach (Artifact a in itemsByType[typeof(Artifact)])
             {
                 artifactNames.Add(a.ArtifactName);
             }
+
             Debug.Log(string.Join("\n", artifactNames));
         }
     }
