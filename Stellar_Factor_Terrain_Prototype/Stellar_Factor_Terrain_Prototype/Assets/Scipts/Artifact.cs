@@ -2,6 +2,7 @@ using StellarFactor.Global;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Assertions;
 
 namespace StellarFactor
 {
@@ -94,12 +95,14 @@ namespace StellarFactor
 
             if (wasRecentAttemptCorrect)
             {
+                Assert.IsNotNull(player, $"Player should never be null by this point in execution");
                 player?.Inventory.AquireItem(this);
             }
-            // Got it wrong last time, so we know player is
-            // closing window to come back to it later.
-            else
+            else // Player got the answer wrong in the window that just closed.
             {
+                // But the window doesn't close automatically when the player
+                // answers incorrectly, so we know that this is the moment
+                // where they've closed the window to come back to it later.
                 GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
             }
         }
@@ -111,9 +114,6 @@ namespace StellarFactor
         public void PlayerEnterRange(PlayerControl player)
         {
             this.player = player;
-
-            //// If question is null get a question, else don't
-            //question = (question != null) ? question : GetQuestion();
 
             GameManager.MGR.RequestInteractionPrompt(ActionToPrompt);
 

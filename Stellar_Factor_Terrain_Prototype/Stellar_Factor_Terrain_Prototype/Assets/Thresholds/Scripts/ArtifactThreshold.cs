@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Events;
 
 public class ArtifactThreshold : MonoBehaviour, IInteractable
 {
@@ -92,8 +91,10 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
 
     protected virtual bool IsConditionMet()
     {
+        int artifactCount = playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count;
         return requireGreater
-            ? playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count >= requiredArtifactCount
-            : playerInventory.GetCurrentItemsOfType(typeof(Artifact)).Count <= requiredArtifactCount;
+            ? artifactCount >= requiredArtifactCount
+            : artifactCount <= requiredArtifactCount;
     }
 }
+

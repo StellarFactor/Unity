@@ -21,14 +21,16 @@ namespace StellarFactor
             Debug.LogWarning($"AcquireItem called on a {item.GetType()} item");
             Type itemType = item.GetType();
 
-            // If the list is null, create a new one,
-            // otherwise, use the existing one.
+            // If a key exists exists for accessing a list of this type of IAcquirable
             if (itemsByType.ContainsKey(itemType))
             {
+                // If the list is null, create a new one,
+                // otherwise, use the existing one.
                 itemsByType[itemType] ??= new();
             }
-            else
+            else // If a key doesn't exist for this type
             {
+                // Create the key and assign it a new empty list.
                 itemsByType[itemType] = new();
             }
 
