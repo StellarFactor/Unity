@@ -40,9 +40,12 @@ namespace StellarFactor
             GameManager.MGR.PanelCyclerInteractionStarted += HandlePanelCyclerInteraction;
             QuestionManager.MGR.QuestionStarted += HandleQuestionStarted;
             QuestionManager.MGR.QuestionAnswered += HandleQuestionAnswered;
-            PedestalManager.MGR.PedestalCompleted += HandlePedestalCompleted;
             QuestionManager.MGR.WindowOpened += HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed += HandleQuestionWindowClosed;
+            if (PedestalManager.MGR != null)
+            {
+                PedestalManager.MGR.PedestalCompleted += HandlePedestalCompleted;
+            }
         }
 
 
@@ -52,9 +55,12 @@ namespace StellarFactor
             GameManager.MGR.GameResumed -= HandleResume;
             GameManager.MGR.PanelCyclerInteractionStarted -= HandlePanelCyclerInteraction;
             QuestionManager.MGR.QuestionAnswered -= HandleQuestionAnswered;
-            PedestalManager.MGR.PedestalCompleted -= HandlePedestalCompleted;
             QuestionManager.MGR.WindowOpened -= HandleQuestionWindowOpened;
             QuestionManager.MGR.WindowClosed -= HandleQuestionWindowClosed;
+            if (PedestalManager.MGR != null)
+            {
+                PedestalManager.MGR.PedestalCompleted -= HandlePedestalCompleted;
+            }
 
             LockControls();
             lockInteractionStack = 0;
