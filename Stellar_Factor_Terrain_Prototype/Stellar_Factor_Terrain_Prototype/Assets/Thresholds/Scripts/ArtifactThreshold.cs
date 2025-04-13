@@ -13,7 +13,6 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
     [SerializeField] private bool requireGreater;
     [SerializeField, TextArea] private string notEnoughMessage = "You haven't collected all the Artifacts yet!";
     [SerializeField, TextArea] private string tooManyMessage = "You haven't placed all the Artifacts back on their pedestals yet!";
-    [SerializeField, TextArea] private string notMetMessage;
     [SerializeField, TextArea] private string metMessage;
 
     protected List<Renderer> rends = new();
@@ -30,8 +29,6 @@ public class ArtifactThreshold : MonoBehaviour, IInteractable
     {
         Assert.IsNotNull(physicalCollider,
             $"{name}'s Physical collider is null. Cannot check for artifacts.");
-        Assert.IsTrue(notMetMessage != "",
-            $"{name}'s Not Met Message is empty. Cannot display threshold message.");
 
         rends = transform.parent.GetComponentsInChildren<Renderer>().ToList();
         rends.ForEach(rend => rend.enabled = false);

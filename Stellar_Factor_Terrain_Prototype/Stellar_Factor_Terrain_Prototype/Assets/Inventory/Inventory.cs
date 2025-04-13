@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Assertions;
 using UnityEngine;
 
 namespace StellarFactor
@@ -92,19 +91,6 @@ namespace StellarFactor
             return itemsByType.ContainsKey(type)
                 ? itemsByType[type] ?? new()    // return said list (if not null) or an empty list.
                 : new();                        // if no key for this type, return an empty list.
-        }
-
-        public bool ContainsItem(IAcquirable toCheck)
-        {
-            return allItems.Contains(toCheck);
-        }
-
-        public bool ContainsArtifact(string artifactName)
-        {
-            List<Artifact> artifacts = allItems.Cast<Artifact>()
-                .Where(item => item.ArtifactName == artifactName).ToList();
-
-            return artifacts != null && artifacts.Count > 0 && artifacts[0] != null;
         }
 
         private void PrintArtifactListDebug()

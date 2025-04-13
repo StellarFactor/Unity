@@ -26,12 +26,12 @@ namespace StellarFactor
 
         private void OnEnable()
         {
-            QuestionManager.MGR.WindowReset += Clear;
+            QuestionManager.MGR.WindowReset += HandleWindowReset;
         }
 
         private void OnDisable()
         {
-            QuestionManager.MGR.WindowReset -= Clear;
+            QuestionManager.MGR.WindowReset -= HandleWindowReset;
         }
 
         public void OpenPrompt(string message)
@@ -66,6 +66,11 @@ namespace StellarFactor
             Hide();
         }
 
+        protected virtual void HandleWindowReset()
+        {
+            Clear();
+        }
+
         private void Clear()
         {
             _textbox.ResetAll();
@@ -84,3 +89,4 @@ namespace StellarFactor
         }
     }
 }
+

@@ -261,6 +261,5 @@ MonoBehaviour:
   requiredArtifactCount: 8
   requireGreater: 1
   notEnoughMessage: You haven't collected all the Artifacts yet!
-  tooManyMessage: You haven't placed all the Artifacts back on their pedestals yet!
-  notMetMessage: You haven't collected all the Artifacts yet!
+  tooManyMessage: "Return all the Artifacts to the pedestals before you venture home!\t"
   metMessage: 

@@ -44,7 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abdd9cbe7fb5b54ba1f362147b6bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelOneBuildIndex: 1
+  levelTwoBuildIndex: 4
+  startingSpawnPos: {fileID: 0}
+  overrideStartingSpawnPos: 0
+  promptCanvasPrefab: {fileID: 0}
+  promptsCanvas: {fileID: 0}
   interactKey: 101
-  interactionPrompt: {fileID: 0}
   pauseKey: 9
-  pausePrompt: {fileID: 0}
+  inventoryPrefab: {fileID: 0}

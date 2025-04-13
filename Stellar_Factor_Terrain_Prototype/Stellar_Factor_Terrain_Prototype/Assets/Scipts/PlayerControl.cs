@@ -72,6 +72,14 @@ namespace StellarFactor
             {
                 GameManager.MGR.PauseGame();
             }
+            if (Debug.isDebugBuild)
+            {
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    Boss boss = FindObjectOfType<Boss>();
+                    transform.position = boss.transform.position + new Vector3(5f, 5f, 0f);
+                }
+            }
         }
 
         protected void HandleQuestionStarted(QuestionSO question)

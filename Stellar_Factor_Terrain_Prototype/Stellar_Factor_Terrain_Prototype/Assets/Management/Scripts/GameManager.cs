@@ -1,13 +1,19 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace StellarFactor
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Header("= Scenes ====")]
+        [SerializeField] private int levelOneBuildIndex;
+        [SerializeField] private int levelTwoBuildIndex;
+
         [Header("= Spawning ====")]
         [SerializeField] private Transform startingSpawnPos;
         [SerializeField] private bool overrideStartingSpawnPos;
@@ -37,6 +43,15 @@ namespace StellarFactor
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += HandleSceneLoaded;
+        }
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
         private void Start()
@@ -140,6 +155,14 @@ namespace StellarFactor
 
             promptsCanvas.InteractionPromptWindow.ClosePrompt();
             return true;
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            int ind = scene.buildIndex;
+            if (ind != levelOneBuildIndex && ind != levelTwoBuildIndex) { return; }
+
+            promptsCanvas.PausePromptWindow.OpenPrompt(pauseKey, "Pause");
         }
     }
 }

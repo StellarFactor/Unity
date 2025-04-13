@@ -45,8 +45,8 @@ namespace StellarFactor
         protected virtual void OnAllPedestalsComplete()
         {
             Debug.Log("<color=green>All Pedestals completed</color>");
-            OnAllPedestalsCompletedInspector.Invoke();
-            AllPedestalsCompleted.Invoke();
+            OnAllPedestalsCompletedInspector?.Invoke();
+            AllPedestalsCompleted?.Invoke();
         }
     }
 }
