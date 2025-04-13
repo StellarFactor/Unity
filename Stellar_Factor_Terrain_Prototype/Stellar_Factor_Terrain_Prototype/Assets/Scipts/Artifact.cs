@@ -1,8 +1,6 @@
 using StellarFactor.Global;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Assertions;
 
 namespace StellarFactor
 {

@@ -88,7 +88,7 @@ namespace StellarFactor
             currentArtifact = artifact;
             currentArtifact.transform.SetParent(transform);
             Vector3 dropPos = placementPoint.position + new Vector3(0f, yOffset, 0f);
-            Vector3 dropEulers = placementPoint.localEulerAngles + artifact.transform.localEulerAngles;
+            Vector3 dropEulers = placementPoint.localEulerAngles;
 
             if (!artifact.StoredIn.RemoveItem(artifact, dropPos, dropEulers))
             {

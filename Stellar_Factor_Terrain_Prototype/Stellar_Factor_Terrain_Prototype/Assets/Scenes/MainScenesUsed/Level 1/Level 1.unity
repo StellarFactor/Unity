@@ -3892,7 +3892,9 @@ MonoBehaviour:
   physicalCollider: {fileID: 1920599514}
   triggerCollider: {fileID: 242020065}
   requiredArtifactCount: 8
-  notMetMessage: You haven't collected all the Artifacts yet!
+  requireGreater: 0
+  notEnoughMessage: You haven't collected all the Artifacts yet!
+  tooManyMessage: You haven't placed all the Artifacts back on their pedestals yet!
   metMessage: 
 --- !u!65 &242020065
 BoxCollider:
@@ -25764,19 +25766,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5848771
+      value: 0.8660254
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.81112194
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -25784,7 +25786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -108.411
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 374227115887877806, guid: 4497c877bd59d764e9a225ae3938e630, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

@@ -27,6 +27,7 @@ namespace StellarFactor
 
         private int successfulQuestionLoadCount;
 
+        private bool isCurrentlyAnswering;
         private IAcquirable answeringToAcquire;
 
         public event Action WindowOpened;
@@ -52,6 +53,19 @@ namespace StellarFactor
         {
             InitQuestionDictionary();
             CloseWindow();
+        }
+
+        private void Update()
+        {
+            if (Debug.isDebugBuild)
+            {
+                if (isCurrentlyAnswering
+                    && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    && Input.GetKeyDown(KeyCode.Slash))
+                {
+                    AnswerQuestion(true);
+                }
+            }
         }
 
         private void InitQuestionDictionary()
@@ -217,16 +231,19 @@ namespace StellarFactor
 
         protected virtual void OnQuestionStarted(QuestionSO question)
         {
+            isCurrentlyAnswering = true;
             QuestionStarted.Invoke(question);
         }
 
         private void OnQuestionCanceled()
         {
+            isCurrentlyAnswering = false;
             QuestionCanceled?.Invoke();
         }
 
         protected virtual void OnQuestionAnswered(bool correctly, IAcquirable toAcquire)
         {
+            isCurrentlyAnswering = false;
             QuestionAnswered?.Invoke(correctly, toAcquire);
         }
 
