@@ -57,15 +57,16 @@ namespace StellarFactor
 
         private void Update()
         {
-            if (Debug.isDebugBuild)
+// This can be turned on in Project Settings > Player > Other > Scripting Define Symbols
+#if DEBUG_KEYS
+            if (isCurrentlyAnswering
+                && Input.GetKey(KeyCode.LeftShift)
+                && Input.GetKey(KeyCode.RightShift)
+                && Input.GetKeyDown(KeyCode.Slash))
             {
-                if (isCurrentlyAnswering
-                    && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                    && Input.GetKeyDown(KeyCode.Slash))
-                {
-                    AnswerQuestion(true);
-                }
+                AnswerQuestion(true);
             }
+#endif
         }
 
         private void InitQuestionDictionary()

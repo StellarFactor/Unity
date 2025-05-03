@@ -59,8 +59,8 @@ MonoBehaviour:
   _artifactResponseBox: {fileID: 7132474959396698535}
   _acquiredArtifactMessasge: Artifact Aquired!
   _failedArtifactMessage: Unable to aquire artifact
-  _pedistalArtifactSuccessMessage: 
-  _pedistalArtifactFailMessage: 
+  _pedistalArtifactSuccessMessage: You place the artifact on the Pedestal.
+  _pedistalArtifactFailMessage: Unable to place the artifact on the Pedestal
   _bossDefeatedMessage: 
   _bossNotDefeatedMessage: 
 --- !u!1 &2418069876535402021
